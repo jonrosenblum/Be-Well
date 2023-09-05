@@ -1,0 +1,25 @@
+button {
+  background-color: rgba(
+    49,
+    174,
+    178,
+    0.5
+  ); /* Set transparency to 0.5 (adjust as needed) */
+  border-radius: 20px; /* Adjust the value to control the level of rounding */
+  padding: 10px 20px; /* Adjust padding for button size */
+  border: none; /* Remove button border if desired */
+  color: white; /* Text color for better visibility */
+}
+
+button.therapist-button {
+  margin: 5px;
+  margin-left: 110px;
+}
+
+button:hover {
+  transform: scale(1.1); /* Optional: Scale up on hover for a subtle effect */
+}
+
+.portal-button {
+  position: relative;
+}

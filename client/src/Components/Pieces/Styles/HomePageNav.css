@@ -1,0 +1,34 @@
+.horizontal-nav {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-item {
+  width: 40px; /* Set width for circular navigation items */
+  height: 40px; /* Set height for circular navigation items */
+  background-color: white; /* Background color with transparency */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: rgba(49, 174, 178, 0.764); /* Set your desired text color */
+  font-weight: bold; /* Optional: Increase text font weight */
+  margin: 85px; /* Add spacing between navigation items */
+  transition: all 0.3s ease; /* Add transition for smooth effect */
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  background-color: white; /* New background color on hover */
+  border-radius: 10px;
+
+  transform: scale(1.3); /* Optional: Scale up on hover for a subtle effect */
+}

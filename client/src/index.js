@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from './Components/Root.js';
-import Welcome from './Routes/Welcome.js';
-import Error from './Components/Error.js';
+import Root from './Components/Static/Root.js';
+import Error from './Components/Static/Error.js';
+import HomePage from './Routes/HomePage';
+
 
 
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Welcome />
+        element: <HomePage />
       }
     ]
   }
