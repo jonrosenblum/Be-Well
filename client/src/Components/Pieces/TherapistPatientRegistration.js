@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function TherapistPatientRegistration() {
+    const [showModal, setShowModal] = useState(false);
     const [registrationType, setRegistrationType] = useState("therapist");
     const [formData, setFormData] = useState({
         first_name: "",
@@ -13,6 +16,10 @@ export default function TherapistPatientRegistration() {
         user_type: "therapist", // Default to therapist registration
     });
 
+    const handleClose = () => {
+        setShowModal(false);
+    };
+
     const handleTypeChange = (type) => {
         setRegistrationType(type);
         setFormData({ ...formData, user_type: type });
@@ -23,10 +30,19 @@ export default function TherapistPatientRegistration() {
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleLoginNowClick = () => {
+        setShowModal(false);
+        // Redirect to the login page based on the registration type
+        if (registrationType === "therapist") {
+            window.location.href = "/therapist/login";
+        } else {
+            window.location.href = "/patient/login";
+        }
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Send the form data as a JSON object to the backend
         fetch("/register", {
             method: "POST",
             headers: {
@@ -34,11 +50,12 @@ export default function TherapistPatientRegistration() {
             },
             body: JSON.stringify(formData),
         })
-            // .then((response) => response.json())
-            // .then(response => console.log(response))
+            .then((response) => response.json())
             .then((data) => {
-                // Handle the response from the server (e.g., show a success message or an error message)
                 console.log(data);
+                if (data.message === "Therapist registered successfully" || data.message === "Patient registered successfully") {
+                    setShowModal(true);
+                }
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -96,6 +113,22 @@ export default function TherapistPatientRegistration() {
                     Register as {registrationType === "therapist" ? "Therapist" : "Patient"}
                 </button>
             </form>
+            <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header>
+                    <Modal.Title>Registration Successful</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    You can now{" "}
+                    <Link to={registrationType === "therapist" ? "/therapist/login" : "/patient/login"}>
+                        <button>Login</button>
+                    </Link>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Link to="/">
+                        <button>Back Home</button>
+                    </Link>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
