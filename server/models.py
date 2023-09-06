@@ -18,14 +18,11 @@ class Session(db.Model):
 
     therapist = db.relationship('Therapist', backref='sessions')
     patient = db.relationship('Patient', backref='sessions')
-    metrics = db.relationship('Metrics')
-
-
+    metrics = db.relationship('Metrics', backref='session')
 
 class Therapist(db.Model):
     __tablename__ = 'therapist'
     id = db.Column(db.Integer, primary_key=True)
-    # username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
@@ -33,12 +30,10 @@ class Therapist(db.Model):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
-
 
 class Patient(db.Model):
     __tablename__ = 'patient'
     id = db.Column(db.Integer, primary_key=True)
-    # username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
@@ -46,11 +41,10 @@ class Patient(db.Model):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
-
 
 class Metrics(db.Model):
     __tablename__ = 'metric'
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.Integer, db.ForeignKey('session.id'), unique=True, nullable=False)
     measurables = db.Column(db.String(100), nullable=False)
-    session = db.relationship('Session')
+
