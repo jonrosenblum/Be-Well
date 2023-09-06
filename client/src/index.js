@@ -14,6 +14,7 @@ import About from './Routes/About';
 import Contact from './Routes/Contact';
 import Account from './Routes/Account';
 import Develop from './Routes/Develop';
+import TherapistPortal from './Routes/TherapistPortal';
 
 
 
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: '/develop',
         element: <Develop />
+      },
+      {
+        path: '/therapist/portal',
+        element: <TherapistPortal />
       }
     ]
   }
