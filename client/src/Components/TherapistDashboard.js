@@ -9,7 +9,7 @@ export default function TherapistDashboard() {
 
     useEffect(() => {
         // Fetch the list of patients from the backend when the component mounts
-        fetch("/api/therapist/patients") // Replace with your API endpoint
+        fetch("/therapist/patients") // Replace with your API endpoint
             .then((response) => response.json())
             .then((data) => setPatients(data))
             .catch((error) => console.error("Error:", error));
