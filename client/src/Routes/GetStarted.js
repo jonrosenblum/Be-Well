@@ -1,10 +1,11 @@
 import React from "react";
+import TherapistPatientRegistration from "../Components/Pieces/TherapistPatientRegistration";
 
 
 export default function GetStarted() {
     return (
         <div>
-            Hello this is the Getting Started Page
+            <TherapistPatientRegistration />
         </div>
     )
 }
