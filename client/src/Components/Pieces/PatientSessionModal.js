@@ -7,7 +7,7 @@ export default function PatientSessionsModal({ patient, onClose }) {
     useEffect(() => {
         if (patient) {
             // Fetch sessions for the selected patient when the modal opens
-            fetch(`/api/patient/${patient.id}/sessions`) // Replace with your API endpoint
+            fetch(`/patient/${patient.id}/sessions`) // Replace with your API endpoint
                 .then((response) => response.json())
                 .then((data) => setSessions(data))
                 .catch((error) => console.error("Error:", error));
