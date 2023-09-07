@@ -17,13 +17,6 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello, BeWell!'
-
-
 @app.post('/register')
 def register():
     data = request.json 
@@ -77,7 +70,6 @@ def register():
 def get_patients_for_therapist():
     therapist_id = 1 
     sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
-    # patients = Patient.query.filter_by(Patient.==therapist_id).all()
     patient_list = [s.patient for s in sessions]
     patient_list_serialized = [
         {
@@ -89,20 +81,45 @@ def get_patients_for_therapist():
     ]
     return jsonify(patient_list_serialized)
 
-# # Route to fetch sessions for a specific patient
-# @app.route('/patient/<int:patient_id>/sessions')
-# def get_sessions_for_patient(patient_id):
-#     sessions = Session.query.filter_by(patient_id=patient_id).all()
-#     session_list = [
-#         {
-#             'id': session.id,
-#             'transcript': session.transcript,
-#         }
-#         for session in sessions
-#     ]
-#     return jsonify(session_list)
 
 
+@app.get('/patient/<int:patient_id>/sessions')
+def get_sessions_for_patient(patient_id):
+    therapist_id=1
+    sessions = Session.query.filter(
+        Session.therapist_id == therapist_id,
+        Session.patient_id == patient_id
+    ).all()
+
+    session_list_serialized = [
+        {
+            'id': session.id,
+            'transcript': session.transcript,
+        }
+        for session in sessions
+    ]
+    print(session_list_serialized)
+
+    return jsonify(session_list_serialized)
+    
+
+# @app.post('/patient/<int:patient_id>/sessions')
+# def create_session(patient_id):
+#     ## need to identify which patient
+#     session_date = request.form.get('sessionDate')
+#     transcript = request.form.get('transcript')
+#     ## save mp3 file to storage 
+
+#     session = Session(
+#         therapist_id= ?
+#         patient_id=patient_id,
+#         session_date=session_date,
+#         transcript=transcript,
+#     )
+#     db.session.add(session)
+#     db.session.commit()
+    
+#     return jsonify({'message': 'Session created successfully'})
 
 if __name__ == '__main__':
     app.run(debug=True)

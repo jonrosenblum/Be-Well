@@ -14,11 +14,14 @@ class Session(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     therapist_id = db.Column(db.Integer, db.ForeignKey('therapist.id'), nullable=False)
     patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
+    session_date = db.Column(db.Date, nullable=False)
     transcript = db.Column(db.Text, nullable=False)
+    mp3_file = db.Column(db.String(255), nullable=True)  # Modify data type accordingly
 
     therapist = db.relationship('Therapist', backref='sessions')
     patient = db.relationship('Patient', backref='sessions')
     metrics = db.relationship('Metrics', backref='session')
+
 
 class Therapist(db.Model):
     __tablename__ = 'therapist'

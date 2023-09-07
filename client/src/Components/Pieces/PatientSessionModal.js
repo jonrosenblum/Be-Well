@@ -1,6 +1,5 @@
-// PatientSessionsModal.js
 import React, { useState, useEffect } from "react";
-
+import "./Styles/ModalStyles.css"
 export default function PatientSessionsModal({ patient, onClose }) {
     const [sessions, setSessions] = useState([]);
 
@@ -15,16 +14,18 @@ export default function PatientSessionsModal({ patient, onClose }) {
     }, [patient]);
 
     return (
-        <div className="modal">
+        <div className="modal-container">
             <div className="modal-content">
-                <span className="close" onClick={onClose}>
+                <span className="close-button" onClick={onClose}>
                     &times;
                 </span>
-                <h3>Sessions for {patient.first_name} {patient.last_name}</h3>
-                <ul>
+                <h3 className="modal-title">Sessions for {patient.first_name} {patient.last_name}</h3>
+                <ul className="modal-body">
                     {sessions.map((session) => (
                         <li key={session.id}>
-                            {/* Display session information here */}
+                            <h4>Session Transcript</h4>
+                            <p>{session.transcript}</p>
+                            <button>Detailed Information</button>
                         </li>
                     ))}
                 </ul>
