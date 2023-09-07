@@ -3,14 +3,25 @@ from flask_migrate import Migrate
 from models import db, Therapist, Patient, Session, Metrics
 from flask_cors import CORS
 from datetime import datetime
+from flask_jwt_extended import create_access_token, jwt_required, JWTManager
+from models import Therapist
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_bcrypt import check_password_hash, Bcrypt
+
+
 
 
 
 
 app = Flask(__name__)
+jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
+
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['JWT_SECRET_KEY'] = 'your_secret_key'
 app.json.compact = False
+
 
 
 
@@ -22,24 +33,40 @@ db.init_app(app)
 def index():
     return "Hello"
 
+
+### AUTHENTICATION ROUTES ###
+
+@app.post('/therapist/login')
+def login():
+    data = request.json 
+    email = data.get('email')
+    password = data.get('password')
+
+    therapist = Therapist.query.filter_by(email=email).first()
+
+    if therapist and check_password_hash(therapist.password, password):
+        access_token = create_access_token(identity=therapist.id)
+        return jsonify(access_token=access_token)
+    else:
+        return jsonify({'message': 'Invalid credentials'}), 401
+
 @app.post('/register')
 def register():
-    data = request.json 
-    print("post")
-    print(data)
-    password = data.get('password')
-    first_name = data.get('first_name')
-    last_name = data.get('last_name')
-    email = data.get('email')
-    city = data.get('city')
-    state = data.get('state')
-    phone_number = data.get('phone_number')
+    try:
+        data = request.json 
+        password = data.get('password')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        city = data.get('city')
+        state = data.get('state')
+        phone_number = data.get('phone_number')
 
-    user_type = data.get('user_type')
+        # Hash the password using bcrypt
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    if user_type == 'therapist':
         therapist = Therapist(
-            password=password,
+            password=hashed_password,
             first_name=first_name,
             last_name=last_name,
             email=email,
@@ -49,29 +76,18 @@ def register():
         )
         db.session.add(therapist)
         db.session.commit()
-        return jsonify({'message': 'Therapist registered successfully'})
 
-    elif user_type == 'patient':
-        patient = Patient(
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            city=city,
-            state=state,
-            phone_number=phone_number
-        )
-        db.session.add(patient)
-        db.session.commit()
-        return jsonify({'message': 'Patient registered successfully'})
+        access_token = create_access_token(identity=therapist.id)
 
-    else:
-        return jsonify({'error': 'Invalid user type'})
-    
+        return jsonify({'message': 'Therapist registered successfully', 'access_token': access_token})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 
 
 @app.route('/therapist/patients')
+@jwt_required()
 def get_patients_for_therapist():
     therapist_id = 1 
     sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
@@ -139,7 +155,6 @@ def create_patient(therapist_id):
     print("post")
     try:
         data = request.json
-        print(data)
         # therapist_id = data.get('therapist_id')
         first_name = data.get('firstName')
         last_name = data.get('lastName')

@@ -42,8 +42,10 @@ export default function TherapistDashboard() {
                         <li className="patient-name">
                             Patient Name: {patient.first_name} {patient.last_name}
                         </li>
-                        <button onClick={() => handleMoreInfoClick(patient)}>More Info</button>
-                        <button onClick={() => handleUploadSessionClick(patient)}>Upload New Session</button>
+                        <div className="buttons-flex">
+                            <button onClick={() => handleMoreInfoClick(patient)}>More Info</button>
+                            <button onClick={() => handleUploadSessionClick(patient)}>Upload New Session</button>
+                        </div>
                     </div>
                 ))}
                 {showCreatePatientModal && (

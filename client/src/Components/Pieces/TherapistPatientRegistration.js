@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function TherapistPatientRegistration() {
+export default function TherapistRegistration() {
     const [showModal, setShowModal] = useState(false);
-    const [registrationType, setRegistrationType] = useState("therapist");
     const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",
@@ -20,26 +19,10 @@ export default function TherapistPatientRegistration() {
         setShowModal(false);
     };
 
-    const handleTypeChange = (type) => {
-        setRegistrationType(type);
-        setFormData({ ...formData, user_type: type });
-    };
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-
-    const handleLoginNowClick = () => {
-        setShowModal(false);
-        // Redirect to the login page based on the registration type
-        if (registrationType === "therapist") {
-            window.location.href = "/therapist/login";
-        } else {
-            window.location.href = "/patient/login";
-        }
-    };
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -53,7 +36,7 @@ export default function TherapistPatientRegistration() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                if (data.message === "Therapist registered successfully" || data.message === "Patient registered successfully") {
+                if (data.message === "Therapist registered successfully") {
                     setShowModal(true);
                 }
             })
@@ -64,23 +47,8 @@ export default function TherapistPatientRegistration() {
 
     return (
         <div>
-            <h2>Registration Form</h2>
-            <div>
-                <button
-                    onClick={() => handleTypeChange("therapist")}
-                    className={registrationType === "therapist" ? "active" : ""}
-                >
-                    Therapist
-                </button>
-                <button
-                    onClick={() => handleTypeChange("patient")}
-                    className={registrationType === "patient" ? "active" : ""}
-                >
-                    Patient
-                </button>
-            </div>
+            <h2>Therapist Registration</h2>
             <form onSubmit={handleSubmit}>
-                <h3>{registrationType === "therapist" ? "Therapist Registration" : "Patient Registration"}</h3>
                 <label>
                     First Name:
                     <input type="text" name="first_name" onChange={handleChange} value={formData.first_name} />
@@ -109,9 +77,7 @@ export default function TherapistPatientRegistration() {
                     Phone Number:
                     <input type="tel" name="phone_number" onChange={handleChange} value={formData.phone_number} />
                 </label>
-                <button type="submit">
-                    Register as {registrationType === "therapist" ? "Therapist" : "Patient"}
-                </button>
+                <button type="submit">Register as Therapist</button>
             </form>
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header>
@@ -119,7 +85,7 @@ export default function TherapistPatientRegistration() {
                 </Modal.Header>
                 <Modal.Body>
                     You can now{" "}
-                    <Link to={registrationType === "therapist" ? "/therapist/login" : "/patient/login"}>
+                    <Link to="/therapist/login">
                         <button>Login</button>
                     </Link>
                 </Modal.Body>

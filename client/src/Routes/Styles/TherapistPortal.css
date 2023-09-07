@@ -10,10 +10,10 @@
 .patient-map {
   list-style: none;
   background-color: #ccc;
-  width: 1300px;
   border-radius: 15px;
   display: inline-flex;
   margin: 20px;
+  justify-content: space-between;
 }
 
 .patient-name {
@@ -30,4 +30,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+  width: 82vw;
+}
+
+.therapist-dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 82vw;
 }

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useHistory for redirection
+import { useNavigate } from "react-router-dom";
 
 export default function TherapistLogin() {
-    const navigate = useNavigate(); // Initialize history
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -14,22 +14,27 @@ export default function TherapistLogin() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleLoginClick = () => {
-        // Simulate a login request here (replace with your actual login logic)
-        // For example, you can send a POST request to your backend API for authentication
-        // If login is successful, redirect to the therapist portal
-        // If login fails, show an error message or handle it accordingly
+    const login = async () => {
+        try {
+            const response = await fetch('/therapist/login', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
 
-        // For demonstration, let's assume login is successful
-        // You can replace this with your actual logic
-        const fakeLoginSuccess = true;
+            if (!response.ok) {
+                throw new Error("There was a problem with the login request");
+            }
 
-        if (fakeLoginSuccess) {
-            // Redirect to the therapist portal
+            const data = await response.json();
+
+            localStorage.setItem("jwt-token", data.token);
+
+            // Redirect to a protected route or therapist dashboard
             navigate("/therapist/portal");
-        } else {
-            // Handle login failure (show an error message, etc.)
-            console.error("Login failed");
+        } catch (error) {
+            // Handle login errors here
+            console.error(error.message);
         }
     };
 
@@ -45,7 +50,7 @@ export default function TherapistLogin() {
                     Password:
                     <input type="password" name="password" onChange={handleChange} value={formData.password} />
                 </label>
-                <button type="button" onClick={handleLoginClick}>
+                <button type="button" onClick={login}>
                     Login
                 </button>
             </form>

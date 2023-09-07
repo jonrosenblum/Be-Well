@@ -1,11 +1,11 @@
 /* TherapistHeader.css */
 
 .navbar {
-  width: 200px;
+  width: 18vw;
   height: 90vh;
   background-color: #ccc;
   color: #333;
-  position: fixed;
+  /* position: fixed; */
   /* top: 0; */
   left: 0;
   display: flex;

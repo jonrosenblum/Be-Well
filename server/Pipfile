@@ -22,6 +22,8 @@ pandas = "*"
 python-dotenv = "*"
 Flask-Login = "*"
 flask-bcrypt="*"
+flask-jwt-extended = "*"
+bcrypt = "*"
 
 [dev-packages]
 

@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
+import "./Styles/Root.css"
 
 export default function Root() {
     return (
