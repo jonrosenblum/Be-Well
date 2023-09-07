@@ -36,6 +36,28 @@ patient2 = Patient(
     phone_number='987-654-3210'
 )
 
+# Create more dummy patient data
+patient3 = Patient(
+    password='password3',
+    first_name='Patient',
+    last_name='Three',
+    email='patient3@example.com',
+    city='City3',
+    state='CA',
+    phone_number='987-654-3210'
+)
+
+patient4 = Patient(
+    password='password4',
+    first_name='Patient',
+    last_name='Four',
+    email='patient4@example.com',
+    city='City4',
+    state='CA',
+    phone_number='987-654-3210'
+)
+
+
 # Create dummy session data
 session1 = Session(
     therapist=therapist1,
@@ -48,6 +70,20 @@ session2 = Session(
     patient=patient2,
     transcript="Session 2 transcript"
 )
+
+# Create more dummy session data
+session3 = Session(
+    therapist=therapist1,
+    patient=patient3,
+    transcript='Session 3 transcript'
+)
+
+session4 = Session(
+    therapist=therapist1,
+    patient=patient4,
+    transcript="Session 4 transcript"
+)
+
 
 # Create dummy metric data
 metric1 = Metrics(

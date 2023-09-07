@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-bootstrap";
+import { NavLink } from "react-router-dom"; // Import NavLink from 'react-router-dom' for routing
 import "../Components/Styles/TherapistHeader.css"; // Import the CSS file
 
 export default function TherapistHeader() {
@@ -7,19 +7,18 @@ export default function TherapistHeader() {
         <nav>
             <ul className="navbar">
                 <li>
-                    <NavLink to='/therapist/dashboard'>Dashboard</NavLink>
+                    <NavLink to='/therapist/portal'>Dashboard</NavLink>
                 </li>
                 <li>
                     <NavLink to='/therapist/profile'>Profile</NavLink>
                 </li>
                 <li>
-                    <NavLink to='therapist/settings'>Settings</NavLink>
+                    <NavLink to='/therapist/settings'>Settings</NavLink>
                 </li>
                 <li>
-                    <NavLink to='therapist/logout'>Logout</NavLink>
+                    <NavLink to='/logout'>Logout</NavLink>
                 </li>
             </ul>
         </nav>
-
     );
 }
