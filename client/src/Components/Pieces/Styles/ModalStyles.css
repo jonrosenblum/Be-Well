@@ -76,14 +76,26 @@ input[type="file"] {
   text-align: center;
 }
 
-/* button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-} */
+.create-patient-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adjust the spacing between form groups as needed */
+}
+
+.patient-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.first-last,
+.patient-email-pass {
+  display: inline-flex;
+  margin: 10px;
+}
+
+.patient-form-label {
+  font-weight: bold;
+}
 
 button:hover {
   background-color: #0056b3;

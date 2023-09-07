@@ -23,3 +23,11 @@
 .therapist-portal {
   text-align: center;
 }
+
+.therapist-dashboard-full {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}

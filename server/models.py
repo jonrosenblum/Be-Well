@@ -22,6 +22,16 @@ class Session(db.Model):
     patient = db.relationship('Patient', backref='sessions')
     metrics = db.relationship('Metrics', backref='session')
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'therapist_id': self.therapist_id,
+            'patient_id': self.patient_id,
+            'session_date': self.session_date.isoformat(),  # Convert Date to string
+            'transcript': self.transcript,
+            'mp3_file': self.mp3_file,
+        }
+
 
 class Therapist(db.Model):
     __tablename__ = 'therapist'
@@ -34,6 +44,18 @@ class Therapist(db.Model):
     state = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'city': self.city,
+            'state': self.state,
+            'phone_number': self.phone_number,
+        }
+
+
 class Patient(db.Model):
     __tablename__ = 'patient'
     id = db.Column(db.Integer, primary_key=True)
@@ -44,6 +66,17 @@ class Patient(db.Model):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'city': self.city,
+            'state': self.state,
+            'phone_number': self.phone_number,
+        }
 
 class Metrics(db.Model):
     __tablename__ = 'metric'

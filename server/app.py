@@ -18,6 +18,10 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 
+@app.route('/')
+def index():
+    return "Hello"
+
 @app.post('/register')
 def register():
     data = request.json 
@@ -67,7 +71,7 @@ def register():
 
 
 
-@app.get('/therapist/patients')
+@app.route('/therapist/patients')
 def get_patients_for_therapist():
     therapist_id = 1 
     sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
@@ -78,15 +82,17 @@ def get_patients_for_therapist():
             'first_name': patient.first_name,
             'last_name': patient.last_name,
         }
-        for patient in  patient_list
+        for patient in  set(patient_list)
     ]
-    return jsonify(patient_list_serialized)
+    patients = Patient.query.all()
+
+    return jsonify([p.serialize() for p in patients])
 
 
 
-@app.get('/patient/<int:patient_id>/sessions')
+@app.route('/patient/<int:patient_id>/sessions')
 def get_sessions_for_patient(patient_id):
-    therapist_id=1
+    therapist_id = 1
     sessions = Session.query.filter(
         Session.therapist_id == therapist_id,
         Session.patient_id == patient_id
@@ -108,14 +114,11 @@ def get_sessions_for_patient(patient_id):
 def upload_session(patient_id):
     try:
         data = request.json
-        print(data)
-        therapist_id = 1  
-        patient_id = data.get('patient_id')
-        session_date = datetime(year=2023, month=2,day=2)#datetime.strptime(data.get('sessionDate'), '%d-%m-%Y')
+        therapist_id = 1
+        session_date = datetime.strptime(data.get('sessionDate'), '%Y-%m-%d')
         transcript = data.get('transcript')
         mp3_file = data.get('mp3File')
-        
-    
+
         session = Session(
             therapist_id=therapist_id,
             patient_id=patient_id,
@@ -123,16 +126,47 @@ def upload_session(patient_id):
             transcript=transcript,
             mp3_file=mp3_file, 
         )
-        
 
         db.session.add(session)
         db.session.commit()
         
         return jsonify({'message': 'Session uploaded successfully'})
     except Exception as e:
-        print(e)
         return jsonify({'error': str(e)}), 500
 
+@app.post('/therapist/<int:therapist_id>/create-patient')
+def create_patient(therapist_id):
+    print("post")
+    try:
+        data = request.json
+        print(data)
+        # therapist_id = data.get('therapist_id')
+        first_name = data.get('firstName')
+        last_name = data.get('lastName')
+        email = data.get('email')
+        password = data.get('password')
+        city = data.get('city')
+        state = data.get('state')
+        phone_number = data.get('phoneNumber')
+
+
+        patient = Patient(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password,
+            city=city,
+            state=state,
+            phone_number=phone_number
+        )
+
+        db.session.add(patient)
+        db.session.commit()
+
+        return jsonify({'message': 'Patient created successfully'})
+    except Exception as e:
+        print(e)
+        return jsonify({'error': str(e)}), 500
 
 
 
