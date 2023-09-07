@@ -1,12 +1,52 @@
-// PatientSessionsModal.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import './Styles/ModalStyles.css'
 
 export default function SessionUploadModal({ patient, onClose }) {
-    const [uploadSessions, setUploadSessions] = useState([]);
 
-    const handleSubmit = () => {
 
-    }
+    const [formData, setFormData] = useState({
+        patient_id: patient.id
+    });
+
+    const [alertMessage, setAlertMessage] = useState(null);
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch(`/therapist/patient/${patient.id}/sessions/upload-session`, {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                console.log("Session uploaded successfully");
+                setAlertMessage("Session upload successful");
+
+                // Close the modal or navigate back to the therapist portal after a delay
+                setTimeout(() => {
+                    onClose();
+                }, 2000); // Close after 2 seconds (adjust as needed)
+            } else {
+                console.log(response);
+                console.error("Error uploading session");
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
+    const { sessionDate, transcript, mp3File } = formData
+
 
     return (
         <div className="modal-container">
@@ -16,7 +56,7 @@ export default function SessionUploadModal({ patient, onClose }) {
                 </span>
                 <div className="transcript-form">
                     <form className="upload-form" onSubmit={handleSubmit}>
-                        <p>{patient.id}</p>
+                        <input type="hidden" name="patientId" value={patient.id} />
                         <div className="form-group">
                             <label className="form-label" htmlFor="sessionDate">
                                 Date of Session:
@@ -25,6 +65,8 @@ export default function SessionUploadModal({ patient, onClose }) {
                                 type="date"
                                 id="sessionDate"
                                 name="sessionDate"
+                                value={sessionDate}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -37,6 +79,8 @@ export default function SessionUploadModal({ patient, onClose }) {
                                 rows="5"
                                 id="transcript"
                                 name="transcript"
+                                value={transcript}
+                                onChange={handleChange}
                                 placeholder="Enter session transcript"
                                 required
                             />
@@ -51,15 +95,19 @@ export default function SessionUploadModal({ patient, onClose }) {
                                 id="mp3File"
                                 name="mp3File"
                                 accept=".mp3"
-                                required
+                                onChange={handleChange}
                             />
                         </div>
 
                         <button type="submit">Upload Session</button>
                     </form>
-
                 </div>
+                {alertMessage && (
+                    <div className="custom-alert">
+                        {alertMessage}
+                    </div>
+                )}
             </div>
         </div>
-    )
+    );
 }

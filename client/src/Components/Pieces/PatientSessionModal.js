@@ -22,7 +22,7 @@ export default function PatientSessionsModal({ patient, onClose }) {
                 <h3 className="modal-title">Sessions for {patient.first_name} {patient.last_name}</h3>
                 <ul className="modal-body">
                     {sessions.map((session) => (
-                        <li key={session.id}>
+                        <li className="session-map" key={session.id}>
                             <h4>Session Transcript</h4>
                             <p>{session.transcript}</p>
                             <button>Detailed Information</button>

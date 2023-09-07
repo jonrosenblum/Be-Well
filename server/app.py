@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_migrate import Migrate
 from models import db, Therapist, Patient, Session, Metrics
 from flask_cors import CORS
+from datetime import datetime
 
 
 
@@ -103,23 +104,38 @@ def get_sessions_for_patient(patient_id):
     return jsonify(session_list_serialized)
     
 
-# @app.post('/patient/<int:patient_id>/sessions')
-# def create_session(patient_id):
-#     ## need to identify which patient
-#     session_date = request.form.get('sessionDate')
-#     transcript = request.form.get('transcript')
-#     ## save mp3 file to storage 
-
-#     session = Session(
-#         therapist_id= ?
-#         patient_id=patient_id,
-#         session_date=session_date,
-#         transcript=transcript,
-#     )
-#     db.session.add(session)
-#     db.session.commit()
+@app.post('/therapist/patient/<int:patient_id>/sessions/upload-session')
+def upload_session(patient_id):
+    try:
+        data = request.json
+        print(data)
+        therapist_id = 1  
+        patient_id = data.get('patient_id')
+        session_date = datetime(year=2023, month=2,day=2)#datetime.strptime(data.get('sessionDate'), '%d-%m-%Y')
+        transcript = data.get('transcript')
+        mp3_file = data.get('mp3File')
+        
     
-#     return jsonify({'message': 'Session created successfully'})
+        session = Session(
+            therapist_id=therapist_id,
+            patient_id=patient_id,
+            session_date=session_date,
+            transcript=transcript,
+            mp3_file=mp3_file, 
+        )
+        
+
+        db.session.add(session)
+        db.session.commit()
+        
+        return jsonify({'message': 'Session uploaded successfully'})
+    except Exception as e:
+        print(e)
+        return jsonify({'error': str(e)}), 500
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

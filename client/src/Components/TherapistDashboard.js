@@ -21,10 +21,11 @@ export default function TherapistDashboard() {
         setShowPatientModal(true);
     };
 
-    const handleUploadSessionClick = () => {
+    const handleUploadSessionClick = (patient) => {
         setShowSessionUploadModal(true);
+        setSelectedPatient(patient);
     };
-
+    console.log(selectedPatient)
     return (
         <div className="therapist-dashboard">
             <h2>Therapist Dashboard</h2>
@@ -34,7 +35,7 @@ export default function TherapistDashboard() {
                         Patient Name: {patient.first_name} {patient.last_name}
                     </li>
                     <button onClick={() => handleMoreInfoClick(patient)}>More Info</button>
-                    <button onClick={handleUploadSessionClick}>Upload New Session</button>
+                    <button onClick={() => handleUploadSessionClick(patient)}>Upload New Session</button>
                 </div>
             ))}
             {showPatientModal && (
@@ -45,6 +46,7 @@ export default function TherapistDashboard() {
             )}
             {showSessionUploadModal && (
                 <SessionUploadModal
+                    patient={selectedPatient}
                     show={showSessionUploadModal}
                     onClose={() => setShowSessionUploadModal(false)}
                 />
