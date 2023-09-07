@@ -32,6 +32,8 @@ export default function TherapistDashboard() {
         setShowCreatePatientModal(true);
     };
 
+    console.log(patients)
+
     return (
         <div className="therapist-dashboard-full">
             <button onClick={handleCreatePatientClick}>Create New Patient</button>

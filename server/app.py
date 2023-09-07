@@ -87,7 +87,6 @@ def register():
 
 
 @app.route('/therapist/patients')
-@jwt_required()
 def get_patients_for_therapist():
     therapist_id = 1 
     sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
