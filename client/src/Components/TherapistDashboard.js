@@ -1,11 +1,12 @@
-// TherapistDashboard.js
 import React, { useState, useEffect } from "react";
 import PatientSessionsModal from "../Components/Pieces/PatientSessionModal";
+import SessionUploadModal from "../Components/Pieces/SessionUploadModal"; // Import the new modal component
 
 export default function TherapistDashboard() {
     const [patients, setPatients] = useState([]);
     const [selectedPatient, setSelectedPatient] = useState(null);
-    const [showModal, setShowModal] = useState(false);
+    const [showPatientModal, setShowPatientModal] = useState(false);
+    const [showSessionUploadModal, setShowSessionUploadModal] = useState(false);
 
     useEffect(() => {
         // Fetch the list of patients from the backend when the component mounts
@@ -15,25 +16,37 @@ export default function TherapistDashboard() {
             .catch((error) => console.error("Error:", error));
     }, []);
 
-    const handlePatientClick = (patient) => {
+    const handleMoreInfoClick = (patient) => {
         setSelectedPatient(patient);
-        setShowModal(true);
+        setShowPatientModal(true);
+    };
+
+    const handleUploadSessionClick = () => {
+        setShowSessionUploadModal(true);
     };
 
     return (
-        <div>
+        <div className="therapist-dashboard">
             <h2>Therapist Dashboard</h2>
-            <ul>
-                {patients.map((patient) => (
-                    <li key={patient.id} onClick={() => handlePatientClick(patient)}>
-                        {patient.first_name} {patient.last_name}
+            {patients.map((patient) => (
+                <div key={patient.id} className="patient-map">
+                    <li className="patient-name">
+                        Patient Name: {patient.first_name} {patient.last_name}
                     </li>
-                ))}
-            </ul>
-            {showModal && (
+                    <button onClick={() => handleMoreInfoClick(patient)}>More Info</button>
+                    <button onClick={handleUploadSessionClick}>Upload New Session</button>
+                </div>
+            ))}
+            {showPatientModal && (
                 <PatientSessionsModal
                     patient={selectedPatient}
-                    onClose={() => setShowModal(false)}
+                    onClose={() => setShowPatientModal(false)}
+                />
+            )}
+            {showSessionUploadModal && (
+                <SessionUploadModal
+                    show={showSessionUploadModal}
+                    onClose={() => setShowSessionUploadModal(false)}
                 />
             )}
         </div>

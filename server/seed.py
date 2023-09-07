@@ -26,11 +26,27 @@ patient1 = Patient(
     phone_number='987-654-3210'
 )
 
+patient2 = Patient(
+    password='password2',
+    first_name='Patient',
+    last_name='Two',
+    email='patient2@example.com',
+    city='City2',
+    state='CA',
+    phone_number='987-654-3210'
+)
+
 # Create dummy session data
 session1 = Session(
     therapist=therapist1,
     patient=patient1,
     transcript='Session 1 transcript'
+)
+
+session2 = Session(
+    therapist=therapist1,
+    patient=patient2,
+    transcript="Session 2 transcript"
 )
 
 # Create dummy metric data
@@ -42,7 +58,9 @@ metric1 = Metrics(
 # Add data to the session
 db.session.add(therapist1)
 db.session.add(patient1)
+db.session.add(patient2)
 db.session.add(session1)
+db.session.add(session2)
 db.session.add(metric1)
 
 # Commit the changes to the database

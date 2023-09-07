@@ -1,0 +1,25 @@
+/* TherapistPortal.css */
+.therapist-portal {
+  display: flex;
+  justify-content: center; /* Center the children horizontally */
+  align-items: flex-start; /* Align the children vertically at the top */
+  height: 100vh; /* Set the height of the container to the viewport height */
+  padding: 20px; /* Add some padding for spacing */
+}
+
+.patient-map {
+  list-style: none;
+  background-color: #ccc;
+  width: 1300px;
+  border-radius: 15px;
+  display: inline-flex;
+  margin: 6px;
+}
+
+.patient-name {
+  margin: 10px;
+}
+
+.therapist-portal {
+  text-align: center;
+}
