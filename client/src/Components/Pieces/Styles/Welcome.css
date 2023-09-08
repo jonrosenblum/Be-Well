@@ -1,0 +1,32 @@
+/* .welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Set your desired background color 
+} */
+
+/* .small-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  background-color: #fff; /* Set your desired background color 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+} */
+
+/* .small-container img {
+  max-width: 100%;
+  height: auto;
+} */
+
+.welcome-container {
+  display: inline-flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.small-container {
+  height: 89vh;
+  text-align: center;
+}
