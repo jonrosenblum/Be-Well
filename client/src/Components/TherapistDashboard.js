@@ -11,8 +11,7 @@ export default function TherapistDashboard() {
     const [showCreatePatientModal, setShowCreatePatientModal] = useState(false);
 
     useEffect(() => {
-        // Fetch the list of patients from the backend when the component mounts
-        fetch("/therapist/patients") // Replace with your API endpoint
+        fetch("/therapist/patients")
             .then((response) => response.json())
             .then((data) => setPatients(data))
             .catch((error) => console.error("Error:", error));

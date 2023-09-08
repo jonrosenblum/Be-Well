@@ -87,21 +87,28 @@ def register():
 
 
 @app.route('/therapist/patients')
+@jwt_required()  # Require authentication for this route
 def get_patients_for_therapist():
-    therapist_id = 1 
-    sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
-    patient_list = [s.patient for s in sessions]
-    patient_list_serialized = [
-        {
-            'id': patient.id,
-            'first_name': patient.first_name,
-            'last_name': patient.last_name,
-        }
-        for patient in  set(patient_list)
-    ]
-    patients = Patient.query.all()
+    try:
+        # Get the therapist's ID from the JWT token
+        therapist_id = get_jwt_identity()
 
-    return jsonify([p.serialize() for p in patients])
+        # Query the sessions and patients for the authenticated therapist
+        sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
+        patient_list = [s.patient for s in sessions]
+        patient_list_serialized = [
+            {
+                'id': patient.id,
+                'first_name': patient.first_name,
+                'last_name': patient.last_name,
+            }
+            for patient in  set(patient_list)
+        ]
+        patients = Patient.query.filter_by(id=therapist_id).all()
+
+        return jsonify([p.serialize() for p in patients])
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 

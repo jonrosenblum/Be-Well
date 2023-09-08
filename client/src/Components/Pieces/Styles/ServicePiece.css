@@ -20,6 +20,12 @@
   height: auto;
 } */
 
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .welcome-container {
   display: inline-flex;
   justify-content: space-between;
@@ -27,6 +33,10 @@
 }
 
 .small-container {
-  height: 89vh;
   text-align: center;
+}
+
+img {
+  width: 500px;
+  height: 500px;
 }
