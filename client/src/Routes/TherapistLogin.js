@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Styles/LogIn.css";
+import HomePageNav from "../Components/Pieces/HomePageNav";
 
 export default function TherapistLogin() {
     const navigate = useNavigate();
@@ -39,9 +41,10 @@ export default function TherapistLogin() {
     };
 
     return (
-        <div>
+        <div className="login-div">
+            <HomePageNav />
             <h2>Therapist Login</h2>
-            <form>
+            <form className="login-form">
                 <label>
                     Email:
                     <input type="email" name="email" onChange={handleChange} value={formData.email} />
