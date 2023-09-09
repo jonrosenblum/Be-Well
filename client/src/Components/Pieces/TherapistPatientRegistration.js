@@ -52,7 +52,9 @@ export default function TherapistRegistration() {
             <HomePageNav />
             <h1>Getting Started</h1>
             <div className="content">
-                <p>Getting started is as easy as 1,2,3</p>
+                <div className="div-1">
+                    <p>Getting started is as easy as 1,2,3</p>
+                </div>
                 <form className="registration-form" onSubmit={handleSubmit}>
                     <h2 className="getting-started-h2">Therapist Registration</h2>
                     <label>
@@ -85,7 +87,9 @@ export default function TherapistRegistration() {
                     </label>
                     <button type="submit" className="registration-button">Register as Therapist</button>
                 </form>
-                <p>Register here and start your Journey on BeWell</p>
+                <div className="div-2">
+                    <p>Register here and start your Journey on BeWell</p>
+                </div>
             </div>
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header>
