@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import './Styles/TherapistRegistration.css'
+import HomePageNav from './HomePageNav'
 
 export default function TherapistRegistration() {
     const [showModal, setShowModal] = useState(false);
@@ -13,7 +14,7 @@ export default function TherapistRegistration() {
         city: "",
         state: "",
         phone_number: "",
-        user_type: "therapist", // Default to therapist registration
+        user_type: "therapist",
     });
 
     const handleClose = () => {
@@ -48,41 +49,44 @@ export default function TherapistRegistration() {
 
     return (
         <div className="form-div">
+            <HomePageNav />
             <h1>Getting Started</h1>
-            <p>Getting started is as easy as 1,2,3</p>
-            <p>Register here and start your Journey on BeWell</p>
-            <h2 className="getting-started-h2">Therapist Registration</h2>
-            <form className="registration-form" onSubmit={handleSubmit}>
-                <label>
-                    First Name:
-                    <input type="text" name="first_name" onChange={handleChange} value={formData.first_name} />
-                </label>
-                <label>
-                    Last Name:
-                    <input type="text" name="last_name" onChange={handleChange} value={formData.last_name} />
-                </label>
-                <label>
-                    Email:
-                    <input type="email" name="email" onChange={handleChange} value={formData.email} />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" onChange={handleChange} value={formData.password} />
-                </label>
-                <label>
-                    City:
-                    <input type="text" name="city" onChange={handleChange} value={formData.city} />
-                </label>
-                <label>
-                    State:
-                    <input type="text" name="state" onChange={handleChange} value={formData.state} />
-                </label>
-                <label>
-                    Phone Number:
-                    <input type="tel" name="phone_number" onChange={handleChange} value={formData.phone_number} />
-                </label>
-                <button type="submit">Register as Therapist</button>
-            </form>
+            <div className="content">
+                <p>Getting started is as easy as 1,2,3</p>
+                <form className="registration-form" onSubmit={handleSubmit}>
+                    <h2 className="getting-started-h2">Therapist Registration</h2>
+                    <label>
+                        First Name:
+                        <input type="text" name="first_name" onChange={handleChange} value={formData.first_name} />
+                    </label>
+                    <label>
+                        Last Name:
+                        <input type="text" name="last_name" onChange={handleChange} value={formData.last_name} />
+                    </label>
+                    <label>
+                        Email:
+                        <input type="email" name="email" onChange={handleChange} value={formData.email} />
+                    </label>
+                    <label>
+                        Password:
+                        <input type="password" name="password" onChange={handleChange} value={formData.password} />
+                    </label>
+                    <label>
+                        City:
+                        <input type="text" name="city" onChange={handleChange} value={formData.city} />
+                    </label>
+                    <label>
+                        State:
+                        <input type="text" name="state" onChange={handleChange} value={formData.state} />
+                    </label>
+                    <label>
+                        Phone Number:
+                        <input type="tel" name="phone_number" onChange={handleChange} value={formData.phone_number} />
+                    </label>
+                    <button type="submit" className="registration-button">Register as Therapist</button>
+                </form>
+                <p>Register here and start your Journey on BeWell</p>
+            </div>
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header>
                     <Modal.Title>Registration Successful</Modal.Title>
