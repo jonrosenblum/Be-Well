@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
 from models import db, Therapist, Patient, Session, Metrics
 from flask_cors import CORS
@@ -10,18 +10,14 @@ from flask_bcrypt import check_password_hash, Bcrypt
 
 
 
-
-
-
 app = Flask(__name__)
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['JWT_SECRET_KEY'] = 'your_secret_key'
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
 app.json.compact = False
-
 
 
 
@@ -49,6 +45,7 @@ def login():
         return jsonify(access_token=access_token)
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
+    
 
 @app.post('/register')
 def register():
@@ -82,16 +79,36 @@ def register():
         return jsonify({'message': 'Therapist registered successfully', 'access_token': access_token})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
 
+
+@app.post('/therapist/logout')
+# @jwt_required() 
+def logout():
+    try:
+        # Get the therapist's ID from the JWT token
+        # therapist_id = get_jwt_identity()
+        therapist_id = 1
+        # You can perform any additional logout-related actions here if needed
+        response = make_response(jsonify({'message': 'Logout successful'}))
+        response.delete_cookie('jwt-token')  # Clear the cookie
+        return response
+
+        # Return a response indicating successful logout
+        return jsonify({'message': 'Logout successful'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 
 @app.route('/therapist/patients')
-@jwt_required()  # Require authentication for this route
+# @jwt_required()  # Require authentication for this route
 def get_patients_for_therapist():
     try:
         # Get the therapist's ID from the JWT token
-        therapist_id = get_jwt_identity()
+        # therapist_id = get_jwt_identity()
+        therapist_id = 1
 
         # Query the sessions and patients for the authenticated therapist
         sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
@@ -130,6 +147,9 @@ def get_sessions_for_patient(patient_id):
     print(session_list_serialized)
 
     return jsonify(session_list_serialized)
+
+
+
     
 
 @app.post('/therapist/patient/<int:patient_id>/sessions/upload-session')
@@ -155,6 +175,9 @@ def upload_session(patient_id):
         return jsonify({'message': 'Session uploaded successfully'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+
+
 
 @app.post('/therapist/<int:therapist_id>/create-patient')
 def create_patient(therapist_id):

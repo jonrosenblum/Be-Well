@@ -10,6 +10,7 @@ export default function TherapistDashboard() {
     const [showSessionUploadModal, setShowSessionUploadModal] = useState(false);
     const [showCreatePatientModal, setShowCreatePatientModal] = useState(false);
 
+
     useEffect(() => {
         fetch("/therapist/patients")
             .then((response) => response.json())
@@ -72,3 +73,6 @@ export default function TherapistDashboard() {
         </div>
     );
 }
+
+
+

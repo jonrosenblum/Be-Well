@@ -1,24 +1,63 @@
-import React from "react";
-import { NavLink } from "react-router-dom"; // Import NavLink from 'react-router-dom' for routing
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
 import "../Components/Styles/TherapistHeader.css"; // Import the CSS file
+import LogoutSuccessAlert from "../Components/Pieces/LogoutSuccessAlert"; // Import the LogoutSuccessAlert component
+
 
 export default function TherapistHeader() {
+    const [showLogoutSuccess, setShowLogoutSuccess] = useState(false);
+    const navigate = useNavigate(); // Initialize useNavigate for routing
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch("/therapist/logout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("jwt-token")}`, // Include the JWT token
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Logout failed");
+            }
+
+            // Clear the JWT token from local storage
+            localStorage.removeItem("jwt-token");
+
+            // Show the logout success alert
+            setShowLogoutSuccess(true);
+
+            // Redirect the user to the login page or another desired destination
+            navigate("/login"); // Replace with your desired URL
+        } catch (error) {
+            // Handle logout errors here
+            console.error(error.message);
+        }
+    };
+
+
     return (
         <nav>
             <ul className="navbar">
                 <li>
-                    <NavLink to='/therapist/portal'>Dashboard</NavLink>
+                    <a href="/therapist/portal">Dashboard</a>
                 </li>
                 <li>
-                    <NavLink to='/therapist/profile'>Profile</NavLink>
+                    <a href="/therapist/profile">Profile</a>
                 </li>
                 <li>
-                    <NavLink to='/therapist/settings'>Settings</NavLink>
+                    <a href="/therapist/settings">Settings</a>
                 </li>
                 <li>
-                    <NavLink to='/logout'>Logout</NavLink>
+                    <button onClick={handleLogout}>Logout</button>
                 </li>
             </ul>
+            {showLogoutSuccess && (
+                <LogoutSuccessAlert
+                    onClose={() => setShowLogoutSuccess(false)}
+                />
+            )}
         </nav>
     );
 }

@@ -1,0 +1,29 @@
+.form-div {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Make the form take the full viewport height */
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px; /* Adjust the maximum width as needed */
+  width: 100%;
+}
+
+/* Add additional styling as needed for labels, inputs, and buttons */
+.registration-form label {
+  margin-bottom: 10px; /* Add margin between labels */
+}
+
+.registration-form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.registration-form button:hover {
+  background-color: #0056b3; /* Adjust the hover background color as needed */
+}

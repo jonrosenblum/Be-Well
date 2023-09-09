@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import './Styles/TherapistRegistration.css'
 
 export default function TherapistRegistration() {
     const [showModal, setShowModal] = useState(false);
@@ -46,9 +47,12 @@ export default function TherapistRegistration() {
     };
 
     return (
-        <div>
-            <h2>Therapist Registration</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="form-div">
+            <h1>Getting Started</h1>
+            <p>Getting started is as easy as 1,2,3</p>
+            <p>Register here and start your Journey on BeWell</p>
+            <h2 className="getting-started-h2">Therapist Registration</h2>
+            <form className="registration-form" onSubmit={handleSubmit}>
                 <label>
                     First Name:
                     <input type="text" name="first_name" onChange={handleChange} value={formData.first_name} />
