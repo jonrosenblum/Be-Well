@@ -18,6 +18,7 @@ import TherapistPortal from './Routes/TherapistPortal';
 import TherapistProfile from './Routes/TherapistProfile';
 import TherapistSettings from './Routes/TherapistSettings';
 import LogOut from './Routes/LogOut';
+import PatientPortal from './Routes/PatientPortal';
 
 
 
@@ -85,8 +86,19 @@ const router = createBrowserRouter([
       {
         path: '/logout',
         element: <LogOut />
+      },
+      {
+        path: '/patient/portal',
+        element: <PatientPortal />
       }
-
+      // {
+      //   path: '/patient/profile',
+      //   element: <TherapistProfile />
+      // },
+      // {
+      //   path: '/patient/settings',
+      //   element: <TherapistSettings />
+      // }
     ]
   }
 ])
