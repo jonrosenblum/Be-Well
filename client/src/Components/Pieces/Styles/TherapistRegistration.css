@@ -6,10 +6,6 @@
   text-align: center;
 }
 
-form.registration-form {
-  margin-right: 10px;
-}
-
 .registration-form {
   display: flex;
   flex-direction: column;

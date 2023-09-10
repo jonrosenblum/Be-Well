@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Styles/LogIn.css";
 import HomePageNav from "../Components/Pieces/HomePageNav";
+import loginImage from '../Components/Pieces/Assets/login.png';
 
 export default function TherapistLogin() {
     const navigate = useNavigate();
@@ -42,21 +43,45 @@ export default function TherapistLogin() {
 
     return (
         <div className="login-div">
-            <HomePageNav />
-            <h2>Therapist Login</h2>
-            <form className="login-form">
-                <label>
-                    Email:
-                    <input type="email" name="email" onChange={handleChange} value={formData.email} />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" onChange={handleChange} value={formData.password} />
-                </label>
-                <button type="button" onClick={login}>
-                    Login
-                </button>
-            </form>
+            <div className="image-column">
+                {/* Your image element goes here */}
+                <img src={loginImage} alt="" />
+            </div>
+            <div className="form-column">
+                <form className="login-form">
+                    <h2>Sign In</h2>
+                    <label>
+                        Enter email:
+                        <input
+                            type="email"
+                            name="email"
+                            onChange={handleChange}
+                            value={formData.email}
+                            placeholder="Enter email"
+                        />
+                    </label>
+                    <label>
+                        Enter password:
+                        <input
+                            type="password"
+                            name="password"
+                            onChange={handleChange}
+                            value={formData.password}
+                            placeholder="Enter password"
+                        />
+                    </label>
+                    <div className="form-options">
+                        <label className="remember-me">
+                            <input type="checkbox" name="rememberMe" /> Remember me
+                        </label>
+                        <span className="forgot-password">Forgot Password</span>
+                    </div>
+                    <button type="button" onClick={login}>
+                        Login
+                    </button>
+                </form>
+            </div>
         </div>
-    );
-}
+    )
+
+};
