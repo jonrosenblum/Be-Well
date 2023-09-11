@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import './Styles/TherapistRegistration.css'
-import HomePageNav from './HomePageNav'
+import HomePageNav from "./HomePageNav";
 
 export default function TherapistRegistration() {
     const [showModal, setShowModal] = useState(false);
@@ -48,49 +47,96 @@ export default function TherapistRegistration() {
     };
 
     return (
-        <div className="form-div">
+        <Container fluid>
             <HomePageNav />
-            <h1>Getting Started</h1>
-            <div className="content">
-                <div className="div-1">
-                    <p>Getting started is as easy as 1,2,3</p>
-                </div>
-                <form className="registration-form" onSubmit={handleSubmit}>
-                    <h2 className="getting-started-h2">Therapist Registration</h2>
-                    <label>
-                        First Name:
-                        <input type="text" name="first_name" onChange={handleChange} value={formData.first_name} />
-                    </label>
-                    <label>
-                        Last Name:
-                        <input type="text" name="last_name" onChange={handleChange} value={formData.last_name} />
-                    </label>
-                    <label>
-                        Email:
-                        <input type="email" name="email" onChange={handleChange} value={formData.email} />
-                    </label>
-                    <label>
-                        Password:
-                        <input type="password" name="password" onChange={handleChange} value={formData.password} />
-                    </label>
-                    <label>
-                        City:
-                        <input type="text" name="city" onChange={handleChange} value={formData.city} />
-                    </label>
-                    <label>
-                        State:
-                        <input type="text" name="state" onChange={handleChange} value={formData.state} />
-                    </label>
-                    <label>
-                        Phone Number:
-                        <input type="tel" name="phone_number" onChange={handleChange} value={formData.phone_number} />
-                    </label>
-                    <button type="submit" className="registration-button">Register as Therapist</button>
-                </form>
-                <div className="div-2">
-                    <p>Register here and start your Journey on BeWell</p>
-                </div>
-            </div>
+            <Row>
+                <Col md={{ span: 6, offset: 3 }}>
+                    <h1 className="text-center">Getting Started</h1>
+                    <div className="content">
+                        <Row>
+                            <Col className="div-1">
+                                <p>Getting started is as easy as 1, 2, 3</p>
+                            </Col>
+                            <Col>
+                                <Form onSubmit={handleSubmit} className="registration-form">
+                                    <h2 className="getting-started-h2">Therapist Registration</h2>
+                                    <Form.Group>
+                                        <Form.Label>First Name:</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="first_name"
+                                            onChange={handleChange}
+                                            value={formData.first_name}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Last Name:</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="last_name"
+                                            onChange={handleChange}
+                                            value={formData.last_name}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Email:</Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            name="email"
+                                            onChange={handleChange}
+                                            value={formData.email}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Password:</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            name="password"
+                                            onChange={handleChange}
+                                            value={formData.password}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>City:</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="city"
+                                            onChange={handleChange}
+                                            value={formData.city}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>State:</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="state"
+                                            onChange={handleChange}
+                                            value={formData.state}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Phone Number:</Form.Label>
+                                        <Form.Control
+                                            type="tel"
+                                            name="phone_number"
+                                            onChange={handleChange}
+                                            value={formData.phone_number}
+                                        />
+                                    </Form.Group>
+                                    <Button type="submit" className="registration-button">
+                                        Register as Therapist
+                                    </Button>
+                                </Form>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="div-2">
+                                <p>Register here and start your journey on BeWell</p>
+                            </Col>
+                        </Row>
+                    </div>
+                </Col>
+            </Row>
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header>
                     <Modal.Title>Registration Successful</Modal.Title>
@@ -98,15 +144,15 @@ export default function TherapistRegistration() {
                 <Modal.Body>
                     You can now{" "}
                     <Link to="/therapist/login">
-                        <button>Login</button>
+                        <Button variant="primary">Login</Button>
                     </Link>
                 </Modal.Body>
                 <Modal.Footer>
                     <Link to="/">
-                        <button>Back Home</button>
+                        <Button variant="secondary">Back Home</Button>
                     </Link>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </Container>
     );
 }

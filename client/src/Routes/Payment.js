@@ -1,6 +1,6 @@
 import React from "react";
 import HomePageNav from "../Components/Pieces/HomePageNav";
-import "./Styles/Payment.css";
+// import "./Styles/Payment.css";
 
 
 export default function Payment() {

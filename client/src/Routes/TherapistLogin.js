@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { Modal, Button, Form, Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./Styles/LogIn.css";
-import HomePageNav from "../Components/Pieces/HomePageNav";
+import { useAppDispatch, useAuthHook } from "../Services/hooks";
+import { USER_TYPE } from "../Services/authSlice";
+
 import loginImage from '../Components/Pieces/Assets/login.png';
 
 export default function TherapistLogin() {
+    const dispatch = useAppDispatch()
+    const auth = useAuthHook()
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -31,7 +35,8 @@ export default function TherapistLogin() {
 
             const data = await response.json();
 
-            localStorage.setItem("jwt-token", data.token);
+            dispatch(auth.actions.setAuth({ ...data, userType: USER_TYPE.THERAPIST }))
+            localStorage.setItem("jwt-token", data.access_token);
 
             // Redirect to a protected route or therapist dashboard
             navigate("/therapist/portal");
@@ -42,46 +47,60 @@ export default function TherapistLogin() {
     };
 
     return (
-        <div className="login-div">
-            <div className="image-column">
-                {/* Your image element goes here */}
-                <img src={loginImage} alt="" />
-            </div>
-            <div className="form-column">
-                <form className="login-form">
-                    <h2>Sign In</h2>
-                    <label>
-                        Enter email:
-                        <input
-                            type="email"
-                            name="email"
-                            onChange={handleChange}
-                            value={formData.email}
-                            placeholder="Enter email"
-                        />
-                    </label>
-                    <label>
-                        Enter password:
-                        <input
-                            type="password"
-                            name="password"
-                            onChange={handleChange}
-                            value={formData.password}
-                            placeholder="Enter password"
-                        />
-                    </label>
-                    <div className="form-options">
-                        <label className="remember-me">
-                            <input type="checkbox" name="rememberMe" /> Remember me
-                        </label>
-                        <span className="forgot-password">Forgot Password</span>
+        <Container fluid>
+            <Row>
+                <Col md={{ span: 6, offset: 3 }}>
+                    <div className="login-div">
+                        <Row>
+                            <Col className="image-column">
+                                <Image src={loginImage} alt="" fluid />
+                            </Col>
+                            <Col>
+                                <Form className="login-form">
+                                    <h2 className="text-center">Sign In</h2>
+                                    <Form.Group>
+                                        <Form.Label>Enter email:</Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            name="email"
+                                            onChange={handleChange}
+                                            value={formData.email}
+                                            placeholder="Enter email"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Enter password:</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            name="password"
+                                            onChange={handleChange}
+                                            value={formData.password}
+                                            placeholder="Enter password"
+                                        />
+                                    </Form.Group>
+                                    <div className="form-options">
+                                        <Form.Group>
+                                            <Form.Check
+                                                type="checkbox"
+                                                label="Remember me"
+                                                name="rememberMe"
+                                            />
+                                        </Form.Group>
+                                        <span className="forgot-password">Forgot Password</span>
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        onClick={login}
+                                        className="btn btn-primary"
+                                    >
+                                        Login
+                                    </Button>
+                                </Form>
+                            </Col>
+                        </Row>
                     </div>
-                    <button type="button" onClick={login}>
-                        Login
-                    </button>
-                </form>
-            </div>
-        </div>
-    )
-
-};
+                </Col>
+            </Row>
+        </Container>
+    );
+}

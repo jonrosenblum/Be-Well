@@ -1,7 +1,7 @@
 import React from "react";
-import TherapistHeader from "../Components/TherapistHeader"
-import TherapistDashboard from "../Components/TherapistDashboard"
-import "./Styles/TherapistPortal.css"
+import TherapistHeader from "../Components/Pieces/TherapistHeader"
+import TherapistDashboard from "../Components/Pieces/TherapistDashboard"
+// import "./Styles/TherapistPortal.css"
 
 export default function TherapistPortal() {
     return (
