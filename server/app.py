@@ -42,10 +42,34 @@ def login():
 
     if therapist and check_password_hash(therapist.password, password):
         access_token = create_access_token(identity=therapist.id)
-        return jsonify(access_token=access_token)
+        return jsonify({"access_token":access_token,"user":therapist.serialize()})
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
     
+
+@app.get('/me/<string:user_type>')
+def me(user_type):
+    current_user_id = get_jwt_identity()
+    user = None
+
+    if user_type == 'therapist':
+        user = Therapist.query.get(current_user_id)
+        # if therapist:
+        #     therapist_data = {'id': therapist.id, 'name': therapist.name}
+        #     return jsonify(therapist_data)
+    elif user_type == 'patient':
+        user = Patient.query.get(current_user_id)
+        # if patient:
+        #     patient_data = {'id': patient.id, 'name': patient.name}
+        #     return jsonify(patient_data)
+
+    return jsonify(user.serialize()) if user else jsonify({'message': 'User not found or user type is invalid'}), 404
+
+        
+        
+
+
+
 
 @app.post('/register')
 def register():
@@ -103,16 +127,20 @@ def logout():
 
 
 @app.route('/therapist/patients')
-# @jwt_required()  # Require authentication for this route
+@jwt_required()  # Require authentication for this route
 def get_patients_for_therapist():
     try:
         # Get the therapist's ID from the JWT token
-        # therapist_id = get_jwt_identity()
-        therapist_id = 1
+        therapist_id = get_jwt_identity()
+        # therapist_id = id
 
         # Query the sessions and patients for the authenticated therapist
-        sessions = Session.query.filter(Session.therapist_id == therapist_id).all()
-        patient_list = [s.patient for s in sessions]
+        patient_list = Patient.query.filter(Patient.therapist_id == therapist_id).all()
+        
+        # get the patients
+        # patient_list = [s.patient for s in sessions]
+
+        # serialize the patients
         patient_list_serialized = [
             {
                 'id': patient.id,
@@ -121,9 +149,10 @@ def get_patients_for_therapist():
             }
             for patient in  set(patient_list)
         ]
-        patients = Patient.query.filter_by(id=therapist_id).all()
 
-        return jsonify([p.serialize() for p in patients])
+        # patients = Patient.query.filter_by(id=therapist_id).all()
+
+        return jsonify([p.serialize() for p in patient_list])
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -154,9 +183,10 @@ def get_sessions_for_patient(patient_id):
 
 @app.post('/therapist/patient/<int:patient_id>/sessions/upload-session')
 def upload_session(patient_id):
+    
     try:
         data = request.json
-        therapist_id = 1
+        therapist_id = get_jwt_identity()
         session_date = datetime.strptime(data.get('sessionDate'), '%Y-%m-%d')
         transcript = data.get('transcript')
         mp3_file = data.get('mp3File')
@@ -180,11 +210,12 @@ def upload_session(patient_id):
 
 
 @app.post('/therapist/<int:therapist_id>/create-patient')
+@jwt_required()
 def create_patient(therapist_id):
     print("post")
     try:
         data = request.json
-        # therapist_id = data.get('therapist_id')
+        therapist_id = get_jwt_identity()
         first_name = data.get('firstName')
         last_name = data.get('lastName')
         email = data.get('email')
@@ -201,7 +232,8 @@ def create_patient(therapist_id):
             password=password,
             city=city,
             state=state,
-            phone_number=phone_number
+            phone_number=phone_number,
+            therapist_id=therapist_id
         )
 
         db.session.add(patient)

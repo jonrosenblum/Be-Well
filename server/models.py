@@ -44,6 +44,8 @@ class Therapist(db.Model):
     state = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
 
+    patient = db.relationship('Patient', backref='therapist')
+
     def serialize(self):
         return {
             'id': self.id,
@@ -66,6 +68,7 @@ class Patient(db.Model):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(2), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
+    therapist_id = db.Column(db.Integer, db.ForeignKey('therapist.id'), nullable=False)
 
     def serialize(self):
         return {
@@ -76,6 +79,7 @@ class Patient(db.Model):
             'city': self.city,
             'state': self.state,
             'phone_number': self.phone_number,
+            'therapist_id': self.therapist_id,
         }
 
 class Metrics(db.Model):
