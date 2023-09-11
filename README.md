@@ -1,16 +1,16 @@
 <p align="center">
     <a href=""><img src="https://img.shields.io/pypi/l/ansicolortags.svg" /></a>
     <a href=""><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
-    <a href=""><img src="https://badgen.net/github/commits/jonrosenblum/NFL-Analytics-Dashboard" /></a>
+    <a href=""><img src="https://badgen.net/github/commits/jonrosenblum/BeWell" /></a>
     <br>
     <a href="https://docs.python.org/3/index.html"><img src="https://img.shields.io/badge/python-%2320232a?style=for-the-badge&logo=python&logoColor=ffdd54" /></a>
     <a href="https://dash-bootstrap-components.opensource.faculty.ai/"><img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" /></a>
     <a href="https://plotly.com/dash/"><img src="https://img.shields.io/badge/dash-008DE4?style=for-the-badge&logo=dash&logoColor=white" /></a>
     <br>
-    <a href=""><img src="https://img.shields.io/badge/Made%20with-Jupyter-orange?style=for-the-badge&logo=Jupyter" /></a>
+    <a href=""><img src="" /></a>
 </p>
 
-<h1 align="center"><b>Your EHR System Name</b></h1>
+<h1 align="center"><b>BeWell</b></h1>
 <h4 align="center">A cutting-edge Electronic Health Records (EHR) system that revolutionizes healthcare management. Empowering healthcare providers to deliver exceptional care, our platform ensures secure, efficient, and accessible data management, enabling better decision-making, improved patient outcomes, and enhanced collaboration among healthcare teams.</h4>
 
 <p align="center">
