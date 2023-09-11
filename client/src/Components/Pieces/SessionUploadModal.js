@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Styles/ModalStyles.css'
+// import './Styles/ModalStyles.css'
 
 export default function SessionUploadModal({ patient, onClose }) {
 
@@ -94,6 +94,7 @@ export default function SessionUploadModal({ patient, onClose }) {
                                 type="file"
                                 id="mp3File"
                                 name="mp3File"
+                                value={mp3File}
                                 accept=".mp3"
                                 onChange={handleChange}
                             />

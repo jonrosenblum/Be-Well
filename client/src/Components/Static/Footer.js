@@ -1,24 +1,34 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./Styles/Footer.css"; // Import the CSS file for styling
+import { Navbar, Container, Nav } from "react-bootstrap";
 
 export default function Footer() {
     return (
-        <nav className="footer-nav">
-            <ul className="footer-nav-list">
-                <li className="footer-nav-item">
-                    <NavLink to="/about">About</NavLink>
-                </li>
-                <li className="footer-nav-item">
-                    <NavLink to="/contact">Contact</NavLink>
-                </li>
-                <li className="footer-nav-item">
-                    <NavLink to="/account">Account</NavLink>
-                </li>
-                <li className="footer-nav-item">
-                    <NavLink to="/develop">Develop</NavLink>
-                </li>
-            </ul>
-        </nav>
+        <Navbar bg="dark" variant="dark" fixed="bottom">
+            <Container>
+                <Nav className="mx-auto">
+                    <Nav.Item>
+                        <NavLink to="/about" className="nav-link">
+                            About
+                        </NavLink>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <NavLink to="/contact" className="nav-link">
+                            Contact
+                        </NavLink>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <NavLink to="/account" className="nav-link">
+                            Account
+                        </NavLink>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <NavLink to="/develop" className="nav-link">
+                            Develop
+                        </NavLink>
+                    </Nav.Item>
+                </Nav>
+            </Container>
+        </Navbar>
     );
 }

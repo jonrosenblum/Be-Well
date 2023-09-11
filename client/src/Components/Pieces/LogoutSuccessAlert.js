@@ -1,5 +1,5 @@
 import React from "react";
-import "./Styles//LogoutSuccessAlert.css"; // Import CSS for styling
+// import "./Styles//LogoutSuccessAlert.css";
 
 export default function LogoutSuccessAlert({ onClose }) {
     return (
