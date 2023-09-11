@@ -7,7 +7,7 @@ export const USER_TYPE = /**@type const */ ({
 
 const storeKey = 'auth'
 
-const initialStateRaw = localStorage.getItem(storeKey)
+export const getInitialStateRaw = () => localStorage.getItem(storeKey)
 
 const defaultState = {
     user: ({
@@ -19,14 +19,15 @@ const defaultState = {
     userType: ''
 }
 
-const parseOrDefaulf = (rawString) => {
+export const parseOrDefaulf = (rawString = getInitialStateRaw()) => {
     if (!rawString) {
         return null
     }
     return /** @type {typeof defaultState} */ (JSON.parse(rawString))
 }
 
-const initialState = parseOrDefaulf(initialStateRaw) ?? defaultState
+
+const initialState = parseOrDefaulf(getInitialStateRaw()) ?? defaultState
 
 const stateKeys = Object.keys(initialState);
 
@@ -79,4 +80,18 @@ const slice = createSlice({
 export default slice.reducer
 
 export const { setAuth, setToken, setUserType, logout } = slice.actions
+
+/**
+ * Represents a user in the database.
+ * @typedef {Object} User
+ * @property {number} id - The unique identifier for the user.
+ * @property {string} password - The user's password (hashed or encrypted).
+ * @property {string} first_name - The user's first name.
+ * @property {string} last_name - The user's last name.
+ * @property {string} email - The user's email address (unique).
+ * @property {string} city - The city where the user resides.
+ * @property {string} state - The state (2-letter abbreviation) where the user resides.
+ * @property {string} phone_number - The user's phone number.
+ * @property {number} therapist_id - The identifier of the therapist associated with the user.
+ */
 

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Nav, Button } from "react-bootstrap";
 import LogoutSuccessAlert from "./LogoutSuccessAlert";
 import { useAppDispatch, useAuthHook } from "../../Services/hooks";
+import { useNavigate } from 'react-router-dom'
 
 export default function TherapistHeader() {
   const dispatch = useAppDispatch();
   const auth = useAuthHook();
   const [showLogoutSuccess, setShowLogoutSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -25,6 +27,7 @@ export default function TherapistHeader() {
 
       dispatch(auth.actions.logout());
       setShowLogoutSuccess(true);
+      navigate('/')
     } catch (error) {
       console.error(error.message);
     }

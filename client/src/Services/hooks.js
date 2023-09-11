@@ -10,7 +10,10 @@ export const useAppStore = () => {
 export const useAuthHook = () => {
     const { auth } = useAppStore()
 
-    return { ...auth, actions }
+    const isLoggedOut = ['', undefined, null].includes(auth.access_token)
+    const isLoggedIn = !isLoggedOut
+
+    return { ...auth, actions, isLoggedIn, isLoggedOut }
 }
 
 /** @type {()=> import('@reduxjs/toolkit').Dispatch} */

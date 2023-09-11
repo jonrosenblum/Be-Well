@@ -180,6 +180,7 @@ def get_sessions_for_patient(patient_id):
     
 
 @app.post('/therapist/patient/<int:patient_id>/sessions/upload-session')
+@jwt_required()
 def upload_session(patient_id):
     
     try:

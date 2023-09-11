@@ -6,29 +6,35 @@ import CreatePatientModal from "./CreatePatientModal";
 import { useAuthHook } from "../../Services/hooks";
 import UserProfile from "./UserProfile";
 import '../Styles/TherapistPortal.css'
+import { api } from "../../Services/api";
 
 export default function TherapistDashboard() {
   const auth = useAuthHook();
-  const [patients, setPatients] = useState([]);
+  const [patients, setPatients] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [showPatientModal, setShowPatientModal] = useState(false);
   const [showSessionUploadModal, setShowSessionUploadModal] = useState(false);
   const [showCreatePatientModal, setShowCreatePatientModal] = useState(false);
 
+  // const getPatients = () => fetch(`/therapist/patients`, {
+  //   headers: { Authorization: `Bearer ${auth.access_token}` },
+  // })
+
   const loadPatients = useCallback(
-    () =>
-      fetch(`/therapist/patients`, {
-        headers: { Authorization: `Bearer ${auth.access_token}` },
-      })
-        .then((response) => response.json())
+    () => {
+      api.getPatients()
         .then((data) => setPatients(data))
-        .catch((error) => console.error("Error:", error)),
-    [auth.access_token]
+        .catch((error) => console.error("Error:", error))
+    },
+    []
   );
 
   useEffect(() => {
+    if (patients) {
+      return;
+    }
     loadPatients();
-  }, [loadPatients]);
+  }, [patients, loadPatients]);
 
   const handleMoreInfoClick = (patient) => {
     setSelectedPatient(patient);
@@ -51,6 +57,9 @@ export default function TherapistDashboard() {
     setShowCreatePatientModal(false);
   };
 
+  if (!patients?.length) {
+    return <Button>loading</Button>
+  }
 
   return (
     <Container fluid>

@@ -18,7 +18,7 @@ import TherapistPortal from "./Routes/TherapistPortal";
 import TherapistProfile from "./Routes/TherapistProfile";
 import Billing from "./Routes/Billing";
 import TherapistSettings from "./Routes/TherapistSettings";
-import Appointments from "./Components/Pieces/Appointments";
+import Appointments from "./Components/Pieces/CreateAppointments";
 import LogOut from "./Routes/LogOut";
 import PatientPortal from "./Routes/PatientPortal";
 import { store } from "./Services/store";

@@ -4,7 +4,7 @@ import TherapistHeader from "./TherapistHeader";
 import UserProfile from "./UserProfile";
 import { useAuthHook } from "../../Services/hooks";
 
-export default function Appointments({ therapist, onClose }) {
+export default function CreateAppointments({ therapist, onClose }) {
     // onClose = getOutletContext()
     console.log(`THERAPIST PROP:`)
     console.log(therapist)
@@ -83,45 +83,16 @@ export default function Appointments({ therapist, onClose }) {
                 <Col xs={10}>
                     <UserProfile />
                     <Row>
-                        <h2>Schedule Appointment</h2>
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="appointment_date">
-                                <Form.Label>Date:</Form.Label>
-                                <Form.Control
-                                    type="date"
-                                    name="appointment_date"
-                                    value={appointment.appointment_date}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="appointment_time">
-                                <Form.Label>Time:</Form.Label>
-                                <Form.Control
-                                    type="time"
-                                    name="appointment_time"
-                                    value={appointment.appointment_time}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="patient_id">
-                                <Form.Label>Patient ID:</Form.Label>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="secondary" id="patient-dropdown">
-                                        {appointment.patient_id ? `Selected Patient ID: ${appointment.patient_id}` : "Select Patient"}
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        {/* Replace this with patient data */}
-                                        <Dropdown.Item onClick={() => handlePatientSelect(1)}>Patient ID 1</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => handlePatientSelect(2)}>Patient ID 2</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Schedule Appointment
-                            </Button>
-                        </Form>
+                        <h2>Past Appointments</h2>
+                        <table>
+                            {/*We need to display past appointment data here in table*/}
+                        </table>
+                    </Row>
+                    <Row>
+                        <h2>Upcoming Appointments</h2>
+                        <table>
+                            {/*We need to display upcoming appointment data here in table*/}
+                        </table>
                     </Row>
                     <Row>
                         <h2>Schedule Appointment</h2>
@@ -164,10 +135,6 @@ export default function Appointments({ therapist, onClose }) {
                             </Button>
                         </Form>
                     </Row>
-                    <Row>Test</Row>
-                    <Row>Test</Row>
-                    <Row>Test</Row>
-                    <Row>Test</Row>
                 </Col>
             </Row>
         </div>
