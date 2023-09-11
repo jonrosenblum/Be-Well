@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Form, Container, Row, Col, Image } from "react-bootstrap";
+import { Button, Form, Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import loginImage from '../Components/Pieces/Assets/login.png';

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row, Col, Table } from "react-bootstrap";
 import PatientSessionsModal from "./PatientSessionsModal";
 import SessionUploadModal from "./SessionUploadModal";
 import CreatePatientModal from "./CreatePatientModal";
 import { useAuthHook } from "../../Services/hooks";
+import UserProfile from "./UserProfile";
+import '../Styles/TherapistPortal.css'
 
 export default function TherapistDashboard() {
   const auth = useAuthHook();
@@ -49,41 +51,55 @@ export default function TherapistDashboard() {
     setShowCreatePatientModal(false);
   };
 
+
   return (
     <Container fluid>
-      <Row>
-        <Col>
-          <Button onClick={handleCreatePatientClick}>Create New Patient</Button>
-          <div>
-            <h2>Therapist Dashboard</h2>
-            {patients.map((patient) => (
-              <div key={patient.id}>
-                <p>Patient Name: {patient.first_name} {patient.last_name}</p>
-                <div>
-                  <Button onClick={() => handleMoreInfoClick(patient)}>More Info</Button>
-                  <Button onClick={() => handleUploadSessionClick(patient)}>Upload New Session</Button>
-                </div>
-              </div>
-            ))}
-          </div>
-          {showCreatePatientModal && (
-            <CreatePatientModal therapist={{ id: 1 }} onClose={doClosePatientModal} />
-          )}
-          {showPatientModal && (
-            <PatientSessionsModal
-              patient={selectedPatient}
-              onClose={() => setShowPatientModal(false)}
-            />
-          )}
-          {showSessionUploadModal && (
-            <SessionUploadModal
-              patient={selectedPatient}
-              show={showSessionUploadModal}
-              onClose={() => setShowSessionUploadModal(false)}
-            />
-          )}
-        </Col>
-      </Row>
+      <h3>My Profile</h3>
+      <UserProfile />
+      <Button variant="info" onClick={handleCreatePatientClick}>Create New Patient</Button>
+      <Table striped bordered hover className="patient-table" >
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patients.map((patient) => (
+            <tr key={patient.id}>
+              <td>{patient.id}</td>
+              <td>{patient.first_name} {patient.last_name}</td>
+              <td>Appointment Date</td>
+              <td>Appointment Time</td>
+              <td>Confirmed</td>
+              <td>
+                <Button variant="info" onClick={() => handleUploadSessionClick(patient)}>Upload New Session</Button>
+                <Button variant="info" onClick={() => handleMoreInfoClick(patient)}>More Info</Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      {showCreatePatientModal && (
+        <CreatePatientModal therapist={{ id: 1 }} onClose={doClosePatientModal} />
+      )}
+      {showPatientModal && (
+        <PatientSessionsModal
+          patient={selectedPatient}
+          onClose={() => setShowPatientModal(false)}
+        />
+      )}
+      {showSessionUploadModal && (
+        <SessionUploadModal
+          patient={selectedPatient}
+          show={showSessionUploadModal}
+          onClose={() => setShowSessionUploadModal(false)}
+        />
+      )}
     </Container>
   );
 }

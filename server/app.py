@@ -69,8 +69,6 @@ def me(user_type):
         
 
 
-
-
 @app.post('/register')
 def register():
     try:

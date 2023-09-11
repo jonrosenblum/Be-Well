@@ -17,6 +17,7 @@ import Develop from "./Routes/Develop";
 import TherapistPortal from "./Routes/TherapistPortal";
 import TherapistProfile from "./Routes/TherapistProfile";
 import TherapistSettings from "./Routes/TherapistSettings";
+import Appointments from "./Components/Pieces/Appointments";
 import LogOut from "./Routes/LogOut";
 import PatientPortal from "./Routes/PatientPortal";
 import { store } from "./Services/store";
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "/therapist/profile",
         element: <TherapistProfile />,
+      },
+      {
+        path: "/therapist/appointments",
+        element: <Appointments />
       },
       {
         path: "/therapist/settings",

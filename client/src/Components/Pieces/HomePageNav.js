@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
-// import "./Styles/HomePageNav.css";
+import '../Styles/HomePageNav.css'; // Import your custom CSS file
 
 export default function HomePageNav() {
     return (
@@ -9,7 +9,7 @@ export default function HomePageNav() {
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
+                    <Nav className="mr-auto justify-content-center">
                         <Nav.Item>
                             <NavLink to="/" className="nav-link">
                                 Home
@@ -35,12 +35,12 @@ export default function HomePageNav() {
             </Container>
             <div className="portal-button">
                 <Link to="/therapist/login">
-                    <Button variant="primary" className="therapist-button">
+                    <Button variant="info" className="therapist-button">
                         Therapist
                     </Button>
                 </Link>
                 <Link to="/patient/login">
-                    <Button variant="primary" className="patient-button">
+                    <Button variant="info" className="patient-button">
                         Patient
                     </Button>
                 </Link>
