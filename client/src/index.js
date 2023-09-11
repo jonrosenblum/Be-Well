@@ -22,6 +22,7 @@ import LogOut from "./Routes/LogOut";
 import PatientPortal from "./Routes/PatientPortal";
 import { store } from "./Services/store";
 import { Provider } from "react-redux";
+import MedicalRecords from "./Components/Pieces/MedicalRecords";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: "/therapist/appointments",
         element: <Appointments />
+      },
+      {
+        path: 'therapist/medical-records',
+        element: <MedicalRecords />
       },
       {
         path: "/therapist/settings",

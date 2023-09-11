@@ -1,5 +1,5 @@
-from app import app, db, Therapist, Patient, Session, Metrics
-from datetime import date
+from app import app, db, Therapist, Patient, Session, Metrics, Appointments
+from datetime import date, datetime
 from flask_bcrypt import Bcrypt
 
 
@@ -25,7 +25,7 @@ therapists = [
     password=bcrypt.generate_password_hash('password').decode('utf-8'),
     first_name='T1',
     last_name='One',
-    email='t1@example.com',
+    email='t8@example.com',
     city='City1',
     state='CA',
     phone_number='123-456-7890'
@@ -34,7 +34,7 @@ therapists = [
     password=bcrypt.generate_password_hash('password').decode('utf-8'),
     first_name='T2',
     last_name='One',
-    email='t2@example.com',
+    email='t00@example.com',
     city='City1',
     state='CA',
     phone_number='123-456-7891'
@@ -140,6 +140,12 @@ metric1 = Metrics(
     measurables='Metric 1 data'
 )
 
+appointment1 = Appointments(
+    therapist_id=1,
+    patient_id=2,
+    appointment_date=datetime.combine(session_date_1, datetime.min.time()),  # Convert date to datetime
+    appointment_time=datetime.strptime('14:00', '%H:%M'),  # Convert time to datetime
+)
 
 for th in therapists:
     db.session.add(th)
@@ -147,6 +153,7 @@ for th in therapists:
 db.session.add(patient1)
 db.session.add(patient2)
 db.session.add(patient3)
+db.session.add(appointment1)
 db.session.add(patient4)
 db.session.add(session1)
 db.session.add(session2)

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
+import PatientMedicalHistory from "./PatientMedicalHistory"; // Import the new component
 
 export default function UserProfile() {
     const patients = [
@@ -12,8 +13,20 @@ export default function UserProfile() {
             address: "123 Main St, City, Country",
             dob: "January 1, 1990",
             age: "33 years",
+            // Add more patient data as needed
         },
-        // Add more patient data as needed
+        {
+            id: 2,
+            first_name: "Jon",
+            last_name: "Rosenblum",
+            email: "john.Rosenblum@example.com",
+            phone: "(123) 456-7890",
+            address: "123 Main St, City, Country",
+            dob: "January 16, 1990",
+            age: "59 years",
+
+        },
+        // Add more patients
     ];
 
     const [selectedPatient, setSelectedPatient] = useState(patients[0]);
@@ -28,7 +41,7 @@ export default function UserProfile() {
                 <Col>
                     <DropdownButton
                         id="patient-dropdown"
-                        title={`Selected Patient: ${selectedPatient.first_name} ${selectedPatient.last_name}`}
+                        title={'Select a Patient'}
                     >
                         {patients.map((patient) => (
                             <Dropdown.Item
@@ -91,6 +104,9 @@ export default function UserProfile() {
                     <span>{selectedPatient.age}</span>
                 </Col>
             </Row>
+
+            {/* Render the PatientMedicalHistory component */}
+            <PatientMedicalHistory patient={selectedPatient} />
         </Container>
     );
 }

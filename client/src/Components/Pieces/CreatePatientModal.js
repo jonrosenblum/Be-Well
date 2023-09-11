@@ -46,6 +46,8 @@ export default function CreatePatientModal({ therapist, onClose }) {
         }
     };
 
+    console.log(auth.user)
+
     return (
         <Modal show={true} onHide={onClose}>
             <Modal.Header closeButton>

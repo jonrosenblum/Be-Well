@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
-from models import db, Therapist, Patient, Session, Metrics
+from models import db, Therapist, Patient, Session, Metrics, Appointments
 from flask_cors import CORS
 from datetime import datetime
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager
@@ -243,6 +243,34 @@ def create_patient(therapist_id):
         return jsonify({'error': str(e)}), 500
 
 
+@app.post('/therapist/<therapist_id>/appointments')
+@jwt_required()
+def create_appointment(therapist_id):
+    print(f"\nTHIS IS MY CURRENT USER ID: {therapist_id}\n")
+    try:
+        data = request.json 
+        therapist_id = get_jwt_identity()
+        patient_id = data.get('patient_id')
+        appointment_date = data.get('appointment_date')
+        appointment_time = data.get('appointment_time')
+
+
+
+        new_appointment = Appointments(
+            therapist_id=therapist_id,
+            patient_id=patient_id,
+            appointment_date=appointment_date,
+            appointment_time=appointment_time
+        )
+
+        db.session.add(new_appointment)
+        db.session.commit()
+
+        return jsonify({"message": "Appointment created successfully"})
+    except Exception as e:
+        print(e)
+        return jsonify({'error on back end' : str(e)}), 500
+    # return jsonify({"message": "Appointment created successfully"})
 
 
 if __name__ == '__main__':

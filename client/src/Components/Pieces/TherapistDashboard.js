@@ -55,7 +55,7 @@ export default function TherapistDashboard() {
   return (
     <Container fluid>
       <h3>My Profile</h3>
-      <UserProfile />
+
       <Button variant="info" onClick={handleCreatePatientClick}>Create New Patient</Button>
       <Table striped bordered hover className="patient-table" >
         <thead>

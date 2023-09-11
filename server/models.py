@@ -88,3 +88,23 @@ class Metrics(db.Model):
     session_id = db.Column(db.Integer, db.ForeignKey('session.id'), unique=True, nullable=False)
     measurables = db.Column(db.String(100), nullable=False)
 
+
+class Appointments(db.Model):
+    __tablename__ = 'appointments'
+    id = db.Column(db.Integer, primary_key=True)
+    therapist_id = db.Column(db.Integer, db.ForeignKey('therapist.id'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
+    appointment_date = db.Column(db.String, nullable=False)
+    appointment_time = db.Column(db.String, nullable=False)
+
+    therapist = db.relationship('Therapist', backref='appointments')
+    patient = db.relationship('Patient', backref='appointments')
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'therapist_id': self.therapist_id,
+            'patient_id': self.patient_id,
+            'appointment_date': self.appointment_date,  # Convert Date to string
+            'appointment_time': self.appointment_time,
+        }
