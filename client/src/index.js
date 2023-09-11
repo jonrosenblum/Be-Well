@@ -16,6 +16,7 @@ import Account from "./Routes/Account";
 import Develop from "./Routes/Develop";
 import TherapistPortal from "./Routes/TherapistPortal";
 import TherapistProfile from "./Routes/TherapistProfile";
+import Billing from "./Routes/Billing";
 import TherapistSettings from "./Routes/TherapistSettings";
 import Appointments from "./Components/Pieces/Appointments";
 import LogOut from "./Routes/LogOut";
@@ -75,16 +76,16 @@ const router = createBrowserRouter([
         element: <TherapistPortal />,
       },
       {
-        path: "/therapist/profile",
-        element: <TherapistProfile />,
-      },
-      {
         path: "/therapist/appointments",
         element: <Appointments />
       },
       {
         path: 'therapist/medical-records',
         element: <MedicalRecords />
+      },
+      {
+        path: 'therapist/billing',
+        element: <Billing />
       },
       {
         path: "/therapist/settings",

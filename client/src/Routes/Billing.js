@@ -1,11 +1,9 @@
-import React from "react";
-import { Row, Col } from 'react-bootstrap';
+import React, { useState } from "react";
 import TherapistHeader from "../Components/Pieces/TherapistHeader";
-import TherapistDashboard from "../Components/Pieces/TherapistDashboard";
+import { Row, Col } from 'react-bootstrap';
+import AddPaymentInfo from "../Components/Pieces/AddPaymentInfo";
 
-
-
-export default function TherapistPortal() {
+export default function Billing() {
     return (
         <div>
             <Row>
@@ -13,7 +11,8 @@ export default function TherapistPortal() {
                     <TherapistHeader />
                 </Col>
                 <Col xs={10}>
-                    <TherapistDashboard />
+                    <AddPaymentInfo />
+
                 </Col>
             </Row>
         </div >

@@ -31,7 +31,7 @@ export default function TherapistHeader() {
   };
 
   return (
-    <div className="d-flex flex-column align-items-start bg-light p-3">
+    <div className=" vh-100 d-flex flex-column align-items-center bg-light">
       <Nav className="flex-column">
         <Nav.Item>
           <Nav.Link href="/therapist/portal">Dashboard</Nav.Link>
