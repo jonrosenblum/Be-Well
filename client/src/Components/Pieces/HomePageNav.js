@@ -5,6 +5,7 @@ import '../Styles/HomePageNav.css'; // Import your custom CSS file
 
 export default function HomePageNav() {
     return (
+
         <Navbar bg="white" expand="lg">
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -1,24 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-export const USER_TYPE = /**@type const */ ({
+// Define constants for user types.
+export const USER_TYPE = {
     PATIENT: 'PATIENT',
     THERAPIST: 'THERAPIST',
-})
+}
 
+// Define the key used to store authentication data in localStorage.
 const storeKey = 'auth'
 
+// Define a function to get the raw authentication data from localStorage.
 export const getInitialStateRaw = () => localStorage.getItem(storeKey)
 
+// Define a default state structure.
 const defaultState = {
-    user: ({
+    user: {
         email: '',
         id: '',
-
-    }),
+    },
     access_token: '',
     userType: ''
 }
 
+// Define a function to parse the raw authentication data or return default state.
 export const parseOrDefaulf = (rawString = getInitialStateRaw()) => {
     if (!rawString) {
         return null
@@ -26,72 +30,62 @@ export const parseOrDefaulf = (rawString = getInitialStateRaw()) => {
     return /** @type {typeof defaultState} */ (JSON.parse(rawString))
 }
 
-
+// Initialize the state by parsing stored data or using the default state.
 const initialState = parseOrDefaulf(getInitialStateRaw()) ?? defaultState
 
+// Extract the keys from the initial state.
 const stateKeys = Object.keys(initialState);
 
+// Define a function to save authentication data to localStorage.
 const saveAuth = (auth) => {
-
-
-
     localStorage.setItem('auth', JSON.stringify(auth));
-
-
     console.log('saveAuth.fired', { auth })
 }
 
-const clearSavedAuth = (auth) => {
-    localStorage.removeItem("jwt-token");
+// Define a function to clear saved authentication data from localStorage.
+const clearSavedAuth = () => {
     localStorage.removeItem('auth')
-    console.log('clearSavedAuth.fired', { auth })
+    console.log('clearSavedAuth.fired')
 }
 
+// Create a Redux slice to manage authentication state.
 const slice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
         setAuth: (state, /** @type {PayloadAction<typeof initialState>} */ action) => {
-
+            // Update state properties with payload values.
             for (let key of stateKeys) {
                 state[key] = action.payload[key]
             }
+            // Save the updated authentication data to localStorage.
             saveAuth(state)
         },
-        setToken: (state, /** @type {PayloadAction<typeof initialState['token']>} */ action) => {
-            state.token = action.payload
+        setToken: (state, /** @type {PayloadAction<typeof initialState['access_token']>} */ action) => {
+            // Update the access_token property with the payload value.
+            state.access_token = action.payload
+            // Save the updated authentication data to localStorage.
             saveAuth(state)
         },
         setUserType: (state, /** @type {PayloadAction<typeof initialState['userType']>} */ action) => {
+            // Update the userType property with the payload value.
             state.userType = action.payload
+            // Save the updated authentication data to localStorage.
             saveAuth(state)
         },
         logout: (state) => {
+            // Clear all authentication-related properties in state.
             for (const key of stateKeys) {
                 state[key] = null;
             }
-            clearSavedAuth(state)
+            // Clear saved authentication data from localStorage.
+            clearSavedAuth()
         }
-
     }
 })
 
-
+// Export the reducer from the slice.
 export default slice.reducer
 
+// Export the action creators.
 export const { setAuth, setToken, setUserType, logout } = slice.actions
-
-/**
- * Represents a user in the database.
- * @typedef {Object} User
- * @property {number} id - The unique identifier for the user.
- * @property {string} password - The user's password (hashed or encrypted).
- * @property {string} first_name - The user's first name.
- * @property {string} last_name - The user's last name.
- * @property {string} email - The user's email address (unique).
- * @property {string} city - The city where the user resides.
- * @property {string} state - The state (2-letter abbreviation) where the user resides.
- * @property {string} phone_number - The user's phone number.
- * @property {number} therapist_id - The identifier of the therapist associated with the user.
- */
-

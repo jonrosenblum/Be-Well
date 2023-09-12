@@ -1,55 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Dropdown, DropdownButton, Button, Form, Card } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 import PatientMedicalHistory from "./PatientMedicalHistory"; // Import the new component
 import { api } from "../../Services/api";
 
 export default function UserProfile() {
-    // const patients = [
-    //     {
-    //         id: 1,
-    //         first_name: "John",
-    //         last_name: "Doe",
-    //         email: "john.doe@example.com",
-    //         phone: "(123) 456-7890",
-    //         address: "123 Main St, City, Country",
-    //         dob: "January 1, 1990",
-    //         age: "33 years",
-    //         // Add more patient data as needed
-    //     },
-    //     {
-    //         id: 2,
-    //         first_name: "Jon",
-    //         last_name: "Rosenblum",
-    //         email: "john.Rosenblum@example.com",
-    //         phone: "(123) 456-7890",
-    //         address: "123 Main St, City, Country",
-    //         dob: "January 16, 1990",
-    //         age: "59 years",
-
-    //     },
-    //     // Add more patients
-    // ];
-
     /** @typedef {import("../../Services/authSlice").User} Patient */
-    const [patients, setPatients] = useState( /** @type {Patient[]|null} */(null));
 
+    // State to store the list of patients and the currently selected patient
+    const [patients, setPatients] = useState( /** @type {Patient[]|null} */(null));
     const [selectedPatient, setSelectedPatient] = useState(/** @type {Patient} */(null));
 
+    // Function to handle the selection of a patient
     const handlePatientSelect = (patient_id) => {
+        // Find the selected patient based on their ID
         const patient = patients.find(p => p.id + '' === patient_id + '')
         setSelectedPatient(patient);
     };
 
+    // Function to load the list of patients from an API
     const loadPatients = () => {
-
-        api.getPatients().then(setPatients)
+        api.getPatients().then(setPatients);
     }
 
+    // UseEffect to load patients when the component mounts or when 'patients' is null
     useEffect(() => {
         if (patients) return;
-        loadPatients()
+        loadPatients();
     }, [patients])
 
+    // Render a loading button if 'patients' is null
     if (!patients) {
         return <Button>Loading</Button>
     }
@@ -59,20 +38,6 @@ export default function UserProfile() {
 
             <Row>
                 <Col>
-                    {/* <DropdownButton
-                        id="patient-dropdown"
-                        title={'Select a Patient'}
-                    >
-                        {patients.map((patient) => (
-                            <Dropdown.Item
-                                key={patient.id}
-
-                                onSelect={() => handlePatientSelect(patient)}
-                            >
-                                {`${patient.first_name} ${patient.last_name}`}
-                            </Dropdown.Item>
-                        ))}
-                    </DropdownButton> */}
                     <Form.Select aria-label="Default select example" onChange={(e) => handlePatientSelect(e.target.value)}>
                         <option>Open this select menu</option>
                         {patients?.map(patient => <option value={patient.id}>{patient.last_name}</option>)}
