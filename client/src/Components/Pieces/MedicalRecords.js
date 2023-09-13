@@ -1,7 +1,7 @@
 import React from "react";
 import UserProfile from "./UserProfile";
 import { Row, Col } from 'react-bootstrap';
-import TherapistHeader from "./TherapistHeader";
+import TherapistHeader from "./SideNav";
 
 export default function MedicalRecords() {
     return (

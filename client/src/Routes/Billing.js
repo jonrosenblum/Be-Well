@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TherapistHeader from "../Components/Pieces/TherapistHeader";
+import TherapistHeader from "../Components/Pieces/SideNav";
 import { Row, Col } from 'react-bootstrap';
 import AddPaymentInfo from "../Components/Pieces/AddPaymentInfo";
 

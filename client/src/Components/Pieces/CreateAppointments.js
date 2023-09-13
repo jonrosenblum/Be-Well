@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Dropdown, Row, Col } from "react-bootstrap";
-import TherapistHeader from "./TherapistHeader";
+import TherapistHeader from "./SideNav";
 import UserProfile from "./UserProfile";
 import { useAuthHook } from "../../Services/hooks";
 

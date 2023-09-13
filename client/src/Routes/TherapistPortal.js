@@ -1,21 +1,20 @@
 import React from "react";
-import { Row, Col } from 'react-bootstrap';
-import TherapistHeader from "../Components/Pieces/TherapistHeader";
+import SideNav from "../Components/Pieces/SideNav";
 import TherapistDashboard from "../Components/Pieces/TherapistDashboard";
-
-
+import {
+    MDBContainer,
+    MDBCol,
+} from 'mdb-react-ui-kit';
 
 export default function TherapistPortal() {
     return (
         <div>
-            <Row>
-                <Col xs={2}>
-                    <TherapistHeader />
-                </Col>
-                <Col xs={10}>
+            <SideNav />
+            <MDBContainer>
+                <MDBCol>
                     <TherapistDashboard />
-                </Col>
-            </Row>
+                </MDBCol>
+            </MDBContainer>
         </div >
     )
 }

@@ -5,8 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Components/Static/Root.js";
 import Error from "./Components/Static/Error.js";
 import HomePage from "./Routes/HomePage";
-import Services from "./Routes/Services";
-import Payment from "./Routes/Payment";
 import GetStarted from "./Routes/GetStarted";
 import TherapistLogin from "./Routes/TherapistLogin";
 import PatientLogin from "./Routes/PatientLogin";
@@ -15,7 +13,6 @@ import Contact from "./Routes/Contact";
 import Account from "./Routes/Account";
 import Develop from "./Routes/Develop";
 import TherapistPortal from "./Routes/TherapistPortal";
-import TherapistProfile from "./Routes/TherapistProfile";
 import Billing from "./Routes/Billing";
 import TherapistSettings from "./Routes/TherapistSettings";
 import Appointments from "./Components/Pieces/CreateAppointments";
@@ -37,14 +34,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
-      },
-      {
-        path: "/services",
-        element: <Services />,
-      },
-      {
-        path: "/payment",
-        element: <Payment />,
       },
       {
         path: "/get-started",
