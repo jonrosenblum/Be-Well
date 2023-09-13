@@ -2,6 +2,8 @@ import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
+import * as RiIcons from 'react-icons/ri';
+import * as RxIcons from 'react-icons/rx';
 
 export const SidebarData = [
     {
@@ -11,21 +13,21 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
+        title: 'Dashboard',
+        path: '/therapist/dashboard',
+        icon: <RxIcons.RxDashboard />,
+        cName: 'nav-text'
+    },
+    {
         title: 'Reports',
-        path: '/reports',
+        path: '/medical-reports',
         icon: <IoIcons.IoIosPaper />,
         cName: 'nav-text'
     },
     {
-        title: 'Products',
-        path: '/products',
-        icon: <FaIcons.FaCartPlus />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Team',
-        path: '/team',
-        icon: <IoIcons.IoMdPeople />,
+        title: 'Questionaires',
+        path: '/questionaires',
+        icon: <RiIcons.RiQuestionAnswerLine />,
         cName: 'nav-text'
     },
     {
@@ -39,5 +41,12 @@ export const SidebarData = [
         path: '/support',
         icon: <IoIcons.IoMdHelpCircle />,
         cName: 'nav-text'
+    },
+    {
+        title: 'Logout',
+        path: '/',
+        icon: <RiIcons.RiLogoutBoxLine />,
+        cName: 'nav-text'
     }
+
 ];
