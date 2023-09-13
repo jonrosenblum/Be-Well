@@ -24,6 +24,9 @@ import PatientPortal from "./Routes/PatientPortal";
 import { store } from "./Services/store";
 import { Provider } from "react-redux";
 import MedicalRecords from "./Components/Pieces/MedicalRecords";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 const router = createBrowserRouter([
   {

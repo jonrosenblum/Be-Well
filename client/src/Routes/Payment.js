@@ -7,6 +7,9 @@ export default function Payment() {
     return (
         <div className="payment-div">
             <HomePageNav />
+            <>
+
+            </>
             <h1>We will grow with your practice</h1>
             <h2>Our pricing is flat and straightforward, so you
                 will never get hit with unexcpected fees.

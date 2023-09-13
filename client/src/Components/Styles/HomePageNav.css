@@ -1,11 +1,3 @@
-.navbar-nav {
-  justify-content: center;
-}
-
-.nav-link {
-  margin: 0 10px;
-}
-
-.portal-button {
-  display: inline-flex;
+nav.navbar {
+  background-color: navy;
 }

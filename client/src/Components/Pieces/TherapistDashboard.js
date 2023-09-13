@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Container, Row, Col, Table } from "react-bootstrap";
 import PatientSessionsModal from "./PatientSessionsModal";
 import SessionUploadModal from "./SessionUploadModal";
 import CreatePatientModal from "./CreatePatientModal";
 import { useAuthHook } from "../../Services/hooks";
-import UserProfile from "./UserProfile";
 import '../Styles/TherapistPortal.css'
 import { api } from "../../Services/api";
 
@@ -15,10 +13,6 @@ export default function TherapistDashboard() {
   const [showPatientModal, setShowPatientModal] = useState(false);
   const [showSessionUploadModal, setShowSessionUploadModal] = useState(false);
   const [showCreatePatientModal, setShowCreatePatientModal] = useState(false);
-
-  // const getPatients = () => fetch(`/therapist/patients`, {
-  //   headers: { Authorization: `Bearer ${auth.access_token}` },
-  // })
 
   const loadPatients = useCallback(
     () => {
@@ -58,15 +52,15 @@ export default function TherapistDashboard() {
   };
 
   if (!patients?.length) {
-    return <Button>loading</Button>
+    return <button className="btn btn-primary">Loading</button>
   }
 
   return (
-    <Container fluid>
+    <div className="container-fluid">
       <h3>My Profile</h3>
 
-      <Button variant="info" onClick={handleCreatePatientClick}>Create New Patient</Button>
-      <Table striped bordered hover className="patient-table" >
+      <button className="btn btn-info" onClick={handleCreatePatientClick}>Create New Patient</button>
+      <table className="table patient-table">
         <thead>
           <tr>
             <th>id</th>
@@ -86,13 +80,13 @@ export default function TherapistDashboard() {
               <td>Appointment Time</td>
               <td>Confirmed</td>
               <td>
-                <Button variant="info" onClick={() => handleUploadSessionClick(patient)}>Upload New Session</Button>
-                <Button variant="info" onClick={() => handleMoreInfoClick(patient)}>More Info</Button>
+                <button className="btn btn-info" onClick={() => handleUploadSessionClick(patient)}>Upload New Session</button>
+                <button className="btn btn-info" onClick={() => handleMoreInfoClick(patient)}>More Info</button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
       {showCreatePatientModal && (
         <CreatePatientModal therapist={{ id: 1 }} onClose={doClosePatientModal} />
       )}
@@ -109,6 +103,6 @@ export default function TherapistDashboard() {
           onClose={() => setShowSessionUploadModal(false)}
         />
       )}
-    </Container>
+    </div>
   );
 }

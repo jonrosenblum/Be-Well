@@ -1,51 +1,58 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Container, Nav, Navbar, Button } from 'react-bootstrap';
-import '../Styles/HomePageNav.css'; // Import your custom CSS file
+import {
+    MDBContainer,
+    MDBNavbar,
+    MDBNavbarBrand
+} from 'mdb-react-ui-kit';
+
+import "../Styles/HomePageNav.css"
 
 export default function HomePageNav() {
     return (
-
-        <Navbar bg="white" expand="lg">
-            <Container>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto justify-content-center">
-                        <Nav.Item>
-                            <NavLink to="/" className="nav-link">
-                                Home
-                            </NavLink>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <NavLink to="/services" className="nav-link">
-                                Services
-                            </NavLink>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <NavLink to="/payment" className="nav-link">
-                                Payment
-                            </NavLink>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <NavLink to="/get-started" className="nav-link">
-                                Get Started
-                            </NavLink>
-                        </Nav.Item>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-            <div className="portal-button">
-                <Link to="/therapist/login">
-                    <Button variant="info" className="therapist-button">
+        <MDBNavbar>
+            <MDBContainer>
+                <MDBNavbarBrand href='#'>
+                    <img
+                        src='https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.webp'
+                        height='30'
+                        alt=''
+                        loading='lazy'
+                    />
+                </MDBNavbarBrand>
+                <ul className="nav">
+                    <li className="nav-item">
+                        <NavLink to="/" className="nav-link">
+                            Home
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/services" className="nav-link">
+                            Services
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/payment" className="nav-link">
+                            Payment
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/get-started" className="nav-link">
+                            Get Started
+                        </NavLink>
+                    </li>
+                </ul>
+                <div className="portal-button">
+                    <Link to="/therapist/login" className="btn btn-info therapist-button">
                         Therapist
-                    </Button>
-                </Link>
-                <Link to="/patient/login">
-                    <Button variant="info" className="patient-button">
+                    </Link>
+                    <Link to="/patient/login" className="btn btn-info patient-button">
                         Patient
-                    </Button>
-                </Link>
-            </div>
-        </Navbar>
+                    </Link>
+                </div>
+            </MDBContainer>
+        </MDBNavbar>
+
+
     );
 }

@@ -9,10 +9,14 @@ export default function TherapistPortal() {
     return (
         <div>
             <Row>
-                <Col xs={2}>
+                <Col xs={1}>
                     <PatientHeader />
                 </Col>
-                <Col xs={10}>
+                <Col xs={1}>
+                    <h2>Hello, "Patient First Name"</h2>
+                </Col>
+                <Col xs={9
+                }>
                     <PatientDashboard />
                 </Col>
             </Row>
