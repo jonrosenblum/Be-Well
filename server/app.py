@@ -33,7 +33,7 @@ def index():
 ### AUTHENTICATION ROUTES ###
 
 @app.post('/therapist/login')
-def login():
+def therapist_login():
     data = request.json 
     email = data.get('email')
     password = data.get('password')
@@ -46,6 +46,20 @@ def login():
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
     
+@app.post('/patient/login')
+def patient_login():
+    data = request.json 
+    email = data.get('email')
+    password = data.get('password')
+
+    patient = Patient.query.filter_by(email=email).first()
+
+    if patient and check_password_hash(patient.password, password):
+        access_token = create_access_token(identity=patient.id)
+        return jsonify({"access_token":access_token,"user":patient.serialize()})
+    else:
+        return jsonify({'message': 'Invalid credentials'}), 401
+
 
 @app.get('/me/<string:user_type>')
 def me(user_type):
@@ -106,7 +120,7 @@ def register():
 
 @app.post('/therapist/logout')
 # @jwt_required() 
-def logout():
+def therapist_logout():
     try:
         # Get the therapist's ID from the JWT token
         # therapist_id = get_jwt_identity()
@@ -121,6 +135,26 @@ def logout():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@app.post('/patient/logout')
+# @jwt_required() 
+def patient_logout():
+    try:
+        # Get the therapist's ID from the JWT token
+        # therapist_id = get_jwt_identity()
+        therapist_id = 1
+        # You can perform any additional logout-related actions here if needed
+        response = make_response(jsonify({'message': 'Logout successful'}))
+        response.delete_cookie('jwt-token')  # Clear the cookie
+        return response
+
+        # Return a response indicating successful logout
+        return jsonify({'message': 'Logout successful'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 
 

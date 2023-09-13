@@ -26,3 +26,4 @@ export const api = {
     request('/therapist/patients') // Make a request to '/therapist/patients'.
       .then(res => /** @type {import("./authSlice").User} */(res.json())), // Parse the response as JSON.
 }
+

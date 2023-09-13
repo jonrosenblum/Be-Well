@@ -11,6 +11,11 @@ export default function TherapistLogin() {
     const auth = useAuthHook()
     const navigate = useNavigate();
 
+
+
+    const [loginFailed, setLoginFailed] = useState(false);
+
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -42,7 +47,7 @@ export default function TherapistLogin() {
             navigate("/therapist/portal");
         } catch (error) {
             // Handle login errors here
-            console.error(error.message);
+            setLoginFailed(true);
         }
     };
 
@@ -86,6 +91,7 @@ export default function TherapistLogin() {
                                                 name="rememberMe"
                                             />
                                         </Form.Group>
+                                        {loginFailed && <p>Username or password incorrect.</p>}
                                         <span className="forgot-password">Forgot Password</span>
                                     </div>
                                     <Button

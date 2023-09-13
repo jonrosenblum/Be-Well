@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { Button, Form, Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAuthHook } from "../Services/hooks";
+import { USER_TYPE } from "../Services/authSlice";
+
 
 import loginImage from '../Components/Pieces/Assets/login.png';
 
 export default function PatientLogin() {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+    const auth = useAuthHook()
+
+
+    const [loginFailed, setLoginFailed] = useState(false);
+
 
     const [formData, setFormData] = useState({
         email: "",
@@ -19,7 +28,7 @@ export default function PatientLogin() {
 
     const login = async () => {
         try {
-            const response = await fetch('/patient/login', {
+            const response = await fetch('/therapist/login', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -29,15 +38,17 @@ export default function PatientLogin() {
                 throw new Error("There was a problem with the login request");
             }
 
+
             const data = await response.json();
 
-            localStorage.setItem("jwt-token", data.token);
+            dispatch(auth.actions.setAuth({ ...data, userType: USER_TYPE.PATIENT }))
+            localStorage.setItem("jwt-token", data.access_token);
 
             // Redirect to a protected route or therapist dashboard
             navigate("/patient/portal");
-        } catch (error) {
+        } catch {
             // Handle login errors here
-            console.error(error.message);
+            setLoginFailed(true);
         }
     };
 
@@ -81,6 +92,7 @@ export default function PatientLogin() {
                                                 name="rememberMe"
                                             />
                                         </Form.Group>
+                                        {loginFailed && <p>Username or password incorrect.</p>}
                                         <span className="forgot-password">Forgot Password</span>
                                     </div>
                                     <Button
@@ -91,6 +103,7 @@ export default function PatientLogin() {
                                         Login
                                     </Button>
                                 </Form>
+
                             </Col>
                         </Row>
                     </div>
