@@ -1,0 +1,21 @@
+patiens, therapist, appointments
+
+get patient/
+get patient/1
+post patient/ create patient
+update patient/1 data
+delete patient/1
+
+get therapist/
+get therapist/1
+post therapist/ create therapist
+update therapist/1 data
+delete therapist/1
+
+get appointment/?userType=patheir&id=1
+    Appoint.filter(patient_id = id).
+    
+get appointment/1
+post appointment/ create appointment
+update appointment/1 data
+delete appointment/1

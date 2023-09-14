@@ -1,0 +1,9 @@
+.submit-button {
+  text-align: center;
+  margin-top: 15px;
+}
+
+button.btn-info.btn.btn-primary {
+  width: 75%;
+  text-align: center;
+}

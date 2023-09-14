@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap'; // Import Bootstrap JavaScript
 import {
     MDBContainer,
@@ -34,8 +35,8 @@ export default function HomePageInfo() {
                                 enabling better decision-making, improved patient outcomes,
                                 and enhanced collaboration among healthcare teams.</p>
                             <div className='d-grid gap-2 d-md-flex justify-content-md-start'>
-                                <button className='btn btn-light btn-lg px-4 me-md-2'>Try it for free</button>
-                                <button className='btn btn-light btn-lg px-4 me-md-2'>Learn more</button>
+                                <Link to="/get-started" className='btn btn-light btn-lg px-4 me-md-2'>Try it for free</Link>
+                                <Link to="/about" className='btn btn-light btn-lg px-4 me-md-2'>Learn more</Link>
                             </div>
                         </MDBCol>
                     </MDBRow>
