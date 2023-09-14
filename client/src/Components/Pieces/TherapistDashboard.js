@@ -7,7 +7,7 @@ import '../Styles/TherapistPortal.css'
 import { api } from "../../Services/api";
 import { MDBContainer, MDBCol, MDBCard, MDBRow, MDBCardText, MDBCardTitle, MDBBtn, MDBCardBody } from "mdb-react-ui-kit";
 
-export default function TherapistDashboard() {
+export default function TherapistDashboard({ therapist }) {
   const auth = useAuthHook();
   const [patients, setPatients] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
@@ -51,6 +51,7 @@ export default function TherapistDashboard() {
     }
     setShowCreatePatientModal(false);
   };
+  console.log(auth.id);
 
   if (!patients?.length) {
     return <button className="btn btn-primary">Loading</button>
@@ -59,16 +60,16 @@ export default function TherapistDashboard() {
   return (
     <>
       <MDBContainer>
-        <MDBRow className="create-patient">
-          <MDBCol className="ms-auto text-end">
-            <button className=" btn btn-info" onClick={handleCreatePatientClick}>Create New Patient</button>
-          </MDBCol>
-          <MDBRow>
+        <MDBRow >
+          <MDBRow className="d-flex align-items-center">
             <MDBCol size="4" className="mb-2">
               <MDBCard>
                 <MDBCardTitle>Welcome,</MDBCardTitle>
                 <MDBCardText>Dr. {auth.user.email}</MDBCardText>
               </MDBCard>
+            </MDBCol>
+            <MDBCol className="ms-auto text-end">
+              <button className=" btn btn-info" onClick={handleCreatePatientClick}>Create New Patient</button>
             </MDBCol>
           </MDBRow>
           <MDBContainer>
@@ -85,14 +86,14 @@ export default function TherapistDashboard() {
               <MDBCol size="4" className="mb-4">
                 <MDBCard>
                   <MDBCardBody>
-                    <MDBCardTitle>Send Invoice</MDBCardTitle>
+                    <MDBCardTitle>Dashboard</MDBCardTitle>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
               <MDBCol size="4" className="mb-4">
                 <MDBCard>
                   <MDBCardBody>
-                    <MDBCardTitle>Card 3</MDBCardTitle>
+                    <MDBCardTitle>Send Invoice</MDBCardTitle>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
@@ -101,7 +102,7 @@ export default function TherapistDashboard() {
 
         </MDBRow>
         <MDBRow>
-          <div className="container-fluid">
+          <MDBContainer fluid>
 
             <table className="table patient-table">
               <thead>
@@ -146,7 +147,7 @@ export default function TherapistDashboard() {
                 onClose={() => setShowSessionUploadModal(false)}
               />
             )}
-          </div>
+          </MDBContainer>
         </MDBRow>
       </MDBContainer >
     </>
