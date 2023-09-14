@@ -6,8 +6,7 @@ import Root from "./Components/Static/Root.js";
 import Error from "./Components/Static/Error.js";
 import HomePage from "./Routes/HomePage";
 import GetStarted from "./Routes/GetStarted";
-import TherapistLogin from "./Routes/TherapistLogin";
-import PatientLogin from "./Routes/PatientLogin";
+import Login from "./Routes/Login";
 import About from "./Routes/About";
 import Contact from "./Routes/Contact";
 import Account from "./Routes/Account";
@@ -21,10 +20,9 @@ import PatientPortal from "./Routes/PatientPortal";
 import { store } from "./Services/store";
 import { Provider } from "react-redux";
 import MedicalRecords from "./Components/Pieces/MedicalRecords";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import TherapistHome from "./Routes/TherapistHome";
-
 
 const router = createBrowserRouter([
   {
@@ -41,13 +39,10 @@ const router = createBrowserRouter([
         element: <GetStarted />,
       },
       {
-        path: "/therapist/login",
-        element: <TherapistLogin />,
+        path: "/login",
+        element: <Login />,
       },
-      {
-        path: "/patient/login",
-        element: <PatientLogin />,
-      },
+
       {
         path: "/about",
         element: <About />,
@@ -75,15 +70,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/therapist/appointments",
-        element: <Appointments />
+        element: <Appointments />,
       },
       {
-        path: 'therapist/medical-records',
-        element: <MedicalRecords />
+        path: "therapist/medical-records",
+        element: <MedicalRecords />,
       },
       {
-        path: 'therapist/billing',
-        element: <Billing />
+        path: "therapist/billing",
+        element: <Billing />,
       },
       {
         path: "/therapist/settings",

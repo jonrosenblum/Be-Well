@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import HomePageNav from "./HomePageNav";
+import HomePageNav from "./HomePage/HomePageNav";
 
 export default function TherapistRegistration() {
     const [showModal, setShowModal] = useState(false);

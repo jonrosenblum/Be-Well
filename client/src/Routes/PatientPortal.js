@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from 'react-bootstrap';
 import PatientDashboard from "../Components/Pieces/PatientDashboard";
+import { useAuthHook } from "../Services/hooks";
 
 
 
@@ -21,3 +22,14 @@ export default function TherapistPortal() {
         </div >
     )
 }
+
+
+// function Portal() {
+//     const auth = useAuthHook()
+
+//     if (auth.userType === 'patient'){
+//         return <PatientPoral/>
+//     }
+
+//     return <TherapistPortal />
+// }

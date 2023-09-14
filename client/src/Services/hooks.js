@@ -10,6 +10,7 @@ export const useAppStore = () => {
 
 // Custom hook for handling authentication-related state.
 export const useAuthHook = () => {
+    const dispatch = useAppDispatch()
     // Get the 'auth' slice of the Redux store using the 'useAppStore' hook.
     const { auth } = useAppStore()
 
@@ -19,8 +20,12 @@ export const useAuthHook = () => {
     // Determine if the user is logged in based on the 'isLoggedOut' condition.
     const isLoggedIn = !isLoggedOut
 
+    const logout = () => {
+        dispatch(actions.logout())
+    }
+
     // Return an object containing authentication data, actions, and login status.
-    return { ...auth, actions, isLoggedIn, isLoggedOut }
+    return { ...auth, actions, isLoggedIn, isLoggedOut, logout }
 }
 
 // Custom hook to access the Redux dispatch function.

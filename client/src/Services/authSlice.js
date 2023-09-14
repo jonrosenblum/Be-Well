@@ -17,6 +17,9 @@ const defaultState = {
     user: {
         email: '',
         id: '',
+        last_name: '',
+        first_name: '',
+        city: '',
     },
     access_token: '',
     userType: ''

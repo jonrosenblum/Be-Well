@@ -1,0 +1,18 @@
+{
+  "name": "bewell",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">     <a href=\"\"><img src=\"https://img.shields.io/pypi/l/ansicolortags.svg\" /></a>     <a href=\"\"><img src=\"https://img.shields.io/badge/Maintained%3F-yes-green.svg\" /></a>     <a href=\"\"><img src=\"https://badgen.net/github/commits/jonrosenblum/BeWell\" /></a>     <br>     <a href=\"https://docs.python.org/3/index.html\"><img src=\"https://img.shields.io/badge/python-%2320232a?style=for-the-badge&logo=python&logoColor=ffdd54\" /></a>     <a href=\"https://dash-bootstrap-components.opensource.faculty.ai/\"><img src=\"https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white\" /></a>     <a href=\"https://plotly.com/dash/\"><img src=\"https://img.shields.io/badge/dash-008DE4?style=for-the-badge&logo=dash&logoColor=white\" /></a>     <br>     <a href=\"\"><img src=\"\" /></a> </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:client": "npm --prefix client run start",
+    "dev:server": "npx nodemon  -w server -x \"./server/.venv/bin/python ./server/app.py\"",
+    "dev": "npx concurrently \"npm run dev:client\" \"npm run dev:server\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1"
+  }
+}

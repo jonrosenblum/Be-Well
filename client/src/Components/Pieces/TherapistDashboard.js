@@ -65,7 +65,7 @@ export default function TherapistDashboard({ therapist }) {
             <MDBCol size="4" className="mb-2">
               <MDBCard>
                 <MDBCardTitle>Welcome,</MDBCardTitle>
-                <MDBCardText>Dr. {auth.user.email}</MDBCardText>
+                <MDBCardText>Dr. {auth.user?.last_name}</MDBCardText>
               </MDBCard>
             </MDBCol>
             <MDBCol className="ms-auto text-end">

@@ -1,0 +1,43 @@
+.card {
+  margin: 10px;
+}
+.logo {
+  font-family: "Raleway";
+  font-weight: 600;
+  color: #0dcaf0;
+}
+
+.portal-button {
+  font-family: "Raleway";
+}
+
+.row.flex-lg-row-reverse.align-items-center.g-5.py-5 {
+  font-family: "Raleway";
+}
+
+nav.navbar {
+  background-color: navy;
+}
+
+a.btn.btn-info.therapist-button {
+  margin-right: 10px;
+}
+
+.container.col-xxl-8.px-4.py-5 {
+  background-color: #0dcaf0;
+  margin-top: 15px;
+}
+
+.col.col-lg-6 {
+  color: white;
+}
+
+.second-custom-div {
+  background-color: #0dcaf0;
+  color: white;
+}
+
+.card.m-10.feature-card {
+  background-color: #0dcaf0;
+  color: white;
+}

@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import { Button, Form, Container, Row, Col, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAuthHook } from "../Services/hooks";
 import { USER_TYPE } from "../Services/authSlice";
-import HomePageNav from "../Components/Pieces/HomePageNav";
 
 import loginImage from '../Components/Pieces/Assets/login.png';
 import { MDBCardBody, MDBCardText, MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
+import HomePageNav from "../Components/Pieces/HomePage/HomePageNav";
 
-
-export default function PatientLogin() {
-    const navigate = useNavigate();
+export default function Login() {
     const dispatch = useAppDispatch()
     const auth = useAuthHook()
-
+    const navigate = useNavigate();
 
     const [loginFailed, setLoginFailed] = useState(false);
-
 
     const [formData, setFormData] = useState({
         email: "",
@@ -30,7 +26,7 @@ export default function PatientLogin() {
 
     const login = async () => {
         try {
-            const response = await fetch('/therapist/login', {
+            const response = await fetch('/auth/login', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -40,15 +36,15 @@ export default function PatientLogin() {
                 throw new Error("There was a problem with the login request");
             }
 
-
+            /** @type {{access_token:string, user: Record, userType: USER_TYPE}} */
             const data = await response.json();
 
-            dispatch(auth.actions.setAuth({ ...data, userType: USER_TYPE.PATIENT }))
-            localStorage.setItem("jwt-token", data.access_token);
+            dispatch(auth.actions.setAuth({ ...data}))
+            // localStorage.setItem("jwt-token", data.access_token);
 
             // Redirect to a protected route or therapist dashboard
-            navigate("/patient/portal");
-        } catch {
+            navigate(`/${data.userType}/portal`);
+        } catch (error) {
             // Handle login errors here
             setLoginFailed(true);
         }

@@ -13,7 +13,7 @@ import { IconContext } from 'react-icons';
 
 
 export default function SideNav() {
-  const dispatch = useAppDispatch();
+
   const auth = useAuthHook();
   const [showLogoutSuccess, setShowLogoutSuccess] = useState(false);
   const navigate = useNavigate();
@@ -21,7 +21,10 @@ export default function SideNav() {
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const handleLogout = async () => {
+  const handleLogout = async (title, e) => {
+    if (title === 'Logout') {
+      e.preventDefault()
+    }
     try {
       const response = await fetch("/therapist/logout", {
         method: "POST",
@@ -35,7 +38,7 @@ export default function SideNav() {
         throw new Error("Logout failed");
       }
 
-      dispatch(auth.actions.logout());
+      auth.logout()
       setShowLogoutSuccess(true);
       navigate('/');
     } catch (error) {
@@ -61,7 +64,7 @@ export default function SideNav() {
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <Link to={item.path} onClick={(e) => handleLogout(item.title, e)}>
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>

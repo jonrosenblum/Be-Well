@@ -32,34 +32,37 @@ def index():
 
 ### AUTHENTICATION ROUTES ###
 
-@app.post('/therapist/login')
-def therapist_login():
+@app.post('/auth/login')
+def login():
     data = request.json 
     email = data.get('email')
     password = data.get('password')
+    # return jsonify('hello world')
+    user_json = therapist_login(email,password) or patient_login(email,password)
+
+    if user_json == None:
+        return jsonify({'message': 'Invalid credentials'}), 401
+    
+    return user_json
+
+
+def therapist_login(email, password):
 
     therapist = Therapist.query.filter_by(email=email).first()
 
     if therapist and check_password_hash(therapist.password, password):
         access_token = create_access_token(identity=therapist.id)
-        return jsonify({"access_token":access_token,"user":therapist.serialize()})
-    else:
-        return jsonify({'message': 'Invalid credentials'}), 401
+        return jsonify({"access_token":access_token,"user":therapist.serialize(),"userType": "therapist"})
+    return None
     
-@app.post('/patient/login')
-def patient_login():
-    data = request.json 
-    email = data.get('email')
-    password = data.get('password')
-
+def patient_login(email,password):
     patient = Patient.query.filter_by(email=email).first()
 
     if patient and check_password_hash(patient.password, password):
         access_token = create_access_token(identity=patient.id)
-        return jsonify({"access_token":access_token,"user":patient.serialize()})
-    else:
-        return jsonify({'message': 'Invalid credentials'}), 401
-
+        return jsonify({"access_token":access_token,"user":patient.serialize(),"userType": "patient"})
+    return None
+   
 
 @app.get('/me/<string:user_type>')
 def me(user_type):
@@ -278,7 +281,7 @@ def create_patient(therapist_id):
         return jsonify({'error': str(e)}), 500
 
 
-@app.post('/therapist/<therapist_id>/appointments')
+@app.get('/therapist/<therapist_id>/appointments')
 @jwt_required()
 def create_appointment(therapist_id):
     print(f"\nTHIS IS MY CURRENT USER ID: {therapist_id}\n")
