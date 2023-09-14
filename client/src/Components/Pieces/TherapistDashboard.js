@@ -66,8 +66,8 @@ export default function TherapistDashboard() {
           <MDBRow>
             <MDBCol size="4" className="mb-2">
               <MDBCard>
-                <MDBCardTitle>Welcome, Dr {auth.user.email}</MDBCardTitle>
-
+                <MDBCardTitle>Welcome,</MDBCardTitle>
+                <MDBCardText>Dr. {auth.user.email}</MDBCardText>
               </MDBCard>
             </MDBCol>
           </MDBRow>
