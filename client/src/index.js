@@ -23,6 +23,7 @@ import { Provider } from "react-redux";
 import MedicalRecords from "./Components/Pieces/MedicalRecords";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import TherapistHome from "./Routes/TherapistHome";
 
 
 const router = createBrowserRouter([
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
         path: "/develop",
         element: <Develop />,
       },
+      {
+        path: "/therapist/home",
+        element: <TherapistHome />,
+      },
+
       {
         path: "/therapist/portal",
         element: <TherapistPortal />,

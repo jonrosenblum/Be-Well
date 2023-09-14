@@ -8,13 +8,13 @@ import * as RxIcons from 'react-icons/rx';
 export const SidebarData = [
     {
         title: 'Home',
-        path: '/',
+        path: '/therapist/home',
         icon: <AiIcons.AiFillHome />,
         cName: 'nav-text'
     },
     {
         title: 'Dashboard',
-        path: '/therapist/dashboard',
+        path: '/therapist/portal',
         icon: <RxIcons.RxDashboard />,
         cName: 'nav-text'
     },

@@ -5,6 +5,7 @@ import CreatePatientModal from "./CreatePatientModal";
 import { useAuthHook } from "../../Services/hooks";
 import '../Styles/TherapistPortal.css'
 import { api } from "../../Services/api";
+import { MDBContainer, MDBCol, MDBCard, MDBRow, MDBCardText, MDBCardTitle, MDBBtn, MDBCardBody } from "mdb-react-ui-kit";
 
 export default function TherapistDashboard() {
   const auth = useAuthHook();
@@ -56,53 +57,98 @@ export default function TherapistDashboard() {
   }
 
   return (
-    <div className="container-fluid">
-      <h3>My Profile</h3>
+    <>
+      <MDBContainer>
+        <MDBRow className="create-patient">
+          <MDBCol className="ms-auto text-end">
+            <button className=" btn btn-info" onClick={handleCreatePatientClick}>Create New Patient</button>
+          </MDBCol>
+          <MDBRow>
+            <MDBCol size="4" className="mb-2">
+              <MDBCard>
+                <MDBCardTitle>Welcome, Dr {auth.user.email}</MDBCardTitle>
 
-      <button className="btn btn-info" onClick={handleCreatePatientClick}>Create New Patient</button>
-      <table className="table patient-table">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Name</th>
-            <th>Appointment Date</th>
-            <th>Appointment Time</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {patients.map((patient) => (
-            <tr key={patient.id}>
-              <td>{patient.id}</td>
-              <td>{patient.first_name} {patient.last_name}</td>
-              <td>Appointment Date</td>
-              <td>Appointment Time</td>
-              <td>Confirmed</td>
-              <td>
-                <button className="btn btn-info" onClick={() => handleUploadSessionClick(patient)}>Upload New Session</button>
-                <button className="btn btn-info" onClick={() => handleMoreInfoClick(patient)}>More Info</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {showCreatePatientModal && (
-        <CreatePatientModal therapist={{ id: 1 }} onClose={doClosePatientModal} />
-      )}
-      {showPatientModal && (
-        <PatientSessionsModal
-          patient={selectedPatient}
-          onClose={() => setShowPatientModal(false)}
-        />
-      )}
-      {showSessionUploadModal && (
-        <SessionUploadModal
-          patient={selectedPatient}
-          show={showSessionUploadModal}
-          onClose={() => setShowSessionUploadModal(false)}
-        />
-      )}
-    </div>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol size="4" className="mb-4">
+                <MDBCard>
+                  <MDBCardBody>
+                    <MDBCardTitle>Upcoming Sessions</MDBCardTitle>
+                    <MDBCardText>
+                    </MDBCardText>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol size="4" className="mb-4">
+                <MDBCard>
+                  <MDBCardBody>
+                    <MDBCardTitle>Send Invoice</MDBCardTitle>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+              <MDBCol size="4" className="mb-4">
+                <MDBCard>
+                  <MDBCardBody>
+                    <MDBCardTitle>Card 3</MDBCardTitle>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+
+        </MDBRow>
+        <MDBRow>
+          <div className="container-fluid">
+
+            <table className="table patient-table">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>Name</th>
+                  <th>Appointment Date</th>
+                  <th>Appointment Time</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {patients.map((patient) => (
+                  <tr key={patient.id}>
+                    <td>{patient.id}</td>
+                    <td>{patient.first_name} {patient.last_name}</td>
+                    <td>Appointment Date</td>
+                    <td>Appointment Time</td>
+                    <td>Confirmed</td>
+                    <td>
+                      <button className="btn btn-info" onClick={() => handleUploadSessionClick(patient)}>Upload New Session</button>
+                      <button className="btn btn-info" onClick={() => handleMoreInfoClick(patient)}>More Info</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {showCreatePatientModal && (
+              <CreatePatientModal therapist={{ id: 1 }} onClose={doClosePatientModal} />
+            )}
+            {showPatientModal && (
+              <PatientSessionsModal
+                patient={selectedPatient}
+                onClose={() => setShowPatientModal(false)}
+              />
+            )}
+            {showSessionUploadModal && (
+              <SessionUploadModal
+                patient={selectedPatient}
+                show={showSessionUploadModal}
+                onClose={() => setShowSessionUploadModal(false)}
+              />
+            )}
+          </div>
+        </MDBRow>
+      </MDBContainer >
+    </>
   );
 }
