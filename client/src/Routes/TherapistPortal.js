@@ -4,9 +4,8 @@ import TherapistDashboard from "../Components/Pieces/TherapistDashboard";
 import {
     MDBContainer,
     MDBCol,
-    MDBRow,
 } from 'mdb-react-ui-kit';
-import PatientCardFlip from "../Components/Pieces/PatientCardFlip"
+
 
 
 export default function TherapistPortal() {
@@ -14,9 +13,6 @@ export default function TherapistPortal() {
         <div>
             <SideNav />
             <MDBContainer>
-                <MDBRow>
-                    <PatientCardFlip />
-                </MDBRow>
                 <MDBCol>
                     <TherapistDashboard />
                 </MDBCol>
