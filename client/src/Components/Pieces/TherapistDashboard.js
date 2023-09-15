@@ -62,14 +62,12 @@ export default function TherapistDashboard({ therapist }) {
       <MDBContainer>
         <MDBRow >
           <MDBRow className="d-flex align-items-center">
-            <MDBCol size="4" className="mb-2">
-              <MDBCard>
-                <MDBCardTitle>Welcome,</MDBCardTitle>
-                <MDBCardText>Dr. {auth.user?.last_name}</MDBCardText>
-              </MDBCard>
+            <MDBCol size="3" className="mt-2">
+              <h3>Welcome back,</h3>
+              <h3>Dr. {auth.user.last_name}</h3>
             </MDBCol>
             <MDBCol className="ms-auto text-end">
-              <button className=" btn btn-info" onClick={handleCreatePatientClick}>Create New Patient</button>
+              <button className=" btn btn-info" onClick={handleCreatePatientClick}>+</button>
             </MDBCol>
           </MDBRow>
           <MDBContainer>
