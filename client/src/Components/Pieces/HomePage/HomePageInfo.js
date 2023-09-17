@@ -8,6 +8,8 @@ import {
     MDBCardTitle,
     MDBCardText,
     MDBBtn,
+    MDBCardFooter,
+    MDBCardImage,
     MDBRow,
     MDBCol,
 } from 'mdb-react-ui-kit';
@@ -21,14 +23,14 @@ export default function HomePageInfo() {
 
     return (
         <div>
-            <div className='first-custom-div'>
-                <MDBContainer className="col-xxl-8 px-4 py-5">
+            <div className='custom-div'>
+                <MDBContainer className="col-xxl-8 py-5">
                     <MDBRow className="flex-lg-row-reverse align-items-center g-5 py-5">
                         <MDBCol className='col-10 col-sm-8 col-lg-6'>
                             <img src={stockImage} alt="" className="d-block mx-lg-auto img-fluid" width="700" height="500"></img>
                         </MDBCol>
                         <MDBCol className='col-lg-6'>
-                            <h1 className='display-5 fw-bold lh-1 mb-3'>Experience the future of healthcare management with BeWell</h1>
+                            <h1 className='display-5 fw-bold lh-1 mb-3'>Experience the future of healthcare management with Be Well</h1>
                             <p className='lead'>
                                 Empowering healthcare providers to deliver exceptional care,
                                 our platform ensures secure, efficient, and accessible data management,
@@ -42,118 +44,90 @@ export default function HomePageInfo() {
                     </MDBRow>
                 </MDBContainer>
             </div>
-            <MDBContainer className='second-custom-div'>
-                <h2 className="my-5 py-5 text-center">Why Be Well?</h2>
 
-                <MDBRow className="fade-in-target in">
-                    <MDBCol md="6" className="mb-4 d-flex">
-                        <MDBCard className="text-center">
+            <div className='custom-div'>
+                <MDBContainer className="col-xxl-8 py-5">
+                    <MDBRow className="g-5 py-5">
+                        <MDBCard className='mx-auto' style={{ width: '18rem' }}>
+                            <MDBCardImage src={stockImage} alt="Card image cap" />
                             <MDBCardBody>
-                                <span className="icon-circle text-purple mb-3">
-                                    <i className="fas fa-user-friends fa-2x"></i>
-                                </span>
-                                <h4 className="font-weight-bold">Therapeutic Alliance</h4>
-                                <p className="h5">
-                                    We know what matters most - the people you help. We built an EHR
-                                    with features to help you strengthen relationships with them.
-                                </p>
+                                <MDBCardTitle>Client Management</MDBCardTitle>
+                                <MDBCardText className='text-center'>
+                                    Keep track of your client on one screen. View and manage
+                                    client demographics, contacts, diagnosis and treatment planning,
+                                    recent appointments, billing, to-do items, and more. Add individual
+                                    clients as members of couples, family or conjoint therapy clients.
+                                </MDBCardText>
                             </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                    <MDBCol md="6" className="mb-4 d-flex">
-                        <MDBCard className="text-center">
-                            <MDBCardBody>
-                                <span className="icon-circle text-primary mb-3">
-                                    <i className="fas fa-lightbulb fa-2x"></i>
-                                </span>
-                                <h4 className="font-weight-bold">Simple</h4>
-                                <p className="h5">
-                                    We believe in an elegant and intuitive design that is easy to
-                                    learn so you’ll be up and running in minutes, not days.
-                                </p>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
 
-                <MDBRow className="fade-in-target in">
-                    <MDBCol md="6" className="mb-4 d-flex">
-                        <MDBCard className="text-center">
-                            <MDBCardBody>
-                                <span className="icon-circle text-success mb-3">
-                                    <i className="fas fa-piggy-bank fa-2x"></i>
-                                </span>
-                                <h4 className="font-weight-bold">Affordable</h4>
-                                <p className="h5">
-                                    We believe mental health care should be affordable to everyone.
-                                    Our pricing is simple and straight-forward, so you’ll never be
-                                    surprised by unexpected fees.
-                                </p>
-                            </MDBCardBody>
                         </MDBCard>
-                    </MDBCol>
-                    <MDBCol md="6" className="mb-4 d-flex">
-                        <MDBCard className="text-center">
+                        <MDBCard className='mx-auto' style={{ width: '18rem' }}>
+                            <MDBCardImage src={stockImage} alt="Card image cap" />
                             <MDBCardBody>
-                                <span className="icon-circle text-secondary mb-3">
-                                    <i className="fas fa-exchange-alt fa-2x"></i>
-                                </span>
-                                <h4 className="font-weight-bold">Flexible</h4>
-                                <p className="h5">
-                                    Therapists work in unique ways. Your mental health practice
-                                    management software needs to adapt to you. We give you control
-                                    to customize everything from notes, to assessments, to reminders
-                                    and more.
-                                </p>
+                                <MDBCardTitle>Client Relationship</MDBCardTitle>
+                                <MDBCardText className='text-center'>
+                                    Without a strong therapeutic alliance withyour clients,
+                                    work is much harder. We focus on building features to
+                                    make it easy to get feedback from clients and keep them engaged.
+                                </MDBCardText>
                             </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
 
-                <MDBRow className="fade-in-target pb-5 mb-5">
-                    <MDBCol md="6" className="mb-4 d-flex">
-                        <MDBCard className="text-center">
+                        </MDBCard>
+                        <MDBCard className='mx-auto' style={{ width: '18rem' }}>
+                            <MDBCardImage src={stockImage} alt="Card image cap" />
                             <MDBCardBody>
-                                <span className="icon-circle text-secondary mb-3">
-                                    <i className="fas fa-lock fa-2x"></i>
-                                </span>
-                                <h4 className="font-weight-bold">Secure</h4>
-                                <p className="h5">
-                                    We adhere to all HIPAA privacy and security requirements. HIPAA
-                                    is at the core of every decision we make, from how we design our
-                                    interface to where your data is stored. We go beyond HIPAA
-                                    compliance to maintain your clients' privacy. Don't believe us?
-                                    Check out our{" "}
-                                    <a
-                                        href="https://compliance.sessionshealth.com"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Compliance Policies Documentation
-                                    </a>
-                                    .
-                                </p>
+                                <MDBCardTitle>Dashboard and Insights</MDBCardTitle>
+                                <MDBCardText>
+                                    Keep track of what's important with our simplified dashboard.
+                                    We'll keep you organized and focused, even if that
+                                    doesn't always come naturally for you.
+                                </MDBCardText>
+                            </MDBCardBody>
+
+                        </MDBCard>
+
+                    </MDBRow>
+                    <MDBRow className="g-5 py-5">
+                        <MDBCard className='mx-auto' style={{ width: '18rem' }}>
+                            <MDBCardImage src={stockImage} alt="Card image cap" />
+                            <MDBCardBody>
+                                <MDBCardTitle>Client Portal</MDBCardTitle>
+                                <MDBCardText>
+                                    Invite your clients to accept and electronically sign your Consent Forms
+                                    and fill out paperwork before their appointment, all in a
+                                    secure and mobile-friendly Client Portal.
+                                </MDBCardText>
+                            </MDBCardBody>
+
+                        </MDBCard>
+                        <MDBCard className='mx-auto' style={{ width: '18rem' }}>
+                            <MDBCardImage src={stockImage} alt="Card image cap" />
+                            <MDBCardBody>
+                                <MDBCardTitle>Secure Messaging</MDBCardTitle>
+                                <MDBCardText>
+                                    Have realtime instant messaging with your clients within a
+                                    HIPAA-compliant environment to protect your clients' privacy.
+                                </MDBCardText>
+                            </MDBCardBody>
+
+                        </MDBCard>
+                        <MDBCard className='mx-auto' style={{ width: '18rem' }}>
+                            <MDBCardImage src={stockImage} alt="Card image cap" />
+                            <MDBCardBody>
+                                <MDBCardTitle>Online Booking</MDBCardTitle>
+                                <MDBCardText>
+                                    Eliminate headaches coordinating schedules with your
+                                    clients by allowing them to request appointments
+                                    through the Client Portal.
+                                </MDBCardText>
                             </MDBCardBody>
                         </MDBCard>
-                    </MDBCol>
-                    <MDBCol md="6" className="mb-4 d-flex">
-                        <MDBCard className="text-center">
-                            <MDBCardBody>
-                                <span className="icon-circle text-purple mb-3">
-                                    <i className="fas fa-universal-access fa-2x"></i>
-                                </span>
-                                <h4 className="font-weight-bold">Accessible</h4>
-                                <p className="h5">
-                                    We are a completely web-based application accessible on all
-                                    modern computers, phones, and tablets. There’s no software to
-                                    install, so you can access it wherever you have an internet
-                                    connection.
-                                </p>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
+
+                    </MDBRow>
+                </MDBContainer>
+
+            </div>
+            {/* 
             <MDBContainer fluid className="mx-auto d-flex">
                 <MDBCard className='m-10 feature-card' >
                     <MDBCardBody className=''>
@@ -197,7 +171,7 @@ export default function HomePageInfo() {
                             pellentesque. Pulvinar elementum integer enim neque.                     </MDBCardText>
                         <MDBBtn className='btn-info'>More info</MDBBtn>                    </MDBCardBody>
                 </MDBCard>
-            </MDBContainer>
+            </MDBContainer> */}
         </div>
 
     );
