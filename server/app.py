@@ -7,6 +7,7 @@ from flask_jwt_extended import create_access_token, jwt_required, JWTManager
 from models import Therapist
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_bcrypt import check_password_hash, Bcrypt
+from textblob import TextBlob
 
 
 
@@ -309,6 +310,18 @@ def create_appointment(therapist_id):
         print(e)
         return jsonify({'error on back end' : str(e)}), 500
     # return jsonify({"message": "Appointment created successfully"})
+
+
+
+@app.route('/analyze', methods=['POST'])
+def analyze():
+    if request.method == 'POST':
+        uploaded_file = request.files['file']
+        if uploaded_file.filename != '':
+            text = uploaded_file.read().decode('utf-8')
+            analysis = TextBlob(text)
+            sentiment_score = analysis.sentiment.polarity
+            return f'Sentiment Score: {sentiment_score}'
 
 
 if __name__ == '__main__':

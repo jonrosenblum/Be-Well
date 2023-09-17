@@ -23,6 +23,7 @@ import MedicalRecords from "./Components/Pieces/MedicalRecords";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import TherapistHome from "./Routes/TherapistHome";
+import SentimentAnalysis from "./Components/Pieces/SentimentAnalysis"
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       //   path: '/patient/settings',
       //   element: <TherapistSettings />
       // }
+      {
+        path: "/sentiment",
+        element: <SentimentAnalysis />
+      }
     ],
   },
 ]);

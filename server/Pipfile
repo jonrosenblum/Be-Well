@@ -22,6 +22,7 @@ pandas = "*"
 python-dotenv = "*"
 Flask-Login = "*"
 flask-bcrypt="*"
+textblob = "*"
 flask-jwt-extended = "*"
 bcrypt = "*"
 

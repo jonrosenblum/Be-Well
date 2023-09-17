@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
-// import PatientSessionsModal from "./PatientSessionsModal";
-// import SessionUploadModal from "./SessionUploadModal";
-// import CreatePatientModal from "./CreatePatientModal";
-import { useAuthHook } from "../../Services/hooks";
+import PatientSessionsModal from "./PatientSessionsModal";
+import SessionUploadModal from "./SessionUploadModal";
+import CreatePatientModal from "./CreatePatientModal";
 import '../Styles/TherapistPortal.css'
 import { api } from "../../Services/api";
-import { MDBContainer, MDBCol, MDBCard, MDBRow, MDBCardText, MDBBadge, MDBCardTitle, MDBCardHeader, MDBBtn, MDBCardBody } from "mdb-react-ui-kit";
+import { MDBContainer, MDBCol, MDBCard, MDBRow, MDBCardText, MDBBadge, MDBCardTitle, MDBCardHeader, MDBCardBody } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
 
 export default function TherapistDashboard({ therapist }) {
-  const auth = useAuthHook();
   const [patients, setPatients] = useState(null);
-  // const [selectedPatient, setSelectedPatient] = useState(null);
-  // const [showPatientModal, setShowPatientModal] = useState(false);
-  // const [showSessionUploadModal, setShowSessionUploadModal] = useState(false);
-  // const [showCreatePatientModal, setShowCreatePatientModal] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [showPatientModal, setShowPatientModal] = useState(false);
+  const [showSessionUploadModal, setShowSessionUploadModal] = useState(false);
+  const [showCreatePatientModal, setShowCreatePatientModal] = useState(false);
 
   const loadPatients = useCallback(
     () => {
@@ -33,25 +31,25 @@ export default function TherapistDashboard({ therapist }) {
   }, [patients, loadPatients]);
 
   const handleMoreInfoClick = (patient) => {
-    // setSelectedPatient(patient);
-    // setShowPatientModal(true);
+    setSelectedPatient(patient);
+    setShowPatientModal(true);
   };
 
   const handleUploadSessionClick = (patient) => {
-    // setShowSessionUploadModal(true);
-    // setSelectedPatient(patient);
+    setShowSessionUploadModal(true);
+    setSelectedPatient(patient);
   };
 
   const handleCreatePatientClick = () => {
-    // setShowCreatePatientModal(true);
+    setShowCreatePatientModal(true);
   };
 
-  // const doClosePatientModal = (reload = false) => {
-  //   if (reload) {
-  //     loadPatients();
-  //   }
-  //   setShowCreatePatientModal(false);
-  // };
+  const doClosePatientModal = (reload = false) => {
+    if (reload) {
+      loadPatients();
+    }
+    setShowCreatePatientModal(false);
+  };
 
 
 
@@ -88,6 +86,41 @@ export default function TherapistDashboard({ therapist }) {
           <MDBCol size="4">
             <MDBCard background='info' className='text-body mb-3'>
               <MDBCardHeader>Header</MDBCardHeader>
+              <MDBCardBody>
+                <MDBCardTitle>Info card title</MDBCardTitle>
+                <MDBCardText>
+                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                </MDBCardText>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+        <MDBRow>
+          <MDBCol size="4">
+            <MDBCard background='info' className='text-body mb-3'>
+              <MDBCardHeader>Appointments</MDBCardHeader>
+              <MDBCardBody>
+                <MDBCardTitle>Info card title</MDBCardTitle>
+                <MDBCardText>
+                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                </MDBCardText>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+          <MDBCol size="4">
+            <MDBCard background='info' className='text-body mb-3'>
+              <MDBCardHeader>Header</MDBCardHeader>
+              <MDBCardBody>
+                <MDBCardTitle>Info card title</MDBCardTitle>
+                <MDBCardText>
+                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                </MDBCardText>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+          <MDBCol size="4">
+            <MDBCard background='info' className='text-body mb-3'>
+              <MDBCardHeader>Add New Patient</MDBCardHeader>
               <MDBCardBody>
                 <MDBCardTitle>Info card title</MDBCardTitle>
                 <MDBCardText>
@@ -173,19 +206,21 @@ export default function TherapistDashboard({ therapist }) {
                         Confirmed
                       </MDBBadge>
                     </td>
-                    <td className="d-flex">
-                      <Button className="btn-info" rounded size='sm' onClick={() => handleUploadSessionClick(patient)}>
-                        Upload New Session
-                      </Button>
-                      <Button className="btn-info" onClick={() => handleMoreInfoClick(patient)}>
-                        More Info
-                      </Button>
+                    <td>
+                      <div className="d-flex ">
+                        <Button className="btn-info" rounded size='sm' onClick={() => handleUploadSessionClick(patient)}>
+                          Upload New Session
+                        </Button>
+                        <Button className="btn-info" onClick={() => handleMoreInfoClick(patient)}>
+                          More Info
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {/* {showCreatePatientModal && (
+            {showCreatePatientModal && (
               <CreatePatientModal therapist={{ id: 1 }} onClose={doClosePatientModal} />
             )}
             {showPatientModal && (
@@ -200,7 +235,7 @@ export default function TherapistDashboard({ therapist }) {
                 show={showSessionUploadModal}
                 onClose={() => setShowSessionUploadModal(false)}
               />
-            )} */}
+            )}
           </MDBContainer>
         </MDBRow>
       </MDBContainer >
