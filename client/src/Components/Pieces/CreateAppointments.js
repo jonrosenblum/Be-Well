@@ -111,12 +111,34 @@ export default function CreateAppointments({ therapist, onClose }) {
         <div>
             <MDBRow>
                 <MDBCol>
-                    <h2>My Appointments</h2>
+                    <table class="table caption-top">
+                        <caption>
+                            Scheduled Appointments
+                        </caption>
+                        <thead className="table-dark">
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Appointment Date</th>
+                                <th>Appointment Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {appointments.map((appointment) => (
+                                <tr key={appointment.id}>
+                                    <td>{appointment.patient_id}</td>
+                                    <td>{appointment.appointment_date}</td>
+                                    <td>{appointment.appointment_time}</td>
+
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {/* <h2>My Appointments</h2>
                     <ul>
                         {appointments.map((appointment) => (
                             <li key={appointment.id}>{appointment.appointment_date} - {appointment.appointment_time}</li>
                         ))}
-                    </ul>
+                    </ul> */}
                 </MDBCol>
                 <MDBCol>
                     <h2>Schedule Appointment</h2>
