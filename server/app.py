@@ -280,10 +280,9 @@ def create_patient(therapist_id):
         return jsonify({'error': str(e)}), 500
 
 
-@app.get('/therapist/<therapist_id>/appointments')
+@app.post('/therapist/<therapist_id>/appointments')
 @jwt_required()
 def create_appointment(therapist_id):
-    print(f"\nTHIS IS MY CURRENT USER ID: {therapist_id}\n")
     try:
         data = request.json 
         therapist_id = get_jwt_identity()
@@ -309,6 +308,31 @@ def create_appointment(therapist_id):
         return jsonify({'error on back end' : str(e)}), 500
     # return jsonify({"message": "Appointment created successfully"})
 
+
+@app.route('/therapist/<therapist_id>/appointments/')
+@jwt_required()
+def get_appointments(therapist_id):
+        therapist_id = get_jwt_identity()
+        appointments = Appointments.query.filter(
+        Appointments.therapist_id == therapist_id).all()
+
+        session_list_serialized = [
+        {
+            'id': appointment.id,
+            'patient_id': appointment.patient_id,
+            'appointment_time': appointment.appointment_time,
+            'appointment_date': appointment.appointment_date,
+        }
+        for appointment in appointments
+    ]
+        print(session_list_serialized)
+        resp = make_response(jsonify(session_list_serialized), 200)
+        resp.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+        resp.headers['Access-Control-Allow-Credentials'] =  True
+        return jsonify(session_list_serialized)
+
+
+    
 
 
 @app.route('/analyze', methods=['POST'])

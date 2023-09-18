@@ -1,12 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Form, Button, Dropdown, Row, Col } from "react-bootstrap";
-import TherapistHeader from "./SideNav";
-import UserProfile from "./UserProfile";
 import { useAuthHook } from "../../Services/hooks";
+import { api } from "../../Services/api";
+import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 export default function CreateAppointments({ therapist, onClose }) {
+    const [patients, setPatients] = useState([])
+    const [appointments, setAppointments] = useState([]); // New state to store appointments
+
 
     const auth = useAuthHook();
+
+    const loadPatients = useEffect(
+        () => {
+            api.getPatients()
+                .then((data) => { setPatients(data) })
+                .catch((error) => console.error("Error:", error))
+        },
+        []
+    );
+
+
+    useEffect(() => {
+        if (patients) {
+            return;
+        }
+        loadPatients();
+    }, [patients, loadPatients]);
+
+    useEffect(() => {
+        try {
+            fetch(`/therapist/${auth.user.id}/appointments`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${auth.access_token}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => setAppointments(data))
+
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+
+    }, [])
+
+
 
     const [appointment, setAppointment] = useState({
         therapist_id: auth.user.id,
@@ -14,8 +54,6 @@ export default function CreateAppointments({ therapist, onClose }) {
         appointment_time: "",
         patient_id: "",
     });
-    console.log(`APPOINTMENT DATA STRUCTURE:`)
-    console.log(appointment)
 
 
     const handleInputChange = (e) => {
@@ -41,17 +79,12 @@ export default function CreateAppointments({ therapist, onClose }) {
                     Authorization: `Bearer ${auth.access_token}`,
                 },
             })
-                // .then(response => response.json())
                 .then(data => {
-                    console.log("whoooooo")
-                    console.log(data)
+                    return data
                 })
 
-
-            console.log(`THIS IS MY RESPONSE FROM THERAPIST POSTING`)
-            console.log(response)
-
-            if (response.ok) {
+            //console.log(response)
+            if (response?.ok) {
                 setAppointment({
                     appointment_date: "",
                     appointment_time: "",
@@ -72,69 +105,65 @@ export default function CreateAppointments({ therapist, onClose }) {
 
 
 
+
+
     return (
         <div>
-            <Row>
-                <Col xs={2}>
-                    <TherapistHeader />
-                </Col>
-                <Col xs={10}>
-                    <UserProfile />
-                    <Row>
-                        <h2>Past Appointments</h2>
-                        <table>
-                            {/*We need to display past appointment data here in table*/}
-                        </table>
-                    </Row>
-                    <Row>
-                        <h2>Upcoming Appointments</h2>
-                        <table>
-                            {/*We need to display upcoming appointment data here in table*/}
-                        </table>
-                    </Row>
-                    <Row>
-                        <h2>Schedule Appointment</h2>
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="appointment_date">
-                                <Form.Label>Date:</Form.Label>
-                                <Form.Control
-                                    type="date"
-                                    name="appointment_date"
-                                    value={appointment.appointment_date}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="appointment_time">
-                                <Form.Label>Time:</Form.Label>
-                                <Form.Control
-                                    type="time"
-                                    name="appointment_time"
-                                    value={appointment.appointment_time}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="patient_id">
-                                <Form.Label>Patient ID:</Form.Label>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="secondary" id="patient-dropdown">
-                                        {appointment.patient_id ? `Selected Patient ID: ${appointment.patient_id}` : "Select Patient"}
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        {/* Replace this with patient data */}
-                                        <Dropdown.Item onClick={() => handlePatientSelect(1)}>Patient ID 1</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => handlePatientSelect(2)}>Patient ID 2</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Schedule Appointment
-                            </Button>
-                        </Form>
-                    </Row>
-                </Col>
-            </Row>
-        </div>
+            <MDBRow>
+                <MDBCol>
+                    <h2>My Appointments</h2>
+                    <ul>
+                        {appointments.map((appointment) => (
+                            <li key={appointment.id}>{appointment.appointment_date} - {appointment.appointment_time}</li>
+                        ))}
+                    </ul>
+                </MDBCol>
+                <MDBCol>
+                    <h2>Schedule Appointment</h2>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="patient_id">
+                            <Form.Label>Patient Name:</Form.Label>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="secondary" id="patient-dropdown">
+                                    {appointment.patient_id ? `Selected Patient ID: ${appointment.patient_id}` : "Select Patient"}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    {/* Replace this with patient data */}
+                                    {patients.map(patient => <Dropdown.Item key={patient.id} onClick={() => handlePatientSelect(patient.id)}>{patient.first_name}</Dropdown.Item>)}
+
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Form.Group>
+                        <Form.Group controlId="appointment_date">
+                            <Form.Label>Date:</Form.Label>
+                            <Form.Control
+                                type="date"
+                                name="appointment_date"
+                                value={appointment.appointment_date}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="appointment_time">
+                            <Form.Label>Time:</Form.Label>
+                            <Form.Control
+                                type="time"
+                                name="appointment_time"
+                                value={appointment.appointment_time}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Schedule Appointment
+                        </Button>
+                    </Form>
+
+                </MDBCol>
+            </MDBRow>
+
+        </div >
+
     );
 }
