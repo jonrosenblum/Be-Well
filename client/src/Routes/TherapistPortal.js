@@ -5,12 +5,14 @@ import {
     MDBContainer,
     MDBCol,
 } from 'mdb-react-ui-kit';
+import PortalNav from "../Components/Pieces/PortalNav";
 
 
 
 export default function TherapistPortal() {
     return (
         <div>
+            <PortalNav />
             <SideNav />
             <MDBContainer>
                 <MDBCol>

@@ -5,9 +5,7 @@ import UserProfile from "./UserProfile";
 import { useAuthHook } from "../../Services/hooks";
 
 export default function CreateAppointments({ therapist, onClose }) {
-    // onClose = getOutletContext()
-    console.log(`THERAPIST PROP:`)
-    console.log(therapist)
+
     const auth = useAuthHook();
 
     const [appointment, setAppointment] = useState({
