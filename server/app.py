@@ -226,14 +226,12 @@ def upload_session(patient_id):
         therapist_id = get_jwt_identity()
         session_date = datetime.strptime(data.get('sessionDate'), '%Y-%m-%d')
         transcript = data.get('transcript')
-        mp3_file = data.get('mp3File')
 
         session = Session(
             therapist_id=therapist_id,
             patient_id=patient_id,
             session_date=session_date,
             transcript=transcript,
-            mp3_file=mp3_file, 
         )
 
         db.session.add(session)

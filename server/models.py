@@ -16,7 +16,6 @@ class Session(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
     session_date = db.Column(db.Date, nullable=False)
     transcript = db.Column(db.Text, nullable=False)
-    mp3_file = db.Column(db.String(255), nullable=True)  # Modify data type accordingly
 
     therapist = db.relationship('Therapist', backref='sessions')
     patient = db.relationship('Patient', backref='sessions')
@@ -29,7 +28,6 @@ class Session(db.Model):
             'patient_id': self.patient_id,
             'session_date': self.session_date.isoformat(),  # Convert Date to string
             'transcript': self.transcript,
-            'mp3_file': self.mp3_file,
         }
 
 
