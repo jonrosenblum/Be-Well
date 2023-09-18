@@ -100,7 +100,6 @@ session1 = Session(
     patient=patient1,
     session_date=session_date_1,  
     transcript='Session 1 transcript',
-    mp3_file='session1.mp3'  
 )
 
 session2 = Session(
@@ -108,7 +107,7 @@ session2 = Session(
     patient=patient2,
     session_date=session_date_2,  
     transcript="Session 2 transcript",
-    mp3_file='session2.mp3'  
+    
 )
 
 session3 = Session(
@@ -116,7 +115,7 @@ session3 = Session(
     patient=patient3,
     session_date=session_date_3,  
     transcript='Session 3 transcript',
-    mp3_file='session3.mp3'  
+    
 )
 
 session4 = Session(
@@ -124,7 +123,7 @@ session4 = Session(
     patient=patient4,
     session_date=session_date_4, 
     transcript="Session 4 transcript",
-    mp3_file='session4.mp3'  
+    
 )
 
 session5 = Session(
@@ -132,7 +131,7 @@ session5 = Session(
     patient=patient1,
     session_date=session_date_5,  
     transcript="Session 5 transcript",
-    mp3_file='session5.mp3' 
+  
 )
 
 metric1 = Metrics(

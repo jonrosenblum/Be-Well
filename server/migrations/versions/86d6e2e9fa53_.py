@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: b4fb755eaa02
+Revision ID: 86d6e2e9fa53
 Revises: 
-Create Date: 2023-09-11 13:28:30.497825
+Create Date: 2023-09-18 10:48:07.220239
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b4fb755eaa02'
+revision = '86d6e2e9fa53'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -48,8 +48,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('therapist_id', sa.Integer(), nullable=False),
     sa.Column('patient_id', sa.Integer(), nullable=False),
-    sa.Column('appointment_date', sa.Date(), nullable=False),
-    sa.Column('appointment_time', sa.Time(), nullable=False),
+    sa.Column('appointment_date', sa.String(), nullable=False),
+    sa.Column('appointment_time', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['patient_id'], ['patient.id'], name=op.f('fk_appointments_patient_id_patient')),
     sa.ForeignKeyConstraint(['therapist_id'], ['therapist.id'], name=op.f('fk_appointments_therapist_id_therapist')),
     sa.PrimaryKeyConstraint('id')
@@ -60,7 +60,6 @@ def upgrade():
     sa.Column('patient_id', sa.Integer(), nullable=False),
     sa.Column('session_date', sa.Date(), nullable=False),
     sa.Column('transcript', sa.Text(), nullable=False),
-    sa.Column('mp3_file', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['patient_id'], ['patient.id'], name=op.f('fk_session_patient_id_patient')),
     sa.ForeignKeyConstraint(['therapist_id'], ['therapist.id'], name=op.f('fk_session_therapist_id_therapist')),
     sa.PrimaryKeyConstraint('id')
