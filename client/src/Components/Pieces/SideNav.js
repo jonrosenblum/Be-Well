@@ -23,10 +23,7 @@ export default function SideNav() {
   const navigate = useNavigate();
   const [showLogoutSuccess, setShowLogoutSuccess] = useState(false);
 
-  const handleLogout = async (title, e) => {
-    if (title === 'Logout') {
-      e.preventDefault()
-    }
+  const handleLogout = async () => {
     try {
       const response = await fetch("/therapist/logout", {
         method: "POST",
@@ -61,29 +58,35 @@ export default function SideNav() {
         <MDBSideNavMenu>
           <MDBSideNavItem>
             <MDBSideNavLink>
-              <MDBIcon far icon='smile' className='fa-fw me-3' />
+              <MDBIcon fas icon='home' className='fa-fw me-3' />
               <span className='sidenav-non-slim'>Home</span>
             </MDBSideNavLink>
           </MDBSideNavItem>
           <MDBSideNavItem>
             <MDBSideNavLink icon='angle-down' shouldBeExpanded={slimCollapse1} onClick={() => setSlimCollapse1(!slimCollapse1)}>
-              <MDBIcon fas icon='grin' className='fa-fw me-3' />
-              <span className='sidenav-non-slim'>Category 1</span>
+              <MDBIcon fas icon='calendar-alt' className='fa-fw me-3' />
+              <span className='sidenav-non-slim'>Appointments</span>
             </MDBSideNavLink>
             <MDBSideNavCollapse show={slimCollapse1}>
-              <MDBSideNavLink>Link 2</MDBSideNavLink>
-              <MDBSideNavLink>Link 3</MDBSideNavLink>
+              <MDBSideNavLink>My Appointments</MDBSideNavLink>
+              <MDBSideNavLink>New Appointments</MDBSideNavLink>
             </MDBSideNavCollapse>
           </MDBSideNavItem>
           <MDBSideNavItem>
             <MDBSideNavLink icon='angle-down' shouldBeExpanded={slimCollapse2} onClick={() => setSlimCollapse2(!slimCollapse2)}>
-              <MDBIcon fas icon='grin' className='fa-fw me-3' />
-              <span className='sidenav-non-slim'>Category 2</span>
+              <MDBIcon fas icon='user' className='fa-fw me-3' />
+              <span className='sidenav-non-slim'>Account</span>
             </MDBSideNavLink>
             <MDBSideNavCollapse show={slimCollapse2}>
-              <MDBSideNavLink>Link 4</MDBSideNavLink>
-              <MDBSideNavLink>Link 5</MDBSideNavLink>
+              <MDBSideNavLink>Billing</MDBSideNavLink>
+              <MDBSideNavLink>Settings</MDBSideNavLink>
             </MDBSideNavCollapse>
+          </MDBSideNavItem>
+          <MDBSideNavItem>
+            <MDBSideNavLink onClick={handleLogout}>
+              <MDBIcon fas icon='sign-out-alt' className='fa-fw me-3' />
+              <span className='sidenav-non-slim'>Logout</span>
+            </MDBSideNavLink>
           </MDBSideNavItem>
         </MDBSideNavMenu>
       </MDBSideNav>

@@ -60,77 +60,28 @@ export default function TherapistDashboard({ therapist }) {
   return (
     <>
       <MDBContainer>
-        <MDBRow>
-          <MDBCol size="4">
+        <MDBRow className="justify-content-center">
+          <MDBCol size="6">
             <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardHeader>Appointments</MDBCardHeader>
-              <MDBCardBody>
-                <MDBCardTitle>Info card title</MDBCardTitle>
+              <MDBCardBody className="text-center">
+                <MDBCardTitle>Appointments</MDBCardTitle>
                 <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                  Schedule a new appointment or view schedule
                 </MDBCardText>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-          <MDBCol size="4">
+          <MDBCol size="6">
             <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardHeader>Header</MDBCardHeader>
-              <MDBCardBody>
-                <MDBCardTitle>Info card title</MDBCardTitle>
+              <MDBCardBody className="text-center">
+                <MDBCardTitle>Patient Records</MDBCardTitle>
                 <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol size="4">
-            <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardHeader>Header</MDBCardHeader>
-              <MDBCardBody>
-                <MDBCardTitle>Info card title</MDBCardTitle>
-                <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                  View patient records
                 </MDBCardText>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
         </MDBRow>
-        <MDBRow>
-          <MDBCol size="4">
-            <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardHeader>Appointments</MDBCardHeader>
-              <MDBCardBody>
-                <MDBCardTitle>Info card title</MDBCardTitle>
-                <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol size="4">
-            <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardHeader>Header</MDBCardHeader>
-              <MDBCardBody>
-                <MDBCardTitle>Info card title</MDBCardTitle>
-                <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol size="4">
-            <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardHeader>Add New Patient</MDBCardHeader>
-              <MDBCardBody>
-                <MDBCardTitle>Info card title</MDBCardTitle>
-                <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-
         <MDBContainer>
           <MDBRow >
             <MDBCol className="ms-auto text-end">
@@ -139,35 +90,6 @@ export default function TherapistDashboard({ therapist }) {
           </MDBRow>
 
         </MDBContainer>
-
-        {/* <MDBContainer>
-          <MDBRow>
-            <MDBCol size="4" className="mb-4">
-              <MDBCard>
-                <MDBCardBody>
-                  <MDBCardTitle>Upcoming Sessions</MDBCardTitle>
-                  <MDBCardText>
-                  </MDBCardText>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol size="4" className="mb-4">
-              <MDBCard>
-                <MDBCardBody>
-                  <MDBCardTitle>Dashboard</MDBCardTitle>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol size="4" className="mb-4">
-              <MDBCard>
-                <MDBCardBody>
-                  <MDBCardTitle>Send Invoice</MDBCardTitle>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer> */}
-
         <MDBRow>
           <MDBContainer fluid>
             <table className="table patient-table">
