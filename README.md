@@ -14,7 +14,7 @@
 <h4 align="center">A cutting-edge Electronic Health Records (EHR) system that revolutionizes healthcare management. Empowering healthcare providers to deliver exceptional care, our platform ensures secure, efficient, and accessible data management, enabling better decision-making, improved patient outcomes, and enhanced collaboration among healthcare teams.</h4>
 
 <p align="center">
-    <img src="./assets/projectbanner.png" alt="Project Banner" width=60% height=60%/>
+    <img src="./client/src//Components/Pieces/Assets/projectbanner.png" alt="Project Banner" width=60% height=60%/>
 </p>
 
 ## Table of Contents
