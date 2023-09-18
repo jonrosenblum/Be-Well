@@ -7,8 +7,6 @@ import {
     MDBCardBody,
     MDBCardTitle,
     MDBCardText,
-    MDBBtn,
-    MDBCardFooter,
     MDBCardImage,
     MDBRow,
     MDBCol,
@@ -23,7 +21,7 @@ export default function HomePageInfo() {
 
     return (
         <div>
-            <div className='custom-div'>
+            <div className='custom-div mb-2'>
                 <MDBContainer className="col-xxl-8 py-5">
                     <MDBRow className="flex-lg-row-reverse align-items-center g-5 py-5">
                         <MDBCol className='col-10 col-sm-8 col-lg-6'>
@@ -45,7 +43,7 @@ export default function HomePageInfo() {
                 </MDBContainer>
             </div>
 
-            <div className='custom-div'>
+            <div className='custom-div mt-2 mb-2'>
                 <MDBContainer className="col-xxl-8 py-5">
                     <MDBRow className="g-5 py-5">
                         <MDBCard className='mx-auto' style={{ width: '18rem' }}>
@@ -127,51 +125,6 @@ export default function HomePageInfo() {
                 </MDBContainer>
 
             </div>
-            {/* 
-            <MDBContainer fluid className="mx-auto d-flex">
-                <MDBCard className='m-10 feature-card' >
-                    <MDBCardBody className=''>
-                        <MDBCardTitle> Session Management </MDBCardTitle>
-                        <MDBCardText>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus. Semper auctor neque vitae tempus quam
-                            pellentesque. Pulvinar elementum integer enim neque.
-                        </MDBCardText>
-                        <MDBBtn className='btn-info'>More info</MDBBtn>
-                    </MDBCardBody>
-                </MDBCard>
-                <MDBCard className='m-10 feature-card' >
-                    <MDBCardBody>
-                        <MDBCardTitle> Scheduling </MDBCardTitle>
-                        <MDBCardText>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus. Semper auctor neque vitae tempus quam
-                            pellentesque. Pulvinar elementum integer enim neque.                      </MDBCardText>
-                        <MDBBtn className='btn-info'>More info</MDBBtn>
-                    </MDBCardBody>
-                </MDBCard>
-            </MDBContainer>
-            <MDBContainer fluid className="mx-auto d-flex">
-                <MDBCard className='m-10 feature-card' >
-                    <MDBCardBody>
-                        <MDBCardTitle>Patient Portals </MDBCardTitle>
-                        <MDBCardText>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus. Semper auctor neque vitae tempus quam
-                            pellentesque. Pulvinar elementum integer enim neque.                       </MDBCardText>
-                        <MDBBtn className='btn-info'>More info</MDBBtn>
-                    </MDBCardBody>
-                </MDBCard>
-                <MDBCard className='m-10 feature-card' >
-                    <MDBCardBody>
-                        <MDBCardTitle> Sentiment Analysis  </MDBCardTitle>
-                        <MDBCardText>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua. Tortor at auctor urna nunc id cursus metus. Semper auctor neque vitae tempus quam
-                            pellentesque. Pulvinar elementum integer enim neque.                     </MDBCardText>
-                        <MDBBtn className='btn-info'>More info</MDBBtn>                    </MDBCardBody>
-                </MDBCard>
-            </MDBContainer> */}
         </div>
 
     );

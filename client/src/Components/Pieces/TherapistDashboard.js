@@ -130,7 +130,7 @@ export default function TherapistDashboard({ therapist }) {
                     </td>
                     <td>
                       <div className="d-flex ">
-                        <Button className="btn-info" rounded size='sm' onClick={() => handleUploadSessionClick(patient)}>
+                        <Button className="btn-info" onClick={() => handleUploadSessionClick(patient)}>
                           Upload New Session
                         </Button>
                         <Button className="btn-info" onClick={() => handleMoreInfoClick(patient)}>
