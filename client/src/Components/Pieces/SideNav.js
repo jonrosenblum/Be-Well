@@ -57,7 +57,7 @@ export default function SideNav() {
       >
         <MDBSideNavMenu>
           <MDBSideNavItem>
-            <MDBSideNavLink>
+            <MDBSideNavLink onClick={() => { navigate('/therapist/portal') }}>
               <MDBIcon fas icon='home' className='fa-fw me-3' />
               <span className='sidenav-non-slim'>Home</span>
             </MDBSideNavLink>
@@ -68,8 +68,8 @@ export default function SideNav() {
               <span className='sidenav-non-slim'>Appointments</span>
             </MDBSideNavLink>
             <MDBSideNavCollapse show={slimCollapse1}>
-              <MDBSideNavLink>My Appointments</MDBSideNavLink>
-              <MDBSideNavLink>New Appointments</MDBSideNavLink>
+              <MDBSideNavLink onClick={() => { navigate('/therapist/appointments') }}>My Appointments</MDBSideNavLink>
+              <MDBSideNavLink onClick={() => { navigate('/therapist/appointments') }}>Schedule Appointment</MDBSideNavLink>
             </MDBSideNavCollapse>
           </MDBSideNavItem>
           <MDBSideNavItem>
@@ -78,8 +78,8 @@ export default function SideNav() {
               <span className='sidenav-non-slim'>Account</span>
             </MDBSideNavLink>
             <MDBSideNavCollapse show={slimCollapse2}>
-              <MDBSideNavLink>Billing</MDBSideNavLink>
-              <MDBSideNavLink>Settings</MDBSideNavLink>
+              <MDBSideNavLink onClick={() => { navigate('/therapist/billing') }}>Billing</MDBSideNavLink>
+              <MDBSideNavLink onClick={() => { navigate('/therapist/settings') }}>Settings</MDBSideNavLink>
             </MDBSideNavCollapse>
           </MDBSideNavItem>
           <MDBSideNavItem>
