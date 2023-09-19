@@ -19,7 +19,7 @@ import LogOut from "./Routes/LogOut";
 import PatientPortal from "./Routes/PatientPortal";
 import { store } from "./Services/store";
 import { Provider } from "react-redux";
-import MedicalRecords from "./Components/Pieces/MedicalRecords";
+import PatientRecords from "./Components/Pieces/PatientRecords";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
@@ -75,8 +75,8 @@ const router = createBrowserRouter([
         element: <Appointments />,
       },
       {
-        path: "therapist/medical-records",
-        element: <MedicalRecords />,
+        path: "therapist/patient-records",
+        element: <PatientRecords />,
       },
       {
         path: "therapist/billing",
