@@ -1,4 +1,4 @@
-from app import app, db, Therapist, Patient, Session, Metrics, Appointments
+from app import app, db, Therapist, Patient, Session, Appointments
 from datetime import date, datetime
 from flask_bcrypt import Bcrypt
 
@@ -134,10 +134,6 @@ session5 = Session(
   
 )
 
-metric1 = Metrics(
-    session=session1,
-    measurables='Metric 1 data'
-)
 
 appointment1 = Appointments(
     therapist_id=1,
@@ -159,7 +155,6 @@ db.session.add(session2)
 db.session.add(session3)
 db.session.add(session4)
 db.session.add(session5)
-db.session.add(metric1)
 
 db.session.commit()
 

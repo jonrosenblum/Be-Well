@@ -1,85 +1,71 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Modal, Button } from "react-bootstrap";
-import "../Styles/PatientDashboard.css"; // Create a CSS file for styling (e.g., PatientDashboard.css)
-
+import React, { useState, useCallback, useEffect } from "react";
+import { MDBRow, MDBCol, MDBBadge, MDBTable, MDBCard, MDBCardText, MDBCardBody, MDBCardTitle, MDBBtn } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
+import { api } from "../../Services/api";
 export default function PatientDashboard() {
-    const [showModal, setShowModal] = useState(null);
+    const [sessions, setSessions] = useState(null);
 
-    const handleModalOpen = (modalId) => {
-        setShowModal(modalId);
-    };
 
-    const handleModalClose = () => {
-        setShowModal(null);
-    };
+
 
 
 
     return (
-        <Container className="dashboard-container">
+        <>
+            <MDBRow className="justify-content-center">
+                <MDBCol size="6">
+                    <Link to='/patient/appointments'>
+                        <MDBCard background='info' className='text-body mb-3'>
+                            <MDBCardBody className="text-center">
+                                <MDBCardTitle>Appointments</MDBCardTitle>
+                                <MDBCardText>
+                                    Schedule a new appointment or view past/future appointments
+                                </MDBCardText>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </Link>
+                </MDBCol>
+            </MDBRow >
+            <MDBRow>
+                <MDBTable striped hover className="table session-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* {patients.map((patient) => (
+                            <tr key={patient.id}>
+                                <td>{patient.id}</td>
+                                <td>
+                                    <div className="d-flex align-items-center">
+                                        <img
+                                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                            alt=""
+                                            style={{ width: "45px", height: "45px" }}
+                                            className="rounded-circle"
+                                        />
+                                        <div className="ms-3">
+                                            <p className="fw-bold mb-1">{patient.first_name} {patient.last_name}</p>
+                                            <p className="text-muted mb-0">{patient.email}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Appointment Date</td>
+                                <td>Appointment Time</td>
+                                <td>
+                                    <MDBBadge color="success" pill>
+                                        Confirmed
+                                    </MDBBadge>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        ))} */}
+                    </tbody>
+                </MDBTable>
+            </MDBRow>
 
-
-            <Row>
-                {[1, 2, 3, 4].map((item) => (
-                    <Col key={item} xs={12} md={3} className="dashboard-item">
-                        <div
-                            className="dashboard-item-content"
-                            onClick={() => handleModalOpen(item)}
-                        >
-                            {getItemText(item)}
-                        </div>
-                    </Col>
-                ))}
-            </Row>
-
-            {[1, 2, 3, 4].map((item) => (
-                <Modal
-                    key={item}
-                    show={showModal === item}
-                    onHide={handleModalClose}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>{getItemText(item)}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>{getModalContent(item)}</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleModalClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary">Save Changes</Button>
-                    </Modal.Footer>
-                </Modal>
-            ))}
-        </Container>
-    );
-}
-
-function getItemText(item) {
-    switch (item) {
-        case 1:
-            return "Medical Records";
-        case 2:
-            return "Schedule an Appointment";
-        case 3:
-            return "Contact Therapist";
-        case 4:
-            return "Settings and Billing";
-        default:
-            return "";
-    }
-}
-
-function getModalContent(item) {
-    switch (item) {
-        case 1:
-            return "This is the content for Medical Records.";
-        case 2:
-            return "This is the content for Scheduling an Appointment.";
-        case 3:
-            return "This is the content for Contacting Therapist.";
-        case 4:
-            return "This is the content for Settings and Billing.";
-        default:
-            return "";
-    }
+        </>
+    )
 }

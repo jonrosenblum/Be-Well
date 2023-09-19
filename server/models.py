@@ -19,7 +19,7 @@ class Session(db.Model):
 
     therapist = db.relationship('Therapist', backref='sessions')
     patient = db.relationship('Patient', backref='sessions')
-    metrics = db.relationship('Metrics', backref='session')
+  
 
     def serialize(self):
         return {
@@ -79,13 +79,6 @@ class Patient(db.Model):
             'phone_number': self.phone_number,
             'therapist_id': self.therapist_id,
         }
-
-class Metrics(db.Model):
-    __tablename__ = 'metric'
-    id = db.Column(db.Integer, primary_key=True)
-    session_id = db.Column(db.Integer, db.ForeignKey('session.id'), unique=True, nullable=False)
-    measurables = db.Column(db.String(100), nullable=False)
-
 
 class Appointments(db.Model):
     __tablename__ = 'appointments'

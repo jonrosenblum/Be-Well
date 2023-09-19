@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
-from models import db, Therapist, Patient, Session, Metrics, Appointments
+from models import db, Therapist, Patient, Session, Appointments
 from flask_cors import CORS
 from datetime import datetime
 from flask_jwt_extended import create_access_token, jwt_required, JWTManager
@@ -345,6 +345,9 @@ def analyze():
             analysis = TextBlob(text)
             sentiment_score = analysis.sentiment.polarity
             return f'Sentiment Score: {sentiment_score}'
+        
+
+# @app.route('patient/<patient_id>/sessions')
 
 
 if __name__ == '__main__':

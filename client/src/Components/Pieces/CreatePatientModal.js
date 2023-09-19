@@ -55,7 +55,7 @@ export default function CreatePatientModal({ therapist, onClose }) {
 
     return (
         <MDBContainer>
-            <Modal show={true} onHide={onClose}>
+            <Modal size='md' show={true} onHide={onClose}>
                 <div className="new-patient-header">
                     <Modal.Header closeButton>
                         <Modal.Title  >Create New Patient</Modal.Title>

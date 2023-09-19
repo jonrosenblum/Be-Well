@@ -15,6 +15,15 @@ export default function PatientSessionsModal({ patient, onClose }) {
     }, [patient]);
 
 
+
+
+    // useEffect(() => {
+    //     if (patient) {
+    //         fetch()
+
+    //     }
+    // }, []);
+
     return (
         <Modal size="lg" show={true} onHide={onClose}>
             <Modal.Header closeButton>

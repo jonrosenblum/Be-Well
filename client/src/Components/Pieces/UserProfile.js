@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 import PatientMedicalHistory from "./PatientMedicalHistory"; // Import the new component
 import { api } from "../../Services/api";
+import { MDBCard, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 
 export default function UserProfile() {
     /** @typedef {import("../../Services/authSlice").User} Patient */
@@ -35,84 +36,81 @@ export default function UserProfile() {
 
     return (
         <Container fluid>
-
-            <Row>
-                <Col>
+            <>
+                <MDBRow>
                     <Form.Select aria-label="Default select example" onChange={(e) => handlePatientSelect(e.target.value)}>
                         <option>Open this select menu</option>
-                        {patients?.map(patient => <option value={patient.id}>{patient.last_name}</option>)}
+                        {patients?.map(patient => <option value={patient.id}>{patient.first_name} {patient.last_name}</option>)}
                     </Form.Select>
-                </Col>
-            </Row>
-
-
-            <Card>
-                <Card.Body>
-                    {
-                        !selectedPatient ? <> Select a patient to view details</> : <>
-                            <Row>
-                                <Col md={3}>
-                                    <strong>Name:</strong>
-                                </Col>
-                                <Col md={3}>
-                                    <span>{selectedPatient.first_name} {selectedPatient.last_name}</span>
-                                </Col>
-                                <Col md={3}>
-                                    <strong>Email:</strong>
-                                </Col>
-                                <Col md={3}>
-                                    <span>{selectedPatient.email}</span>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={3}>
-                                    <strong>Phone Number:</strong>
-                                </Col>
-                                <Col md={3}>
-                                    <span>{selectedPatient.phone}</span>
-                                </Col>
-                                <Col md={3}>
-                                    <strong>ID:</strong>
-                                </Col>
-                                <Col md={3}>
-                                    <span>{selectedPatient.id}</span>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={3}>
-                                    <strong>Address:</strong>
-                                </Col>
-                                <Col md={3}>
-                                    <span>{selectedPatient.address}</span>
-                                </Col>
-                                <Col md={3}>
-                                    <strong>Date of Birth:</strong>
-                                </Col>
-                                <Col md={3}>
-                                    <span>{selectedPatient.dob}</span>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={3}>
-                                    <strong>Age:</strong>
-                                </Col>
-                                <Col md={3}>
-                                    <span>{selectedPatient.age}</span>
-                                </Col>
-                            </Row>
-
-
-                        </>
-                    }
-                </Card.Body>
-            </Card>
-
+                </MDBRow>
+            </>
             {selectedPatient &&
                 <Card>
                     <Card.Body>
-                        {/* Render the PatientMedicalHistory component */}
                         <PatientMedicalHistory patient={selectedPatient} /></Card.Body>
                 </Card>}
+            <MDBContainer>
+
+                {
+                    !selectedPatient ? <> Select a patient to view details</> : <>
+                        <Row>
+                            <Col md={3}>
+                                <strong>Name:</strong>
+                            </Col>
+                            <Col md={3}>
+                                <span>{selectedPatient.first_name} {selectedPatient.last_name}</span>
+                            </Col>
+                            <Col md={3}>
+                                <strong>Email:</strong>
+                            </Col>
+                            <Col md={3}>
+                                <span>{selectedPatient.email}</span>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={3}>
+                                <strong>Phone Number:</strong>
+                            </Col>
+                            <Col md={3}>
+                                <span>{selectedPatient.phone}</span>
+                            </Col>
+                            <Col md={3}>
+                                <strong>ID:</strong>
+                            </Col>
+                            <Col md={3}>
+                                <span>{selectedPatient.id}</span>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={3}>
+                                <strong>Address:</strong>
+                            </Col>
+                            <Col md={3}>
+                                <span>{selectedPatient.address}</span>
+                            </Col>
+                            <Col md={3}>
+                                <strong>Date of Birth:</strong>
+                            </Col>
+                            <Col md={3}>
+                                <span>{selectedPatient.dob}</span>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={3}>
+                                <strong>Age:</strong>
+                            </Col>
+                            <Col md={3}>
+                                <span>{selectedPatient.age}</span>
+                            </Col>
+                        </Row>
+
+
+                    </>
+                }
+
+            </MDBContainer>
+
+
 
         </Container>
     );

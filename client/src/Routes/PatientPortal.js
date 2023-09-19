@@ -1,35 +1,20 @@
 import React from "react";
-import { Row, Col } from 'react-bootstrap';
 import PatientDashboard from "../Components/Pieces/PatientDashboard";
 import { useAuthHook } from "../Services/hooks";
+import SideNavPatient from "../Components/Pieces/SideNavPatient"
+import { MDBCol, MDBContainer } from "mdb-react-ui-kit";
 
 
 
-export default function TherapistPortal() {
+export default function PatientPortal() {
     return (
         <div>
-            <Row>
-                <Col xs={1}>
-                </Col>
-                <Col xs={1}>
-                    <h2>Hello, "Patient First Name"</h2>
-                </Col>
-                <Col xs={9
-                }>
+            <SideNavPatient />
+            <MDBContainer>
+                <MDBCol>
                     <PatientDashboard />
-                </Col>
-            </Row>
+                </MDBCol>
+            </MDBContainer>
         </div >
     )
 }
-
-
-// function Portal() {
-//     const auth = useAuthHook()
-
-//     if (auth.userType === 'patient'){
-//         return <PatientPoral/>
-//     }
-
-//     return <TherapistPortal />
-// }
