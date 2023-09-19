@@ -4,8 +4,9 @@ import SessionUploadModal from "./SessionUploadModal";
 import CreatePatientModal from "./CreatePatientModal";
 import '../Styles/TherapistPortal.css'
 import { api } from "../../Services/api";
-import { MDBContainer, MDBCol, MDBCard, MDBRow, MDBCardText, MDBBadge, MDBCardTitle, MDBCardHeader, MDBCardBody } from "mdb-react-ui-kit";
+import { MDBContainer, MDBCol, MDBCard, MDBRow, MDBCardText, MDBBadge, MDBCardTitle, MDBCardHeader, MDBCardBody, MDBTable } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function TherapistDashboard({ therapist }) {
   const [patients, setPatients] = useState(null);
@@ -62,37 +63,42 @@ export default function TherapistDashboard({ therapist }) {
       <MDBContainer>
         <MDBRow className="justify-content-center">
           <MDBCol size="6">
-            <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardBody className="text-center">
-                <MDBCardTitle>Appointments</MDBCardTitle>
-                <MDBCardText>
-                  Schedule a new appointment or view schedule
-                </MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
+            <Link to='/therapist/appointments'>
+              <MDBCard background='info' className='text-body mb-3'>
+                <MDBCardBody className="text-center">
+                  <MDBCardTitle>Appointments</MDBCardTitle>
+                  <MDBCardText>
+                    Schedule a new appointment or view schedule
+                  </MDBCardText>
+                </MDBCardBody>
+              </MDBCard>
+            </Link>
           </MDBCol>
           <MDBCol size="6">
-            <MDBCard background='info' className='text-body mb-3'>
-              <MDBCardBody className="text-center">
-                <MDBCardTitle>Patient Records</MDBCardTitle>
-                <MDBCardText>
-                  View patient records
-                </MDBCardText>
-              </MDBCardBody>
-            </MDBCard>
+            <Link to='/therapist/patient-records'>
+              <MDBCard background='info' className='text-body mb-3'>
+                <MDBCardBody className="text-center">
+                  <MDBCardTitle>Patient Records</MDBCardTitle>
+                  <MDBCardText>
+                    View patient records
+                  </MDBCardText>
+                </MDBCardBody>
+              </MDBCard>
+            </Link>
+
           </MDBCol>
         </MDBRow>
         <MDBContainer>
           <MDBRow >
             <MDBCol className="ms-auto text-end">
-              <button className=" btn btn-info" onClick={handleCreatePatientClick}>+</button>
+              <button className=" btn btn-info" onClick={handleCreatePatientClick}>+ New Patient</button>
             </MDBCol>
           </MDBRow>
 
         </MDBContainer>
         <MDBRow>
           <MDBContainer fluid>
-            <table className="table patient-table">
+            <MDBTable striped hover className="table patient-table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -141,7 +147,7 @@ export default function TherapistDashboard({ therapist }) {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </MDBTable>
             {showCreatePatientModal && (
               <CreatePatientModal therapist={{ id: 1 }} onClose={doClosePatientModal} />
             )}

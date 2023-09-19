@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthHook } from "../../Services/hooks";
 import { useAppDispatch } from '../../Services/hooks';
@@ -40,10 +40,27 @@ export default function SideNav() {
       auth.logout()
       setShowLogoutSuccess(true);
       navigate('/');
+
+      setTimeout(() => {
+        setShowLogoutSuccess(false);
+      }, 3000);
+
     } catch (error) {
       console.error(error.message);
     }
   };
+
+
+  useEffect(() => {
+    // Clear the success message if it's still showing after some time (e.g., 3 seconds)
+    const timer = setTimeout(() => {
+      setShowLogoutSuccess(false);
+    }, 3000);
+
+    // Cleanup the timer when the component unmounts
+    return () => clearTimeout(timer);
+  }, [showLogoutSuccess]);
+
 
   return (
     <>
@@ -90,6 +107,11 @@ export default function SideNav() {
           </MDBSideNavItem>
         </MDBSideNavMenu>
       </MDBSideNav>
+      {showLogoutSuccess && (
+        <div className="alert alert-success mt-3">
+          Logout successful! You have been logged out.
+        </div>
+      )}
 
     </>
   );

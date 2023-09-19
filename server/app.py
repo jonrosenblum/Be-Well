@@ -206,6 +206,7 @@ def get_sessions_for_patient(patient_id):
         {
             'id': session.id,
             'transcript': session.transcript,
+            'session_date': session.session_date,
         }
         for session in sessions
     ]

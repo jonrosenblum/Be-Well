@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Form, Button, Dropdown, Row, Col } from "react-bootstrap";
 import { useAuthHook } from "../../Services/hooks";
 import { api } from "../../Services/api";
-import { MDBRow, MDBCol } from "mdb-react-ui-kit";
+import { MDBRow, MDBCol, MDBCard, MDBCardHeader, MDBCardBody, MDBContainer, MDBTable } from "mdb-react-ui-kit";
 
 export default function CreateAppointments({ therapist, onClose }) {
     const [patients, setPatients] = useState([])
@@ -105,85 +105,83 @@ export default function CreateAppointments({ therapist, onClose }) {
 
 
 
-
-
     return (
         <div>
-            <MDBRow>
-                <MDBCol>
-                    <table class="table caption-top">
-                        <caption>
-                            Scheduled Appointments
-                        </caption>
-                        <thead className="table-dark">
-                            <tr>
-                                <th>Patient ID</th>
-                                <th>Appointment Date</th>
-                                <th>Appointment Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {appointments.map((appointment) => (
-                                <tr key={appointment.id}>
-                                    <td>{appointment.patient_id}</td>
-                                    <td>{appointment.appointment_date}</td>
-                                    <td>{appointment.appointment_time}</td>
+            <MDBContainer className="">
+                <MDBRow className="appointments align-items-center">
+                    <MDBCol>
+                        <MDBCard>
+                            <MDBTable striped hover className="table caption-top">
+                                <caption>
+                                    Scheduled Appointments
+                                </caption>
+                                <thead className="table-info">
+                                    <tr>
+                                        <th>Patient ID</th>
+                                        <th>Appointment Date</th>
+                                        <th>Appointment Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="">
+                                    {appointments.map((appointment) => (
+                                        <tr key={appointment.id}>
+                                            <td>{appointment.patient_id}</td>
+                                            <td>{appointment.appointment_date}</td>
+                                            <td>{appointment.appointment_time}</td>
 
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    {/* <h2>My Appointments</h2>
-                    <ul>
-                        {appointments.map((appointment) => (
-                            <li key={appointment.id}>{appointment.appointment_date} - {appointment.appointment_time}</li>
-                        ))}
-                    </ul> */}
-                </MDBCol>
-                <MDBCol>
-                    <h2>Schedule Appointment</h2>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="patient_id">
-                            <Form.Label>Patient Name:</Form.Label>
-                            <Dropdown>
-                                <Dropdown.Toggle variant="secondary" id="patient-dropdown">
-                                    {appointment.patient_id ? `Selected Patient ID: ${appointment.patient_id}` : "Select Patient"}
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    {/* Replace this with patient data */}
-                                    {patients.map(patient => <Dropdown.Item key={patient.id} onClick={() => handlePatientSelect(patient.id)}>{patient.first_name}</Dropdown.Item>)}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </MDBTable>
+                        </MDBCard>
+                    </MDBCol>
+                    <MDBCol className="">
+                        <MDBCard>
+                            <MDBCardHeader className="text-align-center">Schedule New Appointment</MDBCardHeader>
+                            <MDBCardBody>
+                                <Form className="schedule-form" onSubmit={handleSubmit}>
+                                    <Form.Group controlId="patient_id">
+                                        <Form.Label>Patient Name:</Form.Label>
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="secondary" id="patient-dropdown">
+                                                {appointment.patient_id ? `Selected Patient ID: ${appointment.patient_id}` : "Select Patient"}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {/* Replace this with patient data */}
+                                                {patients.map(patient => <Dropdown.Item key={patient.id} onClick={() => handlePatientSelect(patient.id)}>{patient.first_name}</Dropdown.Item>)}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </Form.Group>
+                                    <Form.Group controlId="appointment_date">
+                                        <Form.Label>Date:</Form.Label>
+                                        <Form.Control
+                                            type="date"
+                                            name="appointment_date"
+                                            value={appointment.appointment_date}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </Form.Group>
+                                    <Form.Group controlId="appointment_time">
+                                        <Form.Label>Time:</Form.Label>
+                                        <Form.Control
+                                            type="time"
+                                            name="appointment_time"
+                                            value={appointment.appointment_time}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </Form.Group>
 
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </Form.Group>
-                        <Form.Group controlId="appointment_date">
-                            <Form.Label>Date:</Form.Label>
-                            <Form.Control
-                                type="date"
-                                name="appointment_date"
-                                value={appointment.appointment_date}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="appointment_time">
-                            <Form.Label>Time:</Form.Label>
-                            <Form.Control
-                                type="time"
-                                name="appointment_time"
-                                value={appointment.appointment_time}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit">
-                            Schedule Appointment
-                        </Button>
-                    </Form>
-
-                </MDBCol>
-            </MDBRow>
+                                    <Button variant="primary" type="submit">
+                                        Schedule Appointment
+                                    </Button>
+                                </Form>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
 
         </div >
 

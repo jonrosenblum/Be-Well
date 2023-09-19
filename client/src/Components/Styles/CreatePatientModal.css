@@ -1,0 +1,9 @@
+.new-patient-header {
+  align-self: center;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
