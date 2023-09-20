@@ -5,14 +5,7 @@ import { MDBContainer, MDBRow } from "mdb-react-ui-kit";
 
 export default function Appointments() {
     return (
-        <div>
-            <SideNav />
-            <MDBContainer>
-                <MDBRow>
-                    <CreateAppointments />
-                </MDBRow>
-            </MDBContainer>
+        <CreateAppointments />
 
-        </div>
     )
 }

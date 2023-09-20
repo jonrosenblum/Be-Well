@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { MDBIcon, MDBSideNav, MDBSideNavItem, MDBSideNavLink, MDBSideNavMenu } from "mdb-react-ui-kit";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthHook } from "../../Services/hooks";
-import { useAppDispatch } from '../../Services/hooks';
-import {
-  MDBSideNav,
-  MDBSideNavMenu,
-  MDBSideNavItem,
-  MDBSideNavLink,
-  MDBSideNavCollapse,
-  MDBIcon
-} from 'mdb-react-ui-kit';
 
-
-export default function SideNav() {
+export default function SideNav({ children, onCollapse = () => {} }) {
   const [slimOpen, setSlimOpen] = useState(true);
-  const [slimCollapse1, setSlimCollapse1] = useState(false);
-  const [slimCollapse2, setSlimCollapse2] = useState(false);
-  const [slimMode, setSlimMode] = useState(true);
 
+  const [slimMode, setSlimMode] = useState(false);
 
   const auth = useAuthHook();
   const navigate = useNavigate();
@@ -37,19 +26,17 @@ export default function SideNav() {
         throw new Error("Logout failed");
       }
 
-      auth.logout()
+      auth.logout();
       setShowLogoutSuccess(true);
-      navigate('/');
+      navigate("/");
 
       setTimeout(() => {
         setShowLogoutSuccess(false);
       }, 3000);
-
     } catch (error) {
       console.error(error.message);
     }
   };
-
 
   useEffect(() => {
     // Clear the success message if it's still showing after some time (e.g., 3 seconds)
@@ -61,58 +48,46 @@ export default function SideNav() {
     return () => clearTimeout(timer);
   }, [showLogoutSuccess]);
 
+  const doMouseEnter = () => {
+    console.log("doMouseLeave.fired");
+    setSlimMode(false);
+  };
+
+  const doMouseLeave = () => {
+    console.log("doMouseLeave.fired");
+    setSlimMode(true);
+  };
 
   return (
-    <>
-      <MDBSideNav
-        backdrop={false}
-        isOpen={slimOpen}
-        absolute
-        slim={slimMode}
-        slimCollapsed={!slimCollapse1 && !slimCollapse2}
-        getOpenState={(e) => setSlimOpen(e)}
-      >
-        <MDBSideNavMenu>
-          <MDBSideNavItem>
-            <MDBSideNavLink onClick={() => { navigate('/therapist/portal') }}>
-              <MDBIcon fas icon='home' className='fa-fw me-3' />
-              <span className='sidenav-non-slim'>Home</span>
-            </MDBSideNavLink>
-          </MDBSideNavItem>
-          <MDBSideNavItem>
-            <MDBSideNavLink icon='angle-down' shouldBeExpanded={slimCollapse1} onClick={() => setSlimCollapse1(!slimCollapse1)}>
-              <MDBIcon fas icon='calendar-alt' className='fa-fw me-3' />
-              <span className='sidenav-non-slim'>Appointments</span>
-            </MDBSideNavLink>
-            <MDBSideNavCollapse show={slimCollapse1}>
-              <MDBSideNavLink onClick={() => { navigate('/therapist/appointments') }}>My Appointments</MDBSideNavLink>
-              <MDBSideNavLink onClick={() => { navigate('/therapist/appointments') }}>Schedule Appointment</MDBSideNavLink>
-            </MDBSideNavCollapse>
-          </MDBSideNavItem>
-          <MDBSideNavItem>
-            <MDBSideNavLink icon='angle-down' shouldBeExpanded={slimCollapse2} onClick={() => setSlimCollapse2(!slimCollapse2)}>
-              <MDBIcon fas icon='user' className='fa-fw me-3' />
-              <span className='sidenav-non-slim'>Account</span>
-            </MDBSideNavLink>
-            <MDBSideNavCollapse show={slimCollapse2}>
-              <MDBSideNavLink onClick={() => { navigate('/therapist/billing') }}>Billing</MDBSideNavLink>
-              <MDBSideNavLink onClick={() => { navigate('/therapist/settings') }}>Settings</MDBSideNavLink>
-            </MDBSideNavCollapse>
-          </MDBSideNavItem>
+    <MDBSideNav
+      backdrop={false}
+      isOpen={slimOpen}
+      absolute
+      slim={slimMode}
+      getOpenState={(e) => setSlimOpen(e)}
+      onMouseEnter={doMouseEnter}
+      onMouseLeave={doMouseLeave}
+      mode={"side"}
+      onCollapse={onCollapse}
+    >
+      <div className="d-flex flex-column h-100">
+        <MDBSideNavMenu className="p-2">
+          <MDBSideNavItem>BeWell</MDBSideNavItem>
+        </MDBSideNavMenu>
+
+        <hr />
+        {children}
+
+        <MDBSideNavMenu className="mt-auto">
+          <hr />
           <MDBSideNavItem>
             <MDBSideNavLink onClick={handleLogout}>
-              <MDBIcon fas icon='sign-out-alt' className='fa-fw me-3' />
-              <span className='sidenav-non-slim'>Logout</span>
+              <MDBIcon fas icon="sign-out-alt" className="fa-fw me-3" />
+              <span className="sidenav-non-slim">Logout</span>
             </MDBSideNavLink>
           </MDBSideNavItem>
         </MDBSideNavMenu>
-      </MDBSideNav>
-      {showLogoutSuccess && (
-        <div className="alert alert-success mt-3">
-          Logout successful! You have been logged out.
-        </div>
-      )}
-
-    </>
+      </div>
+    </MDBSideNav>
   );
 }

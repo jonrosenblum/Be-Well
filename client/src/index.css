@@ -1,0 +1,8 @@
+.portal-container {
+  padding-left: 260px;
+  transition: all 0.3s linear 0s;
+}
+
+.sidenav-slim-collapsed + :is(.portal-container, .container) {
+  padding-left: 20px;
+}

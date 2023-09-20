@@ -12,10 +12,12 @@ from textblob import TextBlob
 
 
 app = Flask(__name__)
-jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
 
 CORS(app)
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
 app.json.compact = False
@@ -26,12 +28,44 @@ migrate = Migrate(app, db)
 db.init_app(app)
 
 
-@app.route('/')
-def index():
-    return "Hello"
+### Registration Routes
 
 
-### AUTHENTICATION ROUTES ###
+@app.post('/register')
+def register():
+    try:
+        data = request.json 
+        password = data.get('password')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        city = data.get('city')
+        state = data.get('state')
+        phone_number = data.get('phone_number')
+
+        # Hash the password using bcrypt
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        therapist = Therapist(
+            password=hashed_password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            city=city,
+            state=state,
+            phone_number=phone_number
+        )
+        db.session.add(therapist)
+        db.session.commit()
+
+        access_token = create_access_token(identity=therapist.id)
+
+        return jsonify({'message': 'Therapist registered successfully', 'access_token': access_token})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+
+### Login Routes
 
 @app.post('/auth/login')
 def login():
@@ -86,40 +120,7 @@ def me(user_type):
         
         
 
-
-@app.post('/register')
-def register():
-    try:
-        data = request.json 
-        password = data.get('password')
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        email = data.get('email')
-        city = data.get('city')
-        state = data.get('state')
-        phone_number = data.get('phone_number')
-
-        # Hash the password using bcrypt
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-
-        therapist = Therapist(
-            password=hashed_password,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            city=city,
-            state=state,
-            phone_number=phone_number
-        )
-        db.session.add(therapist)
-        db.session.commit()
-
-        access_token = create_access_token(identity=therapist.id)
-
-        return jsonify({'message': 'Therapist registered successfully', 'access_token': access_token})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-    
+### Logout Routes
 
 
 @app.post('/therapist/logout')
@@ -192,7 +193,7 @@ def get_patients_for_therapist():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
+### Get all sessions for the authenticated therapist selected patient
 
 @app.route('/patient/<int:patient_id>/sessions')
 def get_sessions_for_patient(patient_id):
@@ -215,7 +216,7 @@ def get_sessions_for_patient(patient_id):
     return jsonify(session_list_serialized)
 
 
-
+### Post new session to authenticated therapist selected patient
     
 
 @app.post('/therapist/patient/<int:patient_id>/sessions/upload-session')
@@ -243,7 +244,7 @@ def upload_session(patient_id):
         return jsonify({'error': str(e)}), 500
     
 
-
+### Post new patient to authenticated therapist
 
 @app.post('/therapist/<int:therapist_id>/create-patient')
 @jwt_required()
@@ -279,7 +280,10 @@ def create_patient(therapist_id):
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
+    
 
+
+### Post new appointment to authenticated therapist
 
 @app.post('/therapist/<therapist_id>/appointments')
 @jwt_required()
@@ -307,8 +311,10 @@ def create_appointment(therapist_id):
     except Exception as e:
         print(e)
         return jsonify({'error on back end' : str(e)}), 500
-    # return jsonify({"message": "Appointment created successfully"})
 
+
+
+### Get all appointments for authenticated therapist
 
 @app.route('/therapist/<therapist_id>/appointments/')
 @jwt_required()
@@ -336,18 +342,16 @@ def get_appointments(therapist_id):
     
 
 
-@app.route('/analyze', methods=['POST'])
-def analyze():
-    if request.method == 'POST':
-        uploaded_file = request.files['file']
-        if uploaded_file.filename != '':
-            text = uploaded_file.read().decode('utf-8')
-            analysis = TextBlob(text)
-            sentiment_score = analysis.sentiment.polarity
-            return f'Sentiment Score: {sentiment_score}'
+# @app.route('/analyze', methods=['POST'])
+# def analyze():
+#     if request.method == 'POST':
+#         uploaded_file = request.files['file']
+#         if uploaded_file.filename != '':
+#             text = uploaded_file.read().decode('utf-8')
+#             analysis = TextBlob(text)
+#             sentiment_score = analysis.sentiment.polarity
+#             return f'Sentiment Score: {sentiment_score}'
         
-
-# @app.route('patient/<patient_id>/sessions')
 
 
 if __name__ == '__main__':
