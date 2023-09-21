@@ -12,30 +12,21 @@ export default function SideNav({ children, onCollapse = () => {} }) {
   const navigate = useNavigate();
   const [showLogoutSuccess, setShowLogoutSuccess] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/therapist/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Logout failed");
-      }
-
-      auth.logout();
-      setShowLogoutSuccess(true);
-      navigate("/");
-
-      setTimeout(() => {
+  const handleLogout = () => {
+    fetch("/therapist/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    })
+      .finally(() => {
+        auth.logout();
+        setShowLogoutSuccess(true);
+        navigate("/");
         setShowLogoutSuccess(false);
-      }, 3000);
-    } catch (error) {
-      console.error(error.message);
-    }
+      })
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {

@@ -11,6 +11,8 @@ from textblob import TextBlob
 
 
 
+
+
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
@@ -30,6 +32,13 @@ db.init_app(app)
 
 ### Registration Routes
 
+@app.get('/hello')
+def world():
+    return "world"
+
+@app.get("/")
+def work():
+    return "index"
 
 @app.post('/register')
 def register():
@@ -96,6 +105,17 @@ def patient_login(email,password):
     if patient and check_password_hash(patient.password, password):
         access_token = create_access_token(identity=patient.id)
         return jsonify({"access_token":access_token,"user":patient.serialize(),"userType": "patient"})
+    return None
+
+def getUser(id)->{'user': object,'userType': str}: 
+    user = Patient.query.filter_by(id=id).first()
+    if user :
+        return {'user':user,'userType':'patient'}
+    
+    user = Therapist.query.filter_by(id=id).first()
+    if user :
+        return {'user':user,'userType':'therapist'}
+    
     return None
    
 
@@ -196,12 +216,19 @@ def get_patients_for_therapist():
 ### Get all sessions for the authenticated therapist selected patient
 
 @app.route('/patient/<int:patient_id>/sessions')
+@jwt_required()  # Require authentication for this route
 def get_sessions_for_patient(patient_id):
-    therapist_id = 1
-    sessions = Session.query.filter(
-        Session.therapist_id == therapist_id,
-        Session.patient_id == patient_id
-    ).all()
+    
+    user = getUser(get_jwt_identity())
+    if user['userType'] == 'therapist':
+        therapist_id = get_jwt_identity()
+        sessions = Session.query.filter(
+            Session.therapist_id == therapist_id,
+            Session.patient_id == patient_id
+        ).all()
+        
+    elif user['userType']== 'patient':
+        sessions = Session.query.filter(Session.patient_id==get_jwt_identity()).all()
 
     session_list_serialized = [
         {
@@ -214,6 +241,7 @@ def get_sessions_for_patient(patient_id):
     print(session_list_serialized)
 
     return jsonify(session_list_serialized)
+        
 
 
 ### Post new session to authenticated therapist selected patient
@@ -339,7 +367,7 @@ def get_appointments(therapist_id):
         return jsonify(session_list_serialized)
 
 
-    
+
 
 
 # @app.route('/analyze', methods=['POST'])
@@ -353,6 +381,13 @@ def get_appointments(therapist_id):
 #             return f'Sentiment Score: {sentiment_score}'
         
 
+# from .sessions import *
+@app.route('/sessions')
+class PatientSession:
+    
+    @app.get('/')
+    def index():
+        return "index"
 
 if __name__ == '__main__':
     app.run(debug=True)

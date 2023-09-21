@@ -1,14 +1,16 @@
 import { MDBCard, MDBCol, MDBRow, MDBTable } from "mdb-react-ui-kit";
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Container, Row, Col } from "react-bootstrap";
+import { api } from "../../Services/api";
 
 export default function PatientSessionsModal({ patient, onClose }) {
     const [sessions, setSessions] = useState([]);
 
     useEffect(() => {
         if (patient) {
-            fetch(`/patient/${patient.id}/sessions`)
-                .then((response) => response.json())
+            // fetch(`/patient/${patient.id}/sessions`)
+            //     .then((response) => response.json())
+            api.getPatientSessions(patient.id)
                 .then((data) => setSessions(data))
                 .catch((error) => console.error("Error:", error));
         }

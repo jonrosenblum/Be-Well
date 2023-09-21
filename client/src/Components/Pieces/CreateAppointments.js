@@ -5,46 +5,38 @@ import { api } from "../../Services/api";
 import { MDBRow, MDBCol, MDBCard, MDBCardHeader, MDBCardBody, MDBContainer, MDBTable } from "mdb-react-ui-kit";
 
 export default function CreateAppointments({ therapist, onClose }) {
-    const [patients, setPatients] = useState([])
-    const [appointments, setAppointments] = useState([]); // New state to store appointments
+    const [patients, setPatients] = useState(null)
+    const [appointments, setAppointments] = useState(null); // New state to store appointments
 
 
     const auth = useAuthHook();
 
-    const loadPatients = useEffect(
+    const loadPatients = useCallback(
         () => {
             api.getPatients()
                 .then((data) => { setPatients(data) })
                 .catch((error) => console.error("Error:", error))
+        }, [])
+    const loadAppointments = useCallback(() => fetch(`/therapist/${auth.user.id}/appointments`, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.access_token}`,
         },
-        []
-    );
-
-
-    useEffect(() => {
-        if (patients) {
-            return;
-        }
-        loadPatients();
-    }, [patients, loadPatients]);
+    })
+        .then(res => res.json())
+        .then(data => setAppointments(data)), [auth]);
 
     useEffect(() => {
-        try {
-            fetch(`/therapist/${auth.user.id}/appointments`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${auth.access_token}`,
-                },
-            })
-                .then(res => res.json())
-                .then(data => setAppointments(data))
-
-
-        } catch (error) {
-            console.error("Error:", error);
+        if (!patients) {
+            loadPatients();
         }
+        if (!appointments) {
+            loadAppointments()
+        }
+    }, [patients, loadPatients, appointments, loadAppointments]);
 
-    }, [])
+
+
 
 
 
@@ -71,7 +63,7 @@ export default function CreateAppointments({ therapist, onClose }) {
         e.preventDefault();
 
         try {
-            const response = await fetch(`/therapist/${auth.user.id}/appointments`, {
+            fetch(`/therapist/${auth.user.id}/appointments`, {
                 method: "POST",
                 body: JSON.stringify(appointment),
                 headers: {
@@ -80,30 +72,31 @@ export default function CreateAppointments({ therapist, onClose }) {
                 },
             })
                 .then(data => {
-                    return data
+                    setAppointment({
+                        appointment_date: "",
+                        appointment_time: "",
+                        patient_id: "",
+                    });
+                    console.log("Appointment created successfully");
+                    alert("Appointment created successfully");
+                    // onClose(true);
+                    loadAppointments()
+                }).catch((error) => {
+
+                    console.error("Error creating appointment");
+                    // onClose();
                 })
 
-            //console.log(response)
-            if (response?.ok) {
-                setAppointment({
-                    appointment_date: "",
-                    appointment_time: "",
-                    patient_id: "",
-                });
-                console.log("Appointment created successfully");
-                alert("Appointment created successfully");
-                onClose(true);
-            } else {
-                console.error("Error creating appointment");
-                onClose();
-            }
+
         } catch (error) {
             console.error("Error:", error);
         }
     };
 
 
-
+    if (!patients || !appointments) {
+        return <>loadding</>
+    }
 
     return (
         <div>

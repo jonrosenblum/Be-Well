@@ -2,13 +2,16 @@ import React, { useState, useCallback, useEffect } from "react";
 import { MDBRow, MDBCol, MDBBadge, MDBTable, MDBCard, MDBCardText, MDBCardBody, MDBCardTitle, MDBBtn } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { api } from "../../Services/api";
+import { useAuthHook } from "../../Services/hooks";
 export default function PatientDashboard() {
-    const [sessions, setSessions] = useState(null);
+    const [sessions, setSessions] = useState([]);
 
+    const { user } = useAuthHook()
 
-
-
-
+    useEffect(() => {
+        api.getPatientSessions(user.id)
+            .then(sessions => setSessions(sessions))
+    }, [user])
 
     return (
         <>
@@ -31,12 +34,16 @@ export default function PatientDashboard() {
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>ID</th>
+                            <th>ID</th>
+                            <th>ID</th>
+                            <th>ID</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {patients.map((patient) => (
-                            <tr key={patient.id}>
-                                <td>{patient.id}</td>
+                        {sessions?.map((session) => (
+                            <tr key={session.id}>
+                                <td>{session.id}</td>
                                 <td>
                                     <div className="d-flex align-items-center">
                                         <img
@@ -46,8 +53,8 @@ export default function PatientDashboard() {
                                             className="rounded-circle"
                                         />
                                         <div className="ms-3">
-                                            <p className="fw-bold mb-1">{patient.first_name} {patient.last_name}</p>
-                                            <p className="text-muted mb-0">{patient.email}</p>
+                                            <p className="fw-bold mb-1">{session.first_name} {session.last_name}</p>
+                                            <p className="text-muted mb-0">{session.email}</p>
                                         </div>
                                     </div>
                                 </td>
@@ -61,7 +68,7 @@ export default function PatientDashboard() {
                                 <td>
                                 </td>
                             </tr>
-                        ))} */}
+                        ))}
                     </tbody>
                 </MDBTable>
             </MDBRow>

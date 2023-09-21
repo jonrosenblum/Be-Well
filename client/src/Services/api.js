@@ -25,5 +25,7 @@ export const api = {
   getPatients: () =>
     request('/therapist/patients') // Make a request to '/therapist/patients'.
       .then(res => /** @type {import("./authSlice").User} */(res.json())), // Parse the response as JSON.
+  getPatientSessions: (patient_id) => request(`/patient/${patient_id}/sessions`).then(res => res.json()),
+  // getAppointments: (id) => request(`/therapist/${id}/appointments`).then(res => res.json()),
 }
 
